@@ -254,17 +254,296 @@
 
         @media (max-width: 768px) {
             body {
-                overflow-x: auto;
+                overflow-x: hidden;
+                /* 改為 hidden 避免破版 */
             }
+
+            .slide {
+                min-width: 100vw;
+                padding: 100px 5% 100px 5%;
+                height: auto;
+            }
+
+            /* 導覽列 */
+            .desktop-nav-links {
+                display: none !important;
+            }
+
+            .mobile-tools-container {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .mobile-menu-btn {
+                display: flex !important;
+            }
+
+            nav {
+                padding: 15px 20px;
+            }
+
+            /* Hero 區塊 */
+            #hero {
+                display: flex;
+                flex-direction: column;
+            }
+
+            #hero-logo-container {
+                position: absolute !important;
+                top: 80px !important;
+                left: 50% !important;
+                right: auto !important;
+                transform: translateX(-50%) !important;
+                width: 80% !important;
+                margin: 0 !important;
+                z-index: 40 !important;
+            }
+
+            /* 左右排列改為上下排列 */
+            .flex.items-start.justify-center.gap-\[1vw\] {
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 20px !important;
+            }
+
+            /* GIF 圖片縮小置中 */
+            .slide-content img.max-w-none {
+                width: 100% !important;
+                max-width: 460px !important;
+                height: auto !important;
+                margin: 0 auto !important;
+            }
+
+            .slide-content .flex-col.items-start[style*="width: min-content"] {
+                width: 100% !important;
+                max-width: 460px !important;
+                margin: 0 auto !important;
+                align-items: flex-start !important;
+            }
+
+            .slide-num.invisible {
+                display: none !important;
+            }
+
+            .flex.items-center.gap-16 {
+                flex-direction: column !important;
+                gap: 30px !important;
+            }
+
+            .grid.grid-cols-5 {
+                grid-template-columns: 1fr !important;
+            }
+
+            .grid.grid-cols-3 {
+                grid-template-columns: 1fr !important;
+            }
+
+            .flex.flex-row.items-center.justify-center.gap-12 {
+                flex-direction: column !important;
+                gap: 30px !important;
+            }
+
+            .flex.flex-row.items-center.gap-16 {
+                flex-direction: column !important;
+                gap: 30px !important;
+            }
+
+            .w-1\/3,
+            .w-2\/3 {
+                width: 100% !important;
+            }
+
+            /* 隱藏 S2 十字加上 */
+            #s2 .flex.items-center.justify-center.h-\[440px\] {
+                display: none !important;
+            }
+
+            /* 隱藏 Desktop S4 */
+            .desktop-s4 {
+                display: none !important;
+            }
+
+            .mobile-s4 {
+                display: flex !important;
+            }
+
+            /* 調整 S6 排程線 */
+            #s6 .flex.gap-5.z-10 {
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+
+            #s6 .absolute.left-0.right-0.mx-auto {
+                display: none;
+            }
+
+            #s6 .absolute.left-\[50\%\] {
+                display: none;
+            }
+
+            /* 頁尾比例縮小 */
+            .footer-worm {
+                width: 135px !important;
+                bottom: 40px !important;
+            }
+
+            .grass-footer p {
+                font-size: 0.5rem !important;
+                white-space: nowrap !important;
+            }
+
+            /* 導覽列靠右對齊 */
+            nav.fixed.top-0 {
+                justify-content: flex-end !important;
+                padding-right: 20px !important;
+                z-index: 1100 !important;
+            }
+
+            .mobile-tools-container {
+                margin-left: auto !important;
+                gap: 15px !important;
+            }
+
+            /* 導覽列按鈕縮小 */
+            .mobile-tools-container a {
+                padding: 4px 10px !important;
+                font-size: 10px !important;
+            }
+
+            .mobile-tools-container a svg {
+                width: 12px !important;
+                height: 12px !important;
+            }
+
+            .language-switch-mobile {
+                font-size: 9px !important;
+            }
+
+            .language-switch-mobile button {
+                padding: 2px 6px !important;
+            }
+
+            /* 合作需求圈圈縮小 50% */
+            #s8 .slide-content {
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+
+            #s8 .rounded-full {
+                width: 140px !important;
+                height: 140px !important;
+                font-size: 1.1rem !important;
+            }
+
+            /* 選單按鈕固定大小與層級 */
+            #mobile-menu-btn {
+                width: 28px !important;
+                height: 28px !important;
+                min-width: 28px !important;
+                flex-shrink: 0 !important;
+                z-index: 1000 !important;
+            }
+
+            /* 隱藏 Studio Logo (Hero) */
+            #hero>img.absolute {
+                display: none !important;
+            }
+
+            /* 縮小內文文字 */
+            .text-xl,
+            .text-2xl,
+            .text-\[1\.2rem\],
+            .text-\[1\.1rem\],
+            .text-\[1\.15rem\],
+            .text-\[1\.25rem\] {
+                font-size: 1rem !important;
+                line-height: 1.5 !important;
+            }
+
+            .text-3xl,
+            .text-\[1\.8rem\] {
+                font-size: 1.3rem !important;
+            }
+
+            .text-\[2\.5rem\] {
+                font-size: 1.8rem !important;
+            }
+
+            .slide-num {
+                font-size: 3rem !important;
+            }
+
+            .slide-text {
+                font-size: 2rem !important;
+            }
+
+            .content-card {
+                font-size: 1rem !important;
+                min-height: auto !important;
+                padding: 1.2rem !important;
+                border-radius: 1.2rem !important;
+            }
+
+            #s1 .content-card {
+                background-color: #F8F5EB !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+
+            .content-card p {
+                font-size: 1rem !important;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+        }
+
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #fdfdf2;
+            z-index: 900;
+            border-radius: 0;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+        }
+
+        #mobile-menu.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        #mobile-menu-btn.active span:nth-child(1) {
+            transform: translateY(10px) rotate(45deg);
+        }
+
+        #mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        #mobile-menu-btn.active span:nth-child(3) {
+            transform: translateY(-10px) rotate(-45deg);
         }
     </style>
 </head>
 
 <body>
 
-    <nav class="fixed top-0 w-full py-3 px-8 flex justify-between items-center z-[100]">
+    <nav class="fixed top-0 w-full py-3 px-8 flex justify-between items-center z-[1100]">
         <!-- 左側導覽連結 -->
-        <div class="flex items-center gap-1">
+        <div class="flex items-center gap-1 desktop-nav-links">
             <a href="#hero" class="nav-link px-2 py-1 text-sm font-bold hover:text-[#ED6D72] transition"
                 data-section="hero">首頁</a>
             <a href="#s1" class="nav-link px-2 py-1 text-sm font-bold hover:text-[#ED6D72] transition"
@@ -302,23 +581,53 @@
         </div>
 
         <!-- 右側工具 -->
-        <div class="flex items-center gap-6">
-            <a id="pdf-download-link"
-                href="https://drive.google.com/file/d/1zidY4xdgvEzdPUB1vERGQaPwPZEONp2P/view?usp=drive_link"
-                target="_blank"
-                class="px-3 py-1 text-sm font-bold text-[#42362A] hover:text-[#ED6D72] transition duration-200 flex items-center underline">
-                點此下載 PDF
-            </a>
-            <div class="flex bg-white rounded-full p-1 text-xs font-bold">
-                <button id="btn-zh" class="px-4 py-1 bg-[#ED6D72] text-white rounded-full transition-all">中</button>
-                <button id="btn-en" class="px-4 py-1 text-[#42362A] transition-all">EN</button>
+        <div class="flex items-center gap-6 mobile-tools-container">
+            <div class="flex items-center gap-4">
+                <a id="pdf-download-link"
+                    href="https://drive.google.com/file/d/1zidY4xdgvEzdPUB1vERGQaPwPZEONp2P/view?usp=drive_link"
+                    target="_blank"
+                    class="px-3 py-1 text-sm font-bold text-[#42362A] hover:text-[#ED6D72] transition duration-200 flex items-center underline">
+                    點此下載 PDF
+                </a>
+                <div class="flex bg-white rounded-full p-1 text-xs font-bold">
+                    <button id="btn-zh" class="px-4 py-1 bg-[#ED6D72] text-white rounded-full transition-all">中</button>
+                    <button id="btn-en" class="px-4 py-1 text-[#42362A] transition-all">EN</button>
+                </div>
             </div>
+
+            <button id="mobile-menu-btn" class="mobile-menu-btn w-8 h-8 flex-col justify-around z-[105] cursor-pointer">
+                <span
+                    class="block w-full h-[3px] bg-[#42362A] rounded transition-transform origin-center duration-300"></span>
+                <span class="block w-full h-[3px] bg-[#42362A] rounded transition-opacity duration-300"></span>
+                <span
+                    class="block w-full h-[3px] bg-[#42362A] rounded transition-transform origin-center duration-300"></span>
+            </button>
         </div>
     </nav>
 
+    <!-- 手機版滿版選單 -->
+    <div id="mobile-menu">
+        <div class="flex flex-col items-center gap-4 text-base font-bold w-full overflow-y-auto max-h-full py-6">
+            <a href="#hero" class="mobile-nav-link text-[#42362A] hover:text-[#ED6D72]" data-section="hero">首頁</a>
+            <a href="#s1" class="mobile-nav-link text-[#42362A] hover:text-[#ED6D72]" data-section="s1">遊戲概要</a>
+            <a href="#s2" class="mobile-nav-link text-[#42362A] hover:text-[#ED6D72]" data-section="s2">核心玩法</a>
+            <a href="#s3" class="mobile-nav-link text-[#42362A] hover:text-[#ED6D72]" data-section="s3">遊戲亮點</a>
+            <a href="#s4" class="mobile-nav-link text-[#42362A] hover:text-[#ED6D72]" data-section="s4">遊戲循環</a>
+            <a href="#s5" class="mobile-nav-link text-[#42362A] hover:text-[#ED6D72]" data-section="s5">目標客群</a>
+            <a href="#s6" class="mobile-nav-link text-[#42362A] hover:text-[#ED6D72]" data-section="s6">排程與進度</a>
+            <a href="#s7" class="mobile-nav-link text-[#42362A] hover:text-[#ED6D72]" data-section="s7">行銷策略</a>
+            <a href="#s8" class="mobile-nav-link text-[#42362A] hover:text-[#ED6D72]" data-section="s8">合作需求</a>
+            <a href="#s9" class="mobile-nav-link text-[#42362A] hover:text-[#ED6D72]" data-section="s9">團隊介紹</a>
+            <a href="#s10" class="mobile-nav-link text-[#42362A] hover:text-[#ED6D72]" data-section="s10">聯絡方式</a>
+        </div>
+    </div>
+
     <main>
         <section id="hero" class="slide active !p-0 relative overflow-hidden">
-            <img src="images/hero.png" class="w-full h-auto block" alt="Hero">
+            <picture>
+                <source media="(max-width: 768px)" srcset="images/hero_portrait.png">
+                <img src="images/hero.png" class="w-full h-auto block" alt="Hero">
+            </picture>
             <img src="images/studio_logo.png" class="absolute top-20 right-12 w-32 object-contain z-30"
                 alt="Studio Logo">
             <div id="hero-logo-container"
@@ -645,7 +954,8 @@
                 <h2 class="slide-text">遊戲循環</h2>
             </div>
             <div class="slide-content w-full relative">
-                <div class="relative mx-auto w-[840px] h-[540px] -mt-10">
+                <!-- Desktop version -->
+                <div class="relative mx-auto w-[840px] h-[540px] -mt-10 desktop-s4">
                     <!-- SVG 連接線 -->
                     <svg class="absolute inset-0 w-full h-full pointer-events-none"
                         style="z-index: 20; overflow: visible;">
@@ -721,6 +1031,39 @@
                         style="left: 420px; top: 385px; transform: translate(-50%, -50%);">短期循環</div>
                     <div data-t="s4_loop_long" class="absolute text-[#42362A] font-bold text-[1.25rem] z-10"
                         style="left: 420px; top: 485px; transform: translate(-50%, -50%);">長期循環</div>
+                </div>
+
+                <!-- Mobile version -->
+                <div class="mobile-s4 hidden flex-col w-full gap-10 mt-8 items-center pb-12">
+                    <div class="flex flex-col items-center w-full gap-4">
+                        <div data-t="s4_loop_short"
+                            class="text-[#42362A] font-bold text-[1.5rem] mb-2 text-center w-full">短期循環</div>
+                        <div data-t="s4_box3"
+                            class="w-full max-w-[300px] py-4 rounded-[1rem] flex items-center justify-center text-center text-[#42362A] text-[1.2rem] shadow-sm bg-[#EFD2F8]">
+                            成功自拍</div>
+                        <div data-t="s4_box4"
+                            class="w-full max-w-[300px] py-4 rounded-[1rem] flex items-center justify-center text-center text-[#42362A] text-[1.2rem] shadow-sm bg-[#CFF1CF]">
+                            解鎖關卡</div>
+                    </div>
+                    <div class="flex flex-col items-center w-full gap-4">
+                        <div data-t="s4_loop_long"
+                            class="text-[#42362A] font-bold text-[1.5rem] mb-2 mt-4 text-center w-full">長期循環</div>
+                        <div data-t="s4_box2"
+                            class="w-full max-w-[300px] py-4 rounded-[1rem] flex items-center justify-center text-center text-[#42362A] text-[1.2rem] shadow-sm bg-[#F2DAC1]">
+                            蕃茄鐘專注</div>
+                        <div data-t="s4_box1"
+                            class="w-full max-w-[300px] py-4 rounded-[1rem] flex items-center justify-center text-center text-[#42362A] text-[1.2rem] shadow-sm bg-[#F9F3D3]">
+                            賺取貨幣</div>
+                        <div data-t="s4_box5"
+                            class="w-full max-w-[300px] py-4 rounded-[1rem] flex items-center justify-center text-center text-[#42362A] text-[1.2rem] shadow-sm bg-[#CEF0F0]">
+                            收集外觀、濾鏡</div>
+                        <div data-t="s4_box7"
+                            class="w-full max-w-[300px] py-4 rounded-[1rem] flex items-center justify-center text-center text-[#42362A] text-[1.2rem] shadow-sm bg-[#F2C1C1]">
+                            挑戰高難度過關</div>
+                        <div data-t="s4_box6"
+                            class="w-full max-w-[300px] py-4 rounded-[1rem] flex items-center justify-center text-center text-[#42362A] text-[1.2rem] shadow-sm bg-[#CDCFF5]">
+                            解鎖音樂曲目</div>
+                    </div>
                 </div>
             </div>
             <div class="grass-footer">
@@ -1005,9 +1348,7 @@
                     </div>
                 </div>
             </div>
-            <div class="grass-footer">
-                <p>© 2026 Straight Banana Game Studio.</p>
-            </div>
+            <div class="grass-footer"></div>
         </section>
 
         <section id="s10" class="slide section-trigger !p-0">
@@ -1262,7 +1603,7 @@
 
         function updateTranslations(lang) {
             // 更新導覽列 (使用短版)
-            document.querySelectorAll('.nav-link, .nav-dropdown-item').forEach(link => {
+            document.querySelectorAll('.nav-link, .nav-dropdown-item, .mobile-nav-link').forEach(link => {
                 const section = link.getAttribute('data-section');
                 if (translations[lang].nav[section]) {
                     link.textContent = translations[lang].nav[section];
@@ -1363,6 +1704,22 @@
                 const offset = scrollY * 0.3; // 控制移動速度
                 heroLogoContainer.style.transform = `translateY(calc(-60% + ${offset}px))`;
             }
+        });
+
+        // 手機版選單切換
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
         });
 
     </script>
