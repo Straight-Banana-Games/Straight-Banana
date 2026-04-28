@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selfie Worm Pitch Deck</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+JP:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-color: #fdfdf2;
+            --accent-pink: #f8a4b4;
+            --text-dark: #42362a;
+            --card-bg: #f5f5e6;
+        }
+
+        body {
+            font-family: "LINE Seed JP", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            margin: 0;
+            scroll-behavior: smooth;
+        }
+
+        /* 頂部導覽 */
+        nav {
+            background: rgba(235, 232, 205, 0.6);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        /* 每頁 16:9 */
+        .slide {
+            width: 100vw;
+            min-width: 1200px;
+            /* 統一最小寬度確保 RWD 不會跑版 */
+            min-height: 100vh;
+            height: auto;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 100px 8% 120px 8%;
+            /* 預留頂部給導覽，底部預留 120px 給分隔線 */
+            box-sizing: border-box;
+        }
+
+        /* 標題固定在左上角 */
+        .slide-header {
+            display: flex;
+            align-items: flex-end;
+            /* 讓文字與大數字置底對齊 */
+            margin-bottom: 2rem;
+            opacity: 1;
+            /* 標題預設可見 */
+        }
+
+        .slide-num {
+            font-size: 5rem;
+            font-weight: 900;
+            color: #ED6D72;
+            /* 更新指定的顏色 */
+            margin-right: 1.5rem;
+            line-height: 0.9;
+            transform: translateY(-0.08em);
+            /* 稍微上移以創造置底對齊的視覺效果 */
+        }
+
+        .slide-text {
+            font-size: 2.5rem;
+            font-weight: 900;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 900 !important;
+        }
+
+        /* 內容浮現動態 */
+        .slide-content {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+            flex: 1;
+        }
+
+        /* 當頁面活化時內容浮現 */
+        .active .slide-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem 2rem;
+            box-shadow: none;
+            font-size: 1.2rem;
+            /* 80% of text-2xl (1.5rem) */
+            font-weight: 500;
+            min-height: 12rem;
+            /* 足夠容納 4 行文字的高度 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* 讓內容垂直置中 */
+            line-height: 1.5;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .content-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .hover-float {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .hover-float:hover {
+            transform: translateY(-10px);
+        }
+
+        /* 導覽列下拉選單 */
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: none;
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            min-width: 150px;
+        }
+
+        .nav-item:hover .nav-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0px);
+        }
+
+        .nav-dropdown-item {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            border-radius: 6px;
+            transition: all 0.2s;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .nav-dropdown-item:hover {
+            color: #ED6D72;
+        }
+
+
+
+        .grass-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 15px;
+            z-index: 10;
+        }
+
+        /* 專門放背景圖的偽元素 */
+        .grass-footer::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url('images/bot.png') center bottom / auto 100% repeat-x;
+            z-index: -1;
+        }
+
+        /* 設定交替翻轉：每隔一頁左右翻轉一次 */
+        /* 因為第一個 section 是 Hero，所以從 s2 (第 3 個 section) 開始翻轉 */
+        main section:nth-of-type(odd) .grass-footer::before {
+            transform: scaleX(-1);
+        }
+
+        /* 最後一頁的地面樣式改為自動高度 */
+        .ground-footer::before {
+            display: none !important;
+            /* 移除背景圖改用實體 img */
+        }
+
+        .ground-footer {
+            position: relative !important;
+            height: auto !important;
+            padding: 0 !important;
+            background: none !important;
+        }
+
+        .grass-footer p {
+            margin: 0;
+            font-size: 0.875rem;
+            color: var(--text-dark);
+            font-weight: 900;
+            z-index: 12;
+            display: none;
+            /* 預設隱藏版權文字 */
+        }
+
+        /* 只有最後一頁顯示版權文字 */
+        main section:last-of-type .grass-footer p {
+            display: block;
+        }
+
+        .footer-worm {
+            position: absolute;
+            right: 5%;
+            bottom: 80px;
+            width: 270px;
+            /* 90px * 300% = 270px */
+            z-index: 11;
+            display: none;
+            /* 預設隱藏 */
+        }
+
+        /* 只有最後一頁顯示蟲蟲 */
+        main section:last-of-type .footer-worm {
+            display: block;
+        }
+
+        /* Hero RWD 修正 */
+        /* Hero RWD 修正已被 .slide 統一取代 */
+        #hero {
+            height: auto !important;
+            min-height: auto !important;
+            background: none !important;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="fixed top-0 w-full py-3 px-8 flex justify-between items-center z-[100]">
+        <!-- 左側導覽連結 -->
+        <div class="flex items-center gap-1">
+            <a href="#hero" class="nav-link px-2 py-1 text-sm font-bold hover:text-[#ED6D72] transition"
+                data-section="hero">首頁</a>
+            <a href="#s1" class="nav-link px-2 py-1 text-sm font-bold hover:text-[#ED6D72] transition"
+                data-section="s1">遊戲概要</a>
+            <a href="#s2" class="nav-link px-2 py-1 text-sm font-bold hover:text-[#ED6D72] transition"
+                data-section="s2">核心玩法</a>
+
+            <div class="nav-item relative flex items-center">
+                <a href="#s3" class="nav-link px-2 py-1 text-sm font-bold hover:text-[#ED6D72] transition"
+                    data-section="s3">遊戲亮點</a>
+                <!-- 下拉選單 -->
+                <div class="nav-dropdown">
+                    <a href="#s3" class="nav-dropdown-item" data-section="s3_nav">易上癮的物理玩法</a>
+                    <a href="#s3-2" class="nav-dropdown-item" data-section="s3_2_nav">幽默多元的關卡</a>
+                    <a href="#s3-3" class="nav-dropdown-item" data-section="s3_3_nav">忙裡偷閒神隊友</a>
+                    <a href="#s3-4" class="nav-dropdown-item" data-section="s3_4_nav">展現個性</a>
+                    <a href="#s3-5" class="nav-dropdown-item" data-section="s3_5_nav">主線劇情</a>
+                </div>
+            </div>
+
+            <a href="#s4" class="nav-link px-2 py-1 text-sm font-bold hover:text-[#ED6D72] transition"
+                data-section="s4">遊戲循環</a>
+            <a href="#s5" class="nav-link px-2 py-1 text-sm font-bold hover:text-[#ED6D72] transition"
+                data-section="s5">目標客群</a>
+            <a href="#s6" class="nav-link px-2 py-1 text-sm font-bold hover:text-[#ED6D72] transition"
+                data-section="s6">排程與進度</a>
+            <a href="#s7" class="nav-link px-2 py-1 text-sm font-bold hover:text-[#ED6D72] transition"
+                data-section="s7">行銷策略</a>
+            <a href="#s8" class="nav-link px-2 py-1 text-sm font-bold hover:text-[#ED6D72] transition"
+                data-section="s8">合作需求</a>
+            <a href="#s9" class="nav-link px-2 py-1 text-sm font-bold hover:text-[#ED6D72] transition"
+                data-section="s9">團隊介紹</a>
+            <a href="#s10" class="nav-link px-2 py-1 text-sm font-bold hover:text-[#ED6D72] transition"
+                data-section="s10">聯絡方式</a>
+        </div>
+
+        <!-- 右側工具 -->
+        <div class="flex items-center gap-6">
+            <a id="pdf-download-link"
+                href="https://drive.google.com/file/d/1zidY4xdgvEzdPUB1vERGQaPwPZEONp2P/view?usp=drive_link"
+                target="_blank"
+                class="px-3 py-1 text-sm font-bold text-[#42362A] hover:text-[#ED6D72] transition duration-200 flex items-center underline">
+                點此下載 PDF
+            </a>
+            <div class="flex bg-white rounded-full p-1 text-xs font-bold">
+                <button id="btn-zh" class="px-4 py-1 bg-[#ED6D72] text-white rounded-full transition-all">中</button>
+                <button id="btn-en" class="px-4 py-1 text-[#42362A] transition-all">EN</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero" class="slide active !p-0 relative overflow-hidden">
+            <img src="images/hero.png" class="w-full h-auto block" alt="Hero">
+            <img src="images/studio_logo.png" class="absolute top-20 right-12 w-32 object-contain z-30"
+                alt="Studio Logo">
+            <div id="hero-logo-container"
+                class="absolute right-[calc(5%-100px)] top-1/2 -translate-y-[60%] w-[70%] max-w-[1000px] z-20 pointer-events-none transition-transform duration-100 ease-out">
+                <img id="hero-logo-zh" src="images/logo_tchinese.png" class="w-full" alt="Logo">
+                <img id="hero-logo-en" src="images/logo_english.png" class="w-full hidden" alt="Logo">
+            </div>
+        </section>
+
+        <!-- 新增：Steam 連結區塊 -->
+        <section id="steam-cta" class="relative pt-[100px] pb-[160px] flex flex-col items-center justify-center">
+            <p data-t="steam_cta" class="text-xl font-bold mb-6 text-[#42362A]">前往 Steam 商店頁面了解更多</p>
+            <a href="https://store.steampowered.com/app/4333980/_/" target="_blank"
+                class="flex items-center justify-center bg-[#f5f5e6] rounded-[10px] py-5 px-12 shadow-none hover:scale-[1.05] hover:bg-[#d9d9b0] transition-all duration-200">
+                <img src="images/steam_logo.png" class="h-[120px] object-contain" alt="Steam Logo">
+            </a>
+            <div class="grass-footer">
+                <p>© 2026 Straight Banana Game Studio.</p>
+                <img src="images/worm.png" class="footer-worm" alt="Worm">
+            </div>
+        </section>
+
+        <section id="s1" class="slide section-trigger">
+            <div class="slide-header">
+                <span class="slide-num">1</span>
+                <h2 class="slide-text">遊戲概要</h2>
+            </div>
+            <div class="slide-content">
+                <p data-t="s1_desc" class="text-2xl mb-12 leading-relaxed">
+                    <b>《自拍蟲蟲》是一款結合軟 Q 物理與攝影的桌面夥伴。</b><br>
+                    熱愛自拍的蟲蟲穿越蟲洞來到了缺少色彩的異世界，發現自己的手機鏡頭能夠拍出色彩，於是展開了到處自拍、找回色彩的旅程，過程中逐漸拼湊出一段溫馨的故事。內建「防老闆鍵」與番茄鐘，讓每一次專注後的短暫休息，都成為療癒與驚喜的冒險。
+                </p>
+                <div class="grid grid-cols-5 gap-6">
+                    <div class="text-center">
+                        <p data-t="s1_genre_label" class="text-2xl font-medium mb-3"><b>遊戲類型</b></p>
+                        <div data-t="s1_genre_val" class="content-card hover-float">2D 物理平台<br>生產力工具</div>
+                    </div>
+                    <div class="text-center">
+                        <p data-t="s1_playtime_label" class="text-2xl font-medium mb-3">遊戲時長</p>
+                        <div data-t="s1_playtime_val" class="content-card hover-float">
+                            1.5-2 小時<br>
+                            <span class="text-[0.7em] opacity-80"><br>純主線<br>不含番茄鐘與收集要素</span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p data-t="s1_tone_label" class="text-2xl font-medium mb-3">遊戲氛圍</p>
+                        <div data-t="s1_tone_val" class="content-card hover-float">療癒<br>溫馨<br>迷因<br>可愛</div>
+                    </div>
+                    <div class="text-center">
+                        <p data-t="s1_platforms_label" class="text-2xl font-medium mb-3">發售平台</p>
+                        <div data-t="s1_platforms_val" class="content-card hover-float">
+                            Windows<br>macOS<br>Android<br>iOS</div>
+                    </div>
+                    <div class="text-center">
+                        <p data-t="s1_langs_label" class="text-2xl font-medium mb-3">支援語言</p>
+                        <div data-t="s1_langs_val" class="content-card hover-float">繁體中文<br>簡體中文<br>日文<br>英文<br>韓文</div>
+                    </div>
+                </div>
+            </div>
+            <div class="grass-footer">
+                <p>© 2026 Straight Banana Game Studio.</p>
+                <img src="images/worm.png" class="footer-worm" alt="Worm">
+            </div>
+        </section>
+
+        <section id="s2" class="slide section-trigger">
+            <div class="slide-header">
+                <span class="slide-num">2</span>
+                <h2 class="slide-text">核心玩法</h2>
+            </div>
+            <div class="slide-content">
+                <div class="flex items-start justify-center gap-[1vw]">
+                    <!-- 左側圖片 -->
+                    <div class="flex flex-col items-start" style="width: min-content;">
+                        <img src="images/feature_1.gif"
+                            class="h-[440px] w-auto max-w-none rounded-[10px] mb-4 block hover-float" alt="Gameplay 1">
+                        <div class="pl-3 border-l-2 border-[#42362A] min-h-[50px] flex items-center">
+                            <p data-t="s2_caption_1" class="text-[1.1rem] font-normal leading-relaxed">
+                                利用固定力道與角度的彈跳，讓軟 Q
+                                滑溜的蟲蟲停留在目標物上進行自拍來通關。</p>
+                        </div>
+                    </div>
+
+                    <!-- 加號 -->
+                    <div class="flex items-center justify-center h-[440px]">
+                        <div class="text-7xl font-black text-[#ED6D72]">+</div>
+                    </div>
+
+                    <!-- 右側圖片 -->
+                    <div class="flex flex-col items-start" style="width: min-content;">
+                        <img id="img-feature-2" src="images/feature_2_zh.gif"
+                            class="h-[440px] w-auto max-w-none rounded-[10px] mb-4 block hover-float" alt="Gameplay 2">
+                        <div class="pl-3 border-l-2 border-[#42362A] min-h-[50px] flex items-center">
+                            <p data-t="s2_caption_2" class="text-[1.1rem] font-normal leading-relaxed">不斷累積自拍照，擴展社群人氣
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grass-footer">
+                <p>© 2026 Straight Banana Game Studio.</p>
+                <img src="images/worm.png" class="footer-worm" alt="Worm">
+            </div>
+        </section>
+
+        <section id="s3" class="slide section-trigger">
+            <div class="slide-header !items-start flex-col gap-3">
+                <div class="flex items-end">
+                    <span class="slide-num">3</span>
+                    <h2 class="slide-text m-0">遊戲亮點</h2>
+                </div>
+                <div class="flex items-start">
+                    <span class="slide-num invisible shrink-0">3</span>
+                    <h2 data-t="s3_subtitle" class="text-[#ED6D72] font-normal text-[2.5rem] leading-none m-0">易上癮的物理玩法
+                    </h2>
+                </div>
+            </div>
+            <div class="slide-content">
+                <div class="flex items-center justify-start">
+                    <span class="slide-num invisible shrink-0">3</span>
+                    <div class="flex items-center gap-16">
+                        <!-- 左側圖片 -->
+                        <img src="images/feature_3.gif"
+                            class="h-[440px] w-auto max-w-none rounded-[10px] block hover-float"
+                            alt="Gameplay highlight">
+
+                        <!-- 右側文字 -->
+                        <div class="flex flex-col gap-16 max-w-2xl">
+                            <div>
+                                <h3 data-t="s3_h1" class="text-2xl font-bold mb-3 text-[#42362A]">可掌握的混沌</h3>
+                                <p data-t="s3_p1" class="text-[1.2rem] leading-relaxed text-[#42362A]">
+                                    透過掌握彈跳的時機，可精準控制的彈跳速度。</p>
+                            </div>
+                            <div>
+                                <h3 data-t="s3_h2" class="text-2xl font-bold mb-3 text-[#42362A]">親切的物理回饋</h3>
+                                <p data-t="s3_p2" class="text-[1.2rem] leading-relaxed text-[#42362A]">
+                                    貼近生活經驗，容易上手的「假象」，有挑戰性卻無慘痛的失敗懲罰。
+                                </p>
+                            </div>
+                            <div>
+                                <h3 data-t="s3_h3" class="text-2xl font-bold mb-3 text-[#42362A]">Near-Miss 機制</h3>
+                                <p data-t="s3_p3" class="text-[1.2rem] leading-relaxed text-[#42362A]">差一點就能成功，激發多巴胺的分泌。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- s3 移除分隔線，讓這 5 頁連貫 -->
+        </section>
+
+        <section id="s3-2" class="slide section-trigger">
+            <div class="slide-header !items-start flex-col gap-3">
+                <div class="flex items-end">
+                    <span class="slide-num invisible">3</span>
+                    <h2 class="slide-text m-0">遊戲亮點</h2>
+                </div>
+                <div class="flex items-start">
+                    <span class="slide-num invisible shrink-0">3</span>
+                    <h2 data-t="s3_2_subtitle" class="text-[#ED6D72] font-normal text-[2.5rem] leading-none m-0">幽默多元的關卡
+                    </h2>
+                </div>
+            </div>
+            <div class="slide-content">
+                <div class="flex items-center justify-start">
+                    <span class="slide-num invisible shrink-0">3</span>
+                    <div class="flex items-center gap-16">
+                        <!-- 左側圖片 -->
+                        <img src="images/feature_4.gif"
+                            class="h-[440px] w-auto max-w-none rounded-[10px] block hover-float"
+                            alt="Gameplay highlight">
+
+                        <!-- 右側文字 -->
+                        <div class="flex flex-col gap-16 max-w-2xl">
+                            <div>
+                                <h3 data-t="s3_2_h1" class="text-2xl font-bold mb-3 text-[#42362A]">多樣化的挑戰</h3>
+                                <p data-t="s3_2_p1" class="text-[1.2rem] leading-relaxed text-[#42362A]">
+                                    不穩定的目標、結凍、燃燒、風吹、低重力、水裡...等等。</p>
+                            </div>
+                            <div>
+                                <h3 data-t="s3_2_h2" class="text-2xl font-bold mb-3 text-[#42362A]">令人會心一笑的設計</h3>
+                                <p data-t="s3_2_p2" class="text-[1.2rem] leading-relaxed text-[#42362A]">
+                                    網路迷因、電影致敬、名畫...等等。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- s3-2 移除分隔線 -->
+        </section>
+
+        <section id="s3-3" class="slide section-trigger">
+            <div class="slide-header !items-start flex-col gap-3">
+                <div class="flex items-end">
+                    <span class="slide-num invisible">3</span>
+                    <h2 class="slide-text m-0">遊戲亮點</h2>
+                </div>
+                <div class="flex items-start">
+                    <span class="slide-num invisible shrink-0">3</span>
+                    <h2 data-t="s3_3_subtitle" class="text-[#ED6D72] font-normal text-[2.5rem] leading-none m-0">忙裡偷閒神隊友
+                    </h2>
+                </div>
+            </div>
+            <div class="slide-content">
+                <div class="flex items-center justify-start">
+                    <span class="slide-num invisible shrink-0">3</span>
+                    <div class="flex items-center gap-16">
+                        <!-- 左側圖片 -->
+                        <img id="img-feature-5" src="images/feature_5_zh.gif"
+                            class="h-[440px] w-auto max-w-none rounded-[10px] block hover-float"
+                            alt="Gameplay highlight">
+
+                        <!-- 右側文字 -->
+                        <div class="flex flex-col gap-16 max-w-2xl">
+                            <div>
+                                <h3 data-t="s3_3_h1" class="text-2xl font-bold mb-3 text-[#42362A]">專注工具</h3>
+                                <p data-t="s3_3_p1" class="text-[1.2rem] leading-relaxed text-[#42362A]">
+                                    番茄鐘＋多首紓壓音樂＋環境音效。</p>
+                            </div>
+                            <div>
+                                <h3 data-t="s3_3_h2" class="text-2xl font-bold mb-3 text-[#42362A]">直式視窗</h3>
+                                <p data-t="s3_3_p2" class="text-[1.2rem] leading-relaxed text-[#42362A]">
+                                    能自由縮放與安排位置，不擋畫面。</p>
+                            </div>
+                            <div>
+                                <h3 data-t="s3_3_h3" class="text-2xl font-bold mb-3 text-[#42362A]">防老闆鍵</h3>
+                                <p data-t="s3_3_p3" class="text-[1.2rem] leading-relaxed text-[#42362A]">
+                                    快速切換成計算機，偷懶不被抓包。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- s3-3 移除分隔線 -->
+        </section>
+
+        <section id="s3-4" class="slide section-trigger">
+            <div class="slide-header !items-start flex-col gap-3">
+                <div class="flex items-end">
+                    <span class="slide-num invisible">3</span>
+                    <h2 class="slide-text m-0">遊戲亮點</h2>
+                </div>
+                <div class="flex items-start">
+                    <span class="slide-num invisible shrink-0">3</span>
+                    <h2 data-t="s3_4_subtitle" class="text-[#ED6D72] font-normal text-[2.5rem] leading-none m-0">展現個性
+                    </h2>
+                </div>
+            </div>
+            <div class="slide-content">
+                <div class="flex items-center justify-start">
+                    <span class="slide-num invisible shrink-0">3</span>
+                    <div class="flex items-center gap-16">
+                        <!-- 左側圖片 -->
+                        <img id="img-feature-6" src="images/feature_6_zh.gif"
+                            class="h-[440px] w-auto max-w-none rounded-[10px] block hover-float"
+                            alt="Gameplay highlight">
+
+                        <!-- 右側文字 -->
+                        <div class="flex flex-col gap-16 max-w-2xl">
+                            <div>
+                                <h3 data-t="s3_4_h1" class="text-2xl font-bold mb-3 text-[#42362A]">個性化自拍</h3>
+                                <p data-t="s3_4_p1" class="text-[1.2rem] leading-relaxed text-[#42362A]">
+                                    多種蟲蟲外觀、照片濾鏡可收集，拍出獨特照片。</p>
+                            </div>
+                            <div>
+                                <h3 data-t="s3_4_h2" class="text-2xl font-bold mb-3 text-[#42362A]">真．蟲蟲社群</h3>
+                                <p data-t="s3_4_p2" class="text-[1.2rem] leading-relaxed text-[#42362A]">玩家間能看到彼此的蟲蟲自拍照。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- s3-4 移除分隔線 -->
+        </section>
+
+        <section id="s3-5" class="slide section-trigger">
+            <div class="slide-header !items-start flex-col gap-3">
+                <div class="flex items-end">
+                    <span class="slide-num invisible">3</span>
+                    <h2 class="slide-text m-0">遊戲亮點</h2>
+                </div>
+                <div class="flex items-start">
+                    <span class="slide-num invisible shrink-0">3</span>
+                    <h2 data-t="s3_5_subtitle" class="text-[#ED6D72] font-normal text-[2.5rem] leading-none m-0">主線劇情
+                    </h2>
+                </div>
+            </div>
+            <div class="slide-content">
+                <div class="flex items-center justify-start">
+                    <span class="slide-num invisible shrink-0">3</span>
+                    <div class="flex items-center gap-16">
+                        <!-- 左側圖片 -->
+                        <img id="img-feature-7" src="images/feature_7_zh.gif"
+                            class="h-[440px] w-auto max-w-none rounded-[10px] block hover-float"
+                            alt="Gameplay highlight">
+
+                        <!-- 右側文字 -->
+                        <div class="flex flex-col gap-16 max-w-2xl">
+                            <div>
+                                <h3 data-t="s3_5_h1" class="text-2xl font-bold mb-3 text-[#42362A]">溫馨劇情</h3>
+                                <p data-t="s3_5_p1" class="text-[1.2rem] leading-relaxed text-[#42362A]">
+                                    埋藏在遊戲背後父女共同創作的故事。</p>
+                            </div>
+                            <div>
+                                <h3 data-t="s3_5_h2" class="text-2xl font-bold mb-3 text-[#42362A]">後設敘事</h3>
+                                <p data-t="s3_5_p2" class="text-[1.2rem] leading-relaxed text-[#42362A]">
+                                    透過打破第四面牆的錯誤訊息與毀損檔案，玩家將見證一段跨越生死的父女情誼與創作傳承。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 保留最後一頁的分隔線，準備進入下一大主題 -->
+            <div class="grass-footer">
+                <p>© 2026 Straight Banana Game Studio.</p>
+                <img src="images/worm.png" class="footer-worm" alt="Worm">
+            </div>
+        </section>
+
+        <section id="s4" class="slide section-trigger">
+            <div class="slide-header">
+                <span class="slide-num">4</span>
+                <h2 class="slide-text">遊戲循環</h2>
+            </div>
+            <div class="slide-content w-full relative">
+                <div class="relative mx-auto w-[840px] h-[540px] -mt-10">
+                    <!-- SVG 連接線 -->
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none"
+                        style="z-index: 20; overflow: visible;">
+                        <defs>
+                            <marker id="arrow" viewBox="-15 -10 20 20" refX="0" refY="0" markerWidth="20"
+                                markerHeight="20" markerUnits="userSpaceOnUse" orient="auto">
+                                <path d="M -10 -8 L 0 0 L -10 8" fill="none" stroke="#42362A" stroke-width="5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </marker>
+                        </defs>
+                        <!-- 蕃茄鐘 to 賺取貨幣 -->
+                        <path d="M 120 195 L 120 80 L 345 80" stroke="#42362A" stroke-width="5" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+                        <!-- 短期循環: 成功自拍 to 解鎖關卡 -->
+                        <path d="M 320 195 L 320 175 L 520 175 L 520 195" stroke="#42362A" stroke-width="5" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+                        <!-- 短期循環: 解鎖關卡 to 成功自拍 -->
+                        <path d="M 520 345 L 520 365 L 320 365 L 320 345" stroke="#42362A" stroke-width="5" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+                        <!-- 賺取貨幣 to 收集外觀 -->
+                        <path d="M 495 80 L 720 80 L 720 195" stroke="#42362A" stroke-width="5" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+                        <!-- 收集外觀 to 挑戰高難度 -->
+                        <path d="M 720 345 L 720 385" stroke="#42362A" stroke-width="5" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+                        <!-- 挑戰高難度 to 解鎖音樂 -->
+                        <path d="M 645 460 L 195 460" stroke="#42362A" stroke-width="5" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+                        <!-- 解鎖音樂 to 蕃茄鐘 -->
+                        <path d="M 120 385 L 120 345" stroke="#42362A" stroke-width="5" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+                    </svg>
+
+                    <!-- 流程圖方塊 -->
+                    <div data-t="s4_box1"
+                        class="absolute w-[150px] h-[150px] rounded-[1rem] flex items-center justify-center text-center text-[#42362A] text-[1.15rem] leading-snug shadow-sm bg-[#F9F3D3] z-10"
+                        style="left: 420px; top: 80px; transform: translate(-50%, -50%);">
+                        賺取貨幣
+                    </div>
+                    <div data-t="s4_box2"
+                        class="absolute w-[150px] h-[150px] rounded-[1rem] flex items-center justify-center text-center text-[#42362A] text-[1.15rem] leading-snug shadow-sm bg-[#F2DAC1] z-10"
+                        style="left: 120px; top: 270px; transform: translate(-50%, -50%);">
+                        蕃茄鐘<br>專注
+                    </div>
+                    <div data-t="s4_box3"
+                        class="absolute w-[150px] h-[150px] rounded-[1rem] flex items-center justify-center text-center text-[#42362A] text-[1.15rem] leading-snug shadow-sm bg-[#EFD2F8] z-10"
+                        style="left: 320px; top: 270px; transform: translate(-50%, -50%);">
+                        成功自拍
+                    </div>
+                    <div data-t="s4_box4"
+                        class="absolute w-[150px] h-[150px] rounded-[1rem] flex items-center justify-center text-center text-[#42362A] text-[1.15rem] leading-snug shadow-sm bg-[#CFF1CF] z-10"
+                        style="left: 520px; top: 270px; transform: translate(-50%, -50%);">
+                        解鎖關卡
+                    </div>
+                    <div data-t="s4_box5"
+                        class="absolute w-[150px] h-[150px] rounded-[1rem] flex items-center justify-center text-center text-[#42362A] text-[1.15rem] leading-snug shadow-sm bg-[#CEF0F0] z-10"
+                        style="left: 720px; top: 270px; transform: translate(-50%, -50%);">
+                        收集<br>外觀、濾鏡
+                    </div>
+                    <div data-t="s4_box6"
+                        class="absolute w-[150px] h-[150px] rounded-[1rem] flex items-center justify-center text-center text-[#42362A] text-[1.15rem] leading-snug shadow-sm bg-[#CDCFF5] z-10"
+                        style="left: 120px; top: 460px; transform: translate(-50%, -50%);">
+                        解鎖<br>音樂曲目
+                    </div>
+                    <div data-t="s4_box7"
+                        class="absolute w-[150px] h-[150px] rounded-[1rem] flex items-center justify-center text-center text-[#42362A] text-[1.15rem] leading-snug shadow-sm bg-[#F2C1C1] z-10"
+                        style="left: 720px; top: 460px; transform: translate(-50%, -50%);">
+                        挑戰<br>高難度過關
+                    </div>
+
+                    <!-- 循環標籤文字 -->
+                    <div data-t="s4_loop_short" class="absolute text-[#42362A] font-bold text-[1.25rem] z-10"
+                        style="left: 420px; top: 385px; transform: translate(-50%, -50%);">短期循環</div>
+                    <div data-t="s4_loop_long" class="absolute text-[#42362A] font-bold text-[1.25rem] z-10"
+                        style="left: 420px; top: 485px; transform: translate(-50%, -50%);">長期循環</div>
+                </div>
+            </div>
+            <div class="grass-footer">
+                <p>© 2026 Straight Banana Game Studio.</p>
+                <img src="images/worm.png" class="footer-worm" alt="Worm">
+            </div>
+        </section>
+
+        <section id="s5" class="slide section-trigger">
+            <div class="slide-header">
+                <span class="slide-num">5</span>
+                <h2 class="slide-text">目標客群</h2>
+            </div>
+            <div class="slide-content flex flex-col items-center justify-center gap-12 w-full mt-2">
+
+                <!-- 目標客群描述區塊 -->
+                <div
+                    class="bg-[#F8F5EB] rounded-[2rem] w-[95%] max-w-[1050px] py-14 px-16 text-center shadow-sm flex flex-col gap-6">
+                    <h3 data-t="s5_primary" class="text-[1.8rem] font-bold text-[#42362A] tracking-wider m-0">35
+                        歲以下上班族、喜愛休閒遊戲的玩家</h3>
+                    <p data-t="s5_persona" class="text-[1.2rem] text-[#42362A] leading-relaxed m-0">
+                        尤其喜歡可愛畫面、拍出屬於自己獨特性的照片、以及在零碎時間遊玩輕鬆休閒遊戲的玩家
+                    </p>
+                </div>
+
+                <!-- 類似產品區塊 -->
+                <div class="flex flex-col items-center gap-3 w-[95%] max-w-[1050px]">
+                    <h3 data-t="s5_similar" class="text-[1.8rem] font-bold text-[#42362A] tracking-wider m-0">類似產品</h3>
+
+                    <div class="grid grid-cols-3 gap-10 w-full px-4">
+                        <!-- Product 1 -->
+                        <div class="flex flex-col items-center gap-4 w-full">
+                            <div
+                                class="w-full aspect-[460/215] bg-white rounded-[10px] overflow-hidden flex items-center justify-center hover-float">
+                                <img src="https://play-lh.googleusercontent.com/Zhrz10Kgk9hjOy9141PZ81SU0yQTHSdMiMhz-t0vJkzoLXHGmXngBIzH4y5LebTQiTA"
+                                    class="w-full h-full object-contain" alt="Bacon – The Game">
+                            </div>
+                            <p class="text-[1.2rem] font-medium text-[#42362A] m-0 tracking-wide">Bacon – The Game</p>
+                        </div>
+
+                        <!-- Product 2 -->
+                        <div class="flex flex-col items-center gap-4 w-full">
+                            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2113850/dde323de28b5db2af88e7fda53ed3c4dc34280bf/header.jpg?t=1774273526"
+                                class="w-full aspect-[460/215] object-cover rounded-[10px] shadow-sm hover-float"
+                                alt="Spirit City: Lofi Sessions">
+                            <p class="text-[1.2rem] font-medium text-[#42362A] m-0 tracking-wide">Spirit City: Lofi
+                                Sessions</p>
+                        </div>
+
+                        <!-- Product 3 -->
+                        <div class="flex flex-col items-center gap-4 w-full">
+                            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2826180/header.jpg?t=1771283283"
+                                class="w-full aspect-[460/215] object-cover rounded-[10px] shadow-sm hover-float"
+                                alt="Chill Pulse">
+                            <p class="text-[1.2rem] font-medium text-[#42362A] m-0 tracking-wide">Chill Pulse</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="grass-footer">
+                <p>© 2026 Straight Banana Game Studio.</p>
+                <img src="images/worm.png" class="footer-worm" alt="Worm">
+            </div>
+        </section>
+
+        <section id="s6" class="slide section-trigger">
+            <div class="slide-header">
+                <span class="slide-num">6</span>
+                <h2 class="slide-text">排程與進度</h2>
+            </div>
+            <div class="slide-content w-full flex flex-col items-center justify-center relative mt-16">
+
+                <!-- 橫向軸線與箭頭 -->
+                <div
+                    class="absolute left-0 right-0 mx-auto w-[92%] h-[40px] top-[50%] -translate-y-1/2 z-0 pointer-events-none">
+                    <svg class="w-full h-full" style="overflow: visible;">
+                        <defs>
+                            <marker id="timeline-arrow" viewBox="-15 -10 20 20" refX="0" refY="0" markerWidth="20"
+                                markerHeight="20" markerUnits="userSpaceOnUse" orient="auto">
+                                <path d="M -10 -8 L 0 0 L -10 8" fill="none" stroke="#42362A" stroke-width="5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </marker>
+                        </defs>
+                        <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#42362A" stroke-width="5"
+                            stroke-linecap="round" marker-end="url(#timeline-arrow)" />
+                    </svg>
+                </div>
+
+                <!-- 垂直虛線與目前標籤 -->
+                <div
+                    class="absolute left-[50%] -translate-x-1/2 top-[-10px] h-[340px] border-l-[4px] border-dashed border-[#4FC4D9] z-0 flex flex-col items-center">
+                    <div class="absolute top-[-40px] flex flex-col items-center whitespace-nowrap">
+                        <span data-t="s6_current_label" class="text-[#42362A] text-[1rem] mb-2 tracking-wider">目前</span>
+                        <div data-t="s6_current_date"
+                            class="bg-white border-[3px] border-[#4FC4D9] rounded-full px-8 py-1.5 text-[#42362A] font-bold text-[1.2rem]">
+                            2026/4</div>
+                    </div>
+                </div>
+
+                <!-- 卡片容器 -->
+                <div class="flex gap-5 z-10 w-full px-6 relative justify-center">
+                    <!-- Card 1 -->
+                    <div
+                        class="bg-white rounded-[1rem] border-[4px] border-[#C8DF84] w-[130px] h-[230px] flex flex-col items-center pt-3 pb-5 shadow-sm hover-float">
+                        <p data-t="s6_date_1" class="font-bold text-[1.1rem] text-[#42362A]">2025/9</p>
+                        <div data-t="s6_content_1" class="flex-1 flex flex-col justify-center">
+                            <p class="font-bold text-[1rem] text-[#42362A]">專案開始</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div
+                        class="bg-white rounded-[1rem] border-[4px] border-[#C8DF84] w-[130px] h-[230px] flex flex-col items-center pt-3 pb-5 shadow-sm hover-float">
+                        <p data-t="s6_date_2" class="font-bold text-[1.1rem] text-[#42362A]">2025/11</p>
+                        <div data-t="s6_content_2"
+                            class="flex-1 flex flex-col justify-center text-center leading-tight">
+                            <p class="font-bold text-[1rem] text-[#42362A]">Prototype</p>
+                            <p class="font-bold text-[1rem] text-[#42362A] mt-1">完成</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div
+                        class="bg-white rounded-[1rem] border-[4px] border-[#C8DF84] w-[130px] h-[230px] flex flex-col items-center pt-3 pb-5 shadow-sm hover-float">
+                        <p data-t="s6_date_3" class="font-bold text-[1.1rem] text-[#42362A]">2026/1</p>
+                        <img src="images/icon_itchio.png" class="w-12 h-12 mt-4 object-contain" alt="itch.io">
+                        <div data-t="s6_content_3" class="mt-auto text-center leading-tight">
+                            <p class="font-bold text-[1rem] text-[#42362A]">itch.io</p>
+                            <p class="font-bold text-[1rem] text-[#42362A] mt-1">Alpha版</p>
+                            <p class="font-bold text-[1rem] text-[#42362A] mt-1">釋出</p>
+                        </div>
+                    </div>
+
+                    <!-- 虛線間隙 -->
+                    <div class="w-[20px]"></div>
+
+                    <!-- Card 4 -->
+                    <div
+                        class="bg-white rounded-[1rem] border-[4px] border-[#ED6D72] w-[130px] h-[230px] flex flex-col items-center pt-3 pb-5 shadow-sm hover-float">
+                        <p data-t="s6_date_4" class="font-bold text-[1.1rem] text-[#42362A]">2026/5</p>
+                        <img src="images/icon_steam.png" class="w-12 h-12 mt-4 object-contain" alt="Steam">
+                        <div data-t="s6_content_4" class="mt-auto text-center leading-tight">
+                            <p class="font-bold text-[1rem] text-[#42362A]">Steam</p>
+                            <p class="font-bold text-[1rem] text-[#42362A] mt-1">Demo版</p>
+                            <p class="font-bold text-[1rem] text-[#42362A] mt-1">釋出</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div
+                        class="bg-white rounded-[1rem] border-[4px] border-[#ED6D72] w-[130px] h-[230px] flex flex-col items-center pt-3 pb-5 shadow-sm hover-float">
+                        <p data-t="s6_date_5" class="font-bold text-[1.1rem] text-[#42362A]">2026/7</p>
+                        <img src="images/icon_steam.png" class="w-12 h-12 mt-4 object-contain" alt="Steam">
+                        <div data-t="s6_content_5" class="mt-auto text-center leading-tight">
+                            <p class="font-bold text-[1rem] text-[#42362A]">Steam</p>
+                            <p class="font-bold text-[1rem] text-[#42362A] mt-1">正式版</p>
+                            <p class="font-bold text-[1rem] text-[#42362A] mt-1">釋出</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div
+                        class="bg-white rounded-[1rem] border-[4px] border-[#ED6D72] w-[130px] h-[230px] flex flex-col items-center pt-3 pb-5 shadow-sm hover-float">
+                        <p data-t="s6_date_6" class="font-bold text-[1.1rem] text-[#42362A]">2026/9</p>
+                        <div class="flex gap-2 mt-5">
+                            <img src="images/icon_android.png" class="w-12 h-12 object-contain" alt="Android">
+                            <img src="images/icon_apple.png" class="w-12 h-12 object-contain" alt="Apple">
+                        </div>
+                        <div data-t="s6_content_6" class="mt-auto text-center leading-tight">
+                            <p class="font-bold text-[1rem] text-[#42362A]">Android版</p>
+                            <p class="font-bold text-[1rem] text-[#42362A]">iOS版</p>
+                            <p class="font-bold text-[1rem] text-[#42362A] mt-1">釋出</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grass-footer">
+                <p>© 2026 Straight Banana Game Studio.</p>
+            </div>
+        </section>
+
+        <section id="s7" class="slide section-trigger">
+            <div class="slide-header">
+                <span class="slide-num">7</span>
+                <h2 class="slide-text">行銷策略</h2>
+            </div>
+            <div class="slide-content w-full flex flex-col justify-center">
+                <div class="grid grid-cols-5 gap-6">
+                    <div class="content-card text-center items-center !p-4 hover-float"
+                        style="background-color: #D4F1CB;">
+                        <p data-t="s7_mkt_1" class="mb-4">官方社群經營</p>
+                        <div class="flex gap-2">
+                            <img src="images/icon_x.png" class="w-9 h-9 object-contain" alt="X">
+                            <img src="images/icon_threads.png" class="w-9 h-9 object-contain" alt="Threads">
+                            <img src="images/icon_fb.png" class="w-9 h-9 object-contain" alt="Facebook">
+                        </div>
+                    </div>
+                    <div data-t="s7_mkt_2" class="content-card text-center items-center hover-float"
+                        style="background-color: #F6CFCF;">
+                        參加活動
+                    </div>
+                    <div data-t="s7_mkt_3" class="content-card text-center items-center hover-float"
+                        style="background-color: #DED4F5;">
+                        新聞稿投遞
+                    </div>
+                    <div data-t="s7_mkt_4" class="content-card text-center items-center hover-float"
+                        style="background-color: #D3F3F4;">
+                        影音創作者合作
+                    </div>
+                    <div data-t="s7_mkt_5" class="content-card text-center items-center hover-float"
+                        style="background-color: #F9F0C1;">
+                        Steam<br>遊戲組合包合作
+                    </div>
+                </div>
+            </div>
+            <div class="grass-footer">
+                <p>© 2026 Straight Banana Game Studio.</p>
+            </div>
+        </section>
+
+        <section id="s8" class="slide section-trigger">
+            <div class="slide-header">
+                <span class="slide-num">8</span>
+                <h2 class="slide-text">合作需求</h2>
+            </div>
+            <div class="slide-content flex flex-row items-center justify-center gap-12">
+                <!-- Circle 1 -->
+                <div data-t="s8_need_1"
+                    class="w-[280px] h-[280px] rounded-full flex items-center justify-center text-center text-2xl text-[#42362A] shadow-sm hover-float"
+                    style="background-color: #F9F0C1;">
+                    行銷曝光
+                </div>
+                <!-- Circle 2 -->
+                <div data-t="s8_need_2"
+                    class="w-[280px] h-[280px] rounded-full flex items-center justify-center text-center text-2xl text-[#42362A] shadow-sm hover-float"
+                    style="background-color: #D3F3F4;">
+                    在地化
+                </div>
+                <!-- Circle 3 -->
+                <div data-t="s8_need_3"
+                    class="w-[280px] h-[280px] rounded-full flex items-center justify-center text-center text-2xl text-[#42362A] shadow-sm hover-float"
+                    style="background-color: #D4F1CB;">
+                    音樂製作
+                </div>
+            </div>
+            <div class="grass-footer">
+                <p>© 2026 Straight Banana Game Studio.</p>
+            </div>
+        </section>
+
+        <section id="s9" class="slide section-trigger">
+            <div class="slide-header">
+                <span class="slide-num">9</span>
+                <h2 class="slide-text">團隊介紹</h2>
+            </div>
+            <div class="slide-content flex flex-row items-center gap-16">
+                <!-- Left: Logo -->
+                <div class="w-1/3 flex justify-center">
+                    <img src="images/studio_logo.png" class="w-full max-w-[320px] object-contain" alt="Studio Logo">
+                </div>
+                <!-- Right: Content -->
+                <div class="w-2/3 flex flex-col gap-16">
+                    <div>
+                        <h3 data-t="s9_about_h" class="text-3xl font-bold mb-4 text-[#42362A]">關於 正直香蕉遊戲工作室</h3>
+                        <p data-t="s9_about_p" class="text-2xl leading-relaxed text-[#42362A]">
+                            我們熱愛製作有點奇怪、有點搞笑、又有點動人心弦的遊戲，特別喜歡那種說不上來的微妙感，彷彿一根筆直的香蕉。
+                        </p>
+                    </div>
+                    <div>
+                        <h3 data-t="s9_team_h" class="text-3xl font-bold mb-6 text-[#42362A]">團隊成員</h3>
+                        <div class="space-y-4">
+                            <div class="flex text-2xl">
+                                <span class="font-bold w-[180px] shrink-0">Luke Liu</span>
+                                <span class="text-gray-700">Co-Founder, Game Designer</span>
+                            </div>
+                            <div class="flex text-2xl">
+                                <span class="font-bold w-[180px] shrink-0">Linda Huang</span>
+                                <span class="text-gray-700">Co-Founder, Technical Artist</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grass-footer">
+                <p>© 2026 Straight Banana Game Studio.</p>
+            </div>
+        </section>
+
+        <section id="s10" class="slide section-trigger !p-0">
+            <!-- 內容區塊需要 padding -->
+            <div class="flex-1 flex flex-col justify-center items-center px-[8%] pt-[100px] pb-[120px]">
+                <h2 data-t="s10_contact_h" class="text-[2.5rem] font-900 mb-10 text-[#42362A]">聯絡方式</h2>
+
+                <div class="w-full max-w-[420px] flex flex-col gap-3">
+                    <!-- Button 1: Email -->
+                    <a href="mailto:straight.banana.gamedev@gmail.com"
+                        class="flex items-center relative bg-[#f5f5e6] rounded-[10px] py-4 px-6 shadow-none hover:scale-[1.05] hover:bg-[#d9d9b0] transition-all duration-200">
+                        <div class="absolute left-6 w-9 h-9 flex items-center justify-center">
+                            <img src="images/icon_email.png" class="w-full h-full object-contain" alt="Email">
+                        </div>
+                        <span class="flex-1 text-center text-[1.2rem] text-[#42362A]">Email</span>
+                    </a>
+
+                    <!-- Button 2: Linktree -->
+                    <a href="https://linktr.ee/straight_banana" target="_blank"
+                        class="flex items-center relative bg-[#f5f5e6] rounded-[10px] py-4 px-6 shadow-none hover:scale-[1.05] hover:bg-[#d9d9b0] transition-all duration-200">
+                        <div class="absolute left-6 w-9 h-9 flex items-center justify-center">
+                            <img src="images/icon_linktree.png" class="w-full h-full object-contain" alt="Linktree">
+                        </div>
+                        <span class="flex-1 text-center text-[1.2rem] text-[#42362A]">Linktree</span>
+                    </a>
+
+                    <!-- Button 3: X -->
+                    <a href="https://x.com/StrghtBanana" target="_blank"
+                        class="flex items-center relative bg-[#f5f5e6] rounded-[10px] py-4 px-6 shadow-none hover:scale-[1.05] hover:bg-[#d9d9b0] transition-all duration-200">
+                        <div class="absolute left-6 w-9 h-9 flex items-center justify-center">
+                            <img src="images/icon_x.png" class="w-full h-full object-contain" alt="X">
+                        </div>
+                        <span class="flex-1 text-center text-[1.2rem] text-[#42362A]">X (Twitter)</span>
+                    </a>
+
+                    <!-- Button 4: Threads -->
+                    <a href="https://www.threads.com/@straight_banana_666" target="_blank"
+                        class="flex items-center relative bg-[#f5f5e6] rounded-[10px] py-4 px-6 shadow-none hover:scale-[1.05] hover:bg-[#d9d9b0] transition-all duration-200">
+                        <div class="absolute left-6 w-9 h-9 flex items-center justify-center">
+                            <img src="images/icon_threads.png" class="w-full h-full object-contain" alt="Threads">
+                        </div>
+                        <span class="flex-1 text-center text-[1.2rem] text-[#42362A]">Threads</span>
+                    </a>
+
+                    <!-- Button 5: Facebook -->
+                    <a href="https://www.facebook.com/StraightBanana/" target="_blank"
+                        class="flex items-center relative bg-[#f5f5e6] rounded-[10px] py-4 px-6 shadow-none hover:scale-[1.05] hover:bg-[#d9d9b0] transition-all duration-200">
+                        <div class="absolute left-6 w-9 h-9 flex items-center justify-center">
+                            <img src="images/icon_fb.png" class="w-full h-full object-contain" alt="Facebook">
+                        </div>
+                        <span class="flex-1 text-center text-[1.2rem] text-[#42362A]">Facebook</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 地面與蟲蟲 -->
+            <div class="ground-footer relative w-full">
+                <img src="images/ground.png" class="w-full h-auto block" alt="Ground">
+                <p class="absolute left-1/2 -translate-x-1/2 bottom-[35%] text-sm font-900 z-20">© 2026 Straight Banana
+                    Game
+                    Studio.</p>
+                <img src="images/worm.png" class="footer-worm !bottom-[60%]" alt="Worm">
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+
+                    // 更新導覽列 Active 狀態
+                    const id = entry.target.id;
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-trigger').forEach(section => {
+            observer.observe(section);
+        });
+
+        const translations = {
+            zh: {
+                nav: {
+                    hero: "首頁", s1: "遊戲概要", s2: "核心玩法", s3: "遊戲亮點", s4: "遊戲循環", s5: "目標客群", s6: "排程與進度", s7: "行銷策略", s8: "合作需求", s9: "團隊介紹", s10: "聯絡方式",
+                    s3_nav: "易上癮的物理玩法", s3_2_nav: "幽默多元的關卡", s3_3_nav: "忙裡偷閒神隊友", s3_4_nav: "展現個性", s3_5_nav: "主線劇情"
+                },
+                title: {
+                    hero: "首頁", s1: "遊戲概要", s2: "核心玩法", s3: "遊戲亮點", s4: "遊戲循環", s5: "目標客群", s6: "排程與進度", s7: "行銷策略", s8: "合作需求", s9: "團隊介紹", s10: "聯絡方式"
+                },
+                ui: {
+                    steam_cta: "前往 Steam 商店頁面了解更多",
+                    s1_desc: `<b>《自拍蟲蟲》是一款結合軟 Q 物理與攝影的桌面夥伴。</b><br>
+                             熱愛自拍的蟲蟲穿越蟲洞來到了缺少色彩的異世界，發現自己的手機鏡頭能夠拍出色彩，於是展開了到處自拍、找回色彩的旅程，過程中逐漸拼湊出一段溫馨的故事。內建「防老闆鍵」與番茄鐘，讓每一次專注後的短暫休息，都成為療癒與驚喜的冒險。`,
+                    s1_genre_label: "<b>遊戲類型</b>",
+                    s1_genre_val: "2D 物理平台<br>生產力工具",
+                    s1_playtime_label: "<b>遊玩時長</b>",
+                    s1_playtime_val: "1.5 ~ 2 小時<br><span class=\"text-[0.7em] opacity-80\"><br>純主線<br>不含番茄鐘與收集要素</span>",
+                    s1_tone_label: "<b>遊戲氛圍</b>",
+                    s1_tone_val: "療癒<br>溫馨<br>迷因<br>可愛",
+                    s1_platforms_label: "<b>發售平台</b>",
+                    s1_platforms_val: "Windows<br>macOS<br>Android<br>iOS",
+                    s1_langs_label: "<b>支援語言</b>",
+                    s1_langs_val: "繁體中文<br>簡體中文<br>日文<br>英文<br>韓文",
+                    s2_caption_1: "利用固定力道與角度的彈跳，讓軟 Q 滑溜的蟲蟲停留在目標物上進行自拍來通關。",
+                    s2_caption_2: "不斷累積自拍照，擴展社群人氣",
+                    s3_subtitle: "易上癮的物理玩法",
+                    s3_h1: "可掌握的混沌", s3_p1: "透過掌握彈跳的時機，可精準控制的彈跳速度。",
+                    s3_h2: "親切的物理回饋", s3_p2: "貼近生活經驗，容易上手的「假象」，有挑戰性卻無慘痛的失敗懲罰。",
+                    s3_h3: "Near-Miss 機制", s3_p3: "差一點就能成功，激發多巴胺的分泌。",
+                    s3_2_subtitle: "幽默多元的關卡",
+                    s3_2_h1: "多樣化的挑戰", s3_2_p1: "不穩定的目標、結凍、燃燒、風吹、低重力、水裡...等等。",
+                    s3_2_h2: "令人會心一笑的設計", s3_2_p2: "網路迷因、電影致敬、名畫...等等。",
+                    s3_3_subtitle: "忙裡偷閒神隊友",
+                    s3_3_h1: "專注工具", s3_3_p1: "番茄鐘＋多首紓壓音樂＋環境音效。",
+                    s3_3_h2: "直式視窗", s3_3_p2: "能自由縮放與安排位置，不擋畫面。",
+                    s3_3_h3: "防老闆鍵", s3_3_p3: "快速切換成計算機，偷懶不被抓包。",
+                    s3_4_subtitle: "展現個性",
+                    s3_4_h1: "個性化自拍", s3_4_p1: "多種蟲蟲外觀、照片濾鏡可收集，拍出獨特照片。",
+                    s3_4_h2: "真．蟲蟲社群", s3_4_p2: "玩家間能看到彼此的蟲蟲自拍照。",
+                    s3_5_subtitle: "主線劇情",
+                    s3_5_h1: "溫馨劇情", s3_5_p1: "埋藏在遊戲背後父女共同創作的故事。",
+                    s3_5_h2: "後設敘事", s3_5_p2: "透過打破第四面牆的錯誤訊息與毀損檔案，玩家將見證一段跨越生死的父女情誼與創作傳承。",
+                    s4_box1: "賺取貨幣",
+                    s4_box2: "蕃茄鐘<br>專注",
+                    s4_box3: "成功自拍",
+                    s4_box4: "解鎖關卡",
+                    s4_box5: "收集<br>外觀、濾鏡",
+                    s4_box6: "解鎖<br>音樂曲目",
+                    s4_box7: "挑戰<br>高難度過關",
+                    s4_loop_short: "短期循環",
+                    s4_loop_long: "長期循環",
+                    s5_primary: "35 歲以下上班族、喜愛休閒遊戲的玩家",
+                    s5_persona: "尤其喜歡可愛畫面、拍出屬於自己獨特性的照片、以及在零碎時間遊玩輕鬆休閒遊戲的玩家",
+                    s5_similar: "類似產品",
+                    s6_current_label: "目前",
+                    s6_current_date: "2026/4",
+                    s6_date_1: "2025/9",
+                    s6_content_1: "<p class=\"text-[1rem] text-[#42362A]\">專案開始</p>",
+                    s6_date_2: "2025/11",
+                    s6_content_2: "<p class=\"font-bold text-[1rem] text-[#42362A]\">Prototype</p><p class=\"text-[1rem] text-[#42362A] mt-1\">完成</p>",
+                    s6_date_3: "2026/1",
+                    s6_content_3: "<p class=\"font-bold text-[1rem] text-[#42362A]\">itch.io</p><p class=\"font-bold text-[1rem] text-[#42362A] mt-1\">Alpha版</p><p class=\"text-[1rem] text-[#42362A] mt-1\">釋出</p>",
+                    s6_date_4: "2026/5",
+                    s6_content_4: "<p class=\"font-bold text-[1rem] text-[#42362A]\">Steam</p><p class=\"font-bold text-[1rem] text-[#42362A] mt-1\">Demo版</p><p class=\"text-[1rem] text-[#42362A] mt-1\">釋出</p>",
+                    s6_date_5: "2026/7",
+                    s6_content_5: "<p class=\"font-bold text-[1rem] text-[#42362A]\">Steam</p><p class=\"font-bold text-[1rem] text-[#42362A] mt-1\">正式版</p><p class=\"text-[1rem] text-[#42362A] mt-1\">釋出</p>",
+                    s6_date_6: "2026/9",
+                    s6_content_6: "<p class=\"font-bold text-[1rem] text-[#42362A]\">Android版</p><p class=\"font-bold text-[1rem] text-[#42362A]\">iOS版</p><p class=\"text-[1rem] text-[#42362A] mt-1\">釋出</p>",
+                    s7_mkt_1: "官方社群經營",
+                    s7_mkt_2: "參加活動",
+                    s7_mkt_3: "新聞稿投遞",
+                    s7_mkt_4: "影音創作者合作",
+                    s7_mkt_5: "Steam<br>遊戲組合包合作",
+                    s8_need_1: "行銷曝光",
+                    s8_need_2: "在地化",
+                    s8_need_3: "音樂製作",
+                    s9_about_h: "關於 正直香蕉遊戲工作室",
+                    s9_about_p: "我們熱愛製作有點奇怪、有點搞笑、又有點動人心弦的遊戲，特別喜歡那種說不上來的微妙感，彷彿一根筆直的香蕉。",
+                    s9_team_h: "團隊成員",
+                    s10_contact_h: "聯絡方式"
+                }
+            },
+            en: {
+                nav: {
+                    hero: "Home", s1: "Overview", s2: "Gameplay", s3: "Highlights", s4: "Game Loop", s5: "Target Audience", s6: "Roadmap", s7: "Marketing", s8: "Partnership", s9: "About Us", s10: "Contact",
+                    s3_nav: "Addictive Physics", s3_2_nav: "Quirky Levels", s3_3_nav: "Productivity Partner", s3_4_nav: "Express Yourself", s3_5_nav: "Moving Story"
+                },
+                title: { hero: "Home", s1: "Game Overview", s2: "Core Gameplay", s3: "Key Highlights", s4: "Game Loop", s5: "Target Audience", s6: "Roadmap & Progress", s7: "Marketing Strategy", s8: "Partnership Needs", s9: "About Us", s10: "Contact" },
+                ui: {
+                    steam_cta: "Visit Steam Store Page for more details",
+                    s1_desc: `<b>Selfie Worm is a cozy adventure blending squishy 2D physics with photography.</b><br>
+                             A selfie-loving worm travels through a wormhole to a monochromatic world. Armed with a camera that can capture color, it embarks on a journey to restore vibrancy to the world while unravelling a heartwarming narrative. Featuring a built-in "Boss Key" and Pomodoro timer, it turns work breaks into healing times.`,
+                    s1_genre_label: "<b>Genre</b>",
+                    s1_genre_val: "2D Physics Platformer<br>Productivity Tool",
+                    s1_playtime_label: "<b>Playtime</b>",
+                    s1_playtime_val: "1.5 ~ 2 Hours<br><span class=\"text-[0.7em] opacity-80\"><br>(Main Story Only)</span>",
+                    s1_tone_label: "<b>Tone</b>",
+                    s1_tone_val: "Relaxing Heartwarming<br>Memetic<br>Adorable",
+                    s1_platforms_label: "<b>Platforms</b>",
+                    s1_platforms_val: "Windows<br>macOS<br>Android<br>iOS",
+                    s1_langs_label: "<b>Languages</b>",
+                    s1_langs_val: "zh-TW<br>zn-CN<br>Japanese<br>English<br>Korean",
+                    s2_caption_1: "Use fixed-force jumps and angles to land your slippery, squishy worm onto targets for the perfect selfie to clear levels.",
+                    s2_caption_2: "Build an extensive selfie gallery to grow your in-game social media influence.",
+                    s3_subtitle: "Addictive Physics Mechanics",
+                    s3_h1: "Mastered Chaos", s3_p1: "Precise control over jump velocity by timing your launches.",
+                    s3_h2: "Forgiving Feedback", s3_p2: "An intuitive \"illusion of ease\" challenging gameplay without the sting of harsh failure.",
+                    s3_h3: "Near-Miss Mechanics", s3_p3: "Adrenaline-pumping \"almost-got-it\" moments that keep players coming back.",
+                    s3_2_subtitle: "Quirky & Diverse Levels",
+                    s3_2_h1: "Diverse Challenges", s3_2_p1: "Face environmental hazards like ice, fire, wind, low gravity, and underwater levels.",
+                    s3_2_h2: "Easter Eggs", s3_2_p2: "Clever nods to internet memes, classic cinema, and famous artworks.",
+                    s3_3_subtitle: "Your Secret Productivity Partner",
+                    s3_3_h1: "Focus Suite", s3_3_p1: "Integrated Pomodoro timer paired with lo-fi tracks and ambient soundscapes.",
+                    s3_3_h2: "Vertical Window", s3_3_p2: "A compact, resizable interface that stays out of your workspace's way.",
+                    s3_3_h3: "The \"Boss Key\"", s3_3_p3: "Instantly switch to a functional calculator to hide your \"slacking\" in plain sight.",
+                    s3_4_subtitle: "Express Yourself",
+                    s3_4_h1: "Personalized Selfies", s3_4_p1: "Collect unique skins and filters to snap one-of-a-kind photos.",
+                    s3_4_h2: "The \"Real\" Worm Network", s3_4_p2: "A social hub where players can browse and admire each other's photography.",
+                    s3_5_subtitle: "A Deeply Moving Story",
+                    s3_5_h1: "Heartwarming Tale", s3_5_p1: "A story inspired by the collaborative bond between a father and daughter.",
+                    s3_5_h2: "Meta-Narrative", s3_5_p2: "Witness a poignant legacy of love and creativity, passed from father to daughter through glitched memories and fourth-wall-breaking messages.",
+                    s4_box1: "Earn<br>Currency",
+                    s4_box2: "Pomodoro<br>Focus<br>Sessions",
+                    s4_box3: "Snap<br>Successful<br>Selfies",
+                    s4_box4: "Unlock<br>New<br>Levels",
+                    s4_box5: "Collect<br>Skins &<br>Filters",
+                    s4_box6: "Unlock<br>Music Tracks",
+                    s4_box7: "Challenge<br>Hard Stages",
+                    s4_loop_short: "Short-term Loop",
+                    s4_loop_long: "Long-term Loop",
+                    s5_primary: "Primary: Office workers under 35 and casual gamers.",
+                    s5_persona: "Persona: Players who adore cute aesthetics, customized content,<br>and games perfect for short, bite-sized breaks.",
+                    s5_similar: "Similar Titles",
+                    s6_current_label: "Current",
+                    s6_current_date: "Apr. 2026",
+                    s6_date_1: "Sep. 2025",
+                    s6_content_1: "<p class=\"text-[1rem] text-[#42362A]\">Project<br>Kick-off</p>",
+                    s6_date_2: "Nov. 2025",
+                    s6_content_2: "<p class=\"font-bold text-[1rem] text-[#42362A]\">Prototype</p><p class=\"text-[1rem] text-[#42362A] mt-1\">Completed</p>",
+                    s6_date_3: "Jan. 2026",
+                    s6_content_3: "<p class=\"font-bold text-[1rem] text-[#42362A]\">itch.io</p><p class=\"font-bold text-[1rem] text-[#42362A] mt-1\">Alpha</p><p class=\"text-[1rem] text-[#42362A] mt-1\">Release</p>",
+                    s6_date_4: "May 2026",
+                    s6_content_4: "<p class=\"font-bold text-[1rem] text-[#42362A]\">Steam</p><p class=\"font-bold text-[1rem] text-[#42362A] mt-1\">Demo</p><p class=\"text-[1rem] text-[#42362A] mt-1\">Launch</p>",
+                    s6_date_5: "July 2026",
+                    s6_content_5: "<p class=\"font-bold text-[1rem] text-[#42362A]\">Full</p><p class=\"font-bold text-[1rem] text-[#42362A] mt-1\">Steam</p><p class=\"text-[1rem] text-[#42362A] mt-1\">Launch</p>",
+                    s6_date_6: "Sep. 2026",
+                    s6_content_6: "<p class=\"font-bold text-[1rem] text-[#42362A]\">Android,</p><p class=\"font-bold text-[1rem] text-[#42362A]\">iOS</p><p class=\"text-[1rem] text-[#42362A] mt-1\">Version Release</p>",
+                    s7_mkt_1: "Official<br>Social Media Management",
+                    s7_mkt_2: "Indie Game<br>Events & Festivals",
+                    s7_mkt_3: "Press Release<br>Outreach",
+                    s7_mkt_4: "Influencer &<br>Content Creator<br>Partnerships",
+                    s7_mkt_5: "Steam Bundle<br>Collaborations",
+                    s8_need_1: "Marketing/<br>PR exposure",
+                    s8_need_2: "Localization",
+                    s8_need_3: "Music Production<br>Partnerships",
+                    s9_about_h: "About Straight Banana Game Studio",
+                    s9_about_p: "We are passionate about creating games that are a bit weird, a bit funny, and deeply moving.<br><br>We specialize in a certain quirky and inexplicable charm, much like the unexpected sight of a perfectly straight banana.",
+                    s9_team_h: "Team",
+                    s10_contact_h: "Contact"
+                }
+            }
+        };
+
+        function updateTranslations(lang) {
+            // 更新導覽列 (使用短版)
+            document.querySelectorAll('.nav-link, .nav-dropdown-item').forEach(link => {
+                const section = link.getAttribute('data-section');
+                if (translations[lang].nav[section]) {
+                    link.textContent = translations[lang].nav[section];
+                }
+            });
+
+            // 更新頁面標題 (使用長版)
+            Object.keys(translations[lang].title).forEach(id => {
+                const section = document.getElementById(id);
+                if (section) {
+                    const slideText = section.querySelector('.slide-text');
+                    if (slideText) {
+                        slideText.textContent = translations[lang].title[id];
+                    }
+                }
+            });
+
+            // 更新 UI 元素 (使用 data-t)
+            document.querySelectorAll('[data-t]').forEach(el => {
+                const key = el.getAttribute('data-t');
+                if (translations[lang].ui[key]) {
+                    el.innerHTML = translations[lang].ui[key];
+                }
+            });
+
+            // 處理 s3 的子頁面 (s3-2, s3-3, s3-4, s3-5)
+            ['s3-2', 's3-3', 's3-4', 's3-5'].forEach(id => {
+                const section = document.getElementById(id);
+                if (section) {
+                    const slideText = section.querySelector('.slide-text');
+                    if (slideText) {
+                        slideText.textContent = translations[lang].title['s3'];
+                    }
+                }
+            });
+
+            // 切換在地化 GIF
+            const suffix = lang === 'zh' ? 'zh' : 'en';
+            const feat2 = document.getElementById('img-feature-2');
+            const feat5 = document.getElementById('img-feature-5');
+            const feat6 = document.getElementById('img-feature-6');
+            const feat7 = document.getElementById('img-feature-7');
+
+            if (feat2) feat2.src = `images/feature_2_${suffix}.gif`;
+            if (feat5) feat5.src = `images/feature_5_${suffix}.gif`;
+            if (feat6) feat6.src = `images/feature_6_${suffix}.gif`;
+            if (feat7) feat7.src = `images/feature_7_${suffix}.gif`;
+        }
+
+        const btnZh = document.getElementById('btn-zh');
+        const btnEn = document.getElementById('btn-en');
+        const logoZh = document.getElementById('hero-logo-zh');
+        const logoEn = document.getElementById('hero-logo-en');
+        const pdfDownloadLink = document.getElementById('pdf-download-link');
+
+        btnZh.addEventListener('click', () => {
+            // 按鈕樣式
+            btnZh.classList.add('bg-[#ED6D72]', 'text-white', 'rounded-full');
+            btnZh.classList.remove('text-[#42362A]');
+            btnEn.classList.remove('bg-[#ED6D72]', 'text-white', 'rounded-full');
+            btnEn.classList.add('text-[#42362A]');
+
+            // Logo 切換
+            logoZh.classList.remove('hidden');
+            logoEn.classList.add('hidden');
+
+            // PDF 連結切換 (中文版)
+            pdfDownloadLink.href = "https://drive.google.com/file/d/1zidY4xdgvEzdPUB1vERGQaPwPZEONp2P/view?usp=drive_link";
+            pdfDownloadLink.textContent = "點此下載 PDF";
+
+            updateTranslations('zh');
+        });
+
+        btnEn.addEventListener('click', () => {
+            // 按鈕樣式
+            btnEn.classList.add('bg-[#ED6D72]', 'text-white', 'rounded-full');
+            btnEn.classList.remove('text-[#42362A]');
+            btnZh.classList.remove('bg-[#ED6D72]', 'text-white', 'rounded-full');
+            btnZh.classList.add('text-[#42362A]');
+
+            // Logo 切換
+            logoEn.classList.remove('hidden');
+            logoZh.classList.add('hidden');
+
+            // PDF 連結切換 (英文版)
+            pdfDownloadLink.href = "https://drive.google.com/file/d/1l_o8uMauNr4nOS325l6pfc5lhuIP6mIi/view?usp=drive_link";
+            pdfDownloadLink.textContent = "Download PDF here";
+
+            updateTranslations('en');
+        });
+
+        // 滾動位移效果 (Parallax)
+        const heroLogoContainer = document.getElementById('hero-logo-container');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            // 只有在 Hero 區塊附近才進行計算以節省效能
+            if (scrollY < window.innerHeight) {
+                const offset = scrollY * 0.3; // 控制移動速度
+                heroLogoContainer.style.transform = `translateY(calc(-60% + ${offset}px))`;
+            }
+        });
+
+    </script>
+</body>
+
+</html>
