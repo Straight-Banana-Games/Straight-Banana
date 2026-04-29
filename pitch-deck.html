@@ -1255,7 +1255,7 @@
 
                 <!-- 橫向軸線與箭頭 -->
                 <div
-                    class="absolute left-0 right-0 mx-auto w-[92%] h-[40px] top-[50%] -translate-y-1/2 z-0 pointer-events-none">
+                    class="absolute left-0 right-0 mx-auto w-[92%] h-[40px] top-[50%] -translate-y-1/2 z-[-1] pointer-events-none">
                     <svg class="w-full h-full" style="overflow: visible;">
                         <defs>
                             <marker id="timeline-arrow" viewBox="-15 -10 20 20" refX="0" refY="0" markerWidth="20"
@@ -1269,25 +1269,9 @@
                     </svg>
                 </div>
 
-                <!-- 手機版垂直箭頭 -->
-                <div
-                    class="mobile-timeline-arrow hidden absolute left-1/2 -translate-x-1/2 top-[-20px] bottom-[-20px] w-[2px] z-0 pointer-events-none">
-                    <svg class="w-full h-full" style="overflow: visible;">
-                        <defs>
-                            <marker id="timeline-arrow-mobile" viewBox="-15 -10 20 20" refX="0" refY="0"
-                                markerWidth="20" markerHeight="20" markerUnits="userSpaceOnUse" orient="auto">
-                                <path d="M -10 -8 L 0 0 L -10 8" fill="none" stroke="#42362A" stroke-width="5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </marker>
-                        </defs>
-                        <line x1="50%" y1="0" x2="50%" y2="calc(100% - 15px)" stroke="#42362A" stroke-width="5"
-                            stroke-linecap="round" marker-end="url(#timeline-arrow-mobile)" />
-                    </svg>
-                </div>
-
                 <!-- 垂直虛線與目前標籤 -->
                 <div
-                    class="absolute left-[50%] -translate-x-1/2 top-[-10px] h-[340px] border-l-[4px] border-dashed border-[#4FC4D9] z-0 flex flex-col items-center">
+                    class="absolute left-[50%] -translate-x-1/2 top-[-10px] h-[340px] border-l-[4px] border-dashed border-[#4FC4D9] z-[-1] flex flex-col items-center">
                     <div class="absolute top-[-40px] flex flex-col items-center whitespace-nowrap">
                         <span data-t="s6_current_label" class="text-[#42362A] text-[1rem] mb-2 tracking-wider">目前</span>
                         <div data-t="s6_current_date"
@@ -1298,6 +1282,21 @@
 
                 <!-- 卡片容器 -->
                 <div class="flex gap-5 z-10 w-full px-6 relative justify-center">
+                    <!-- 手機版垂直箭頭 (移到卡片容器內以確保高度正確) -->
+                    <div
+                        class="mobile-timeline-arrow hidden absolute left-1/2 -translate-x-1/2 top-[-20px] bottom-[-20px] w-[2px] z-[-1] pointer-events-none">
+                        <svg class="w-full h-full" style="overflow: visible;">
+                            <defs>
+                                <marker id="timeline-arrow-mobile" viewBox="-15 -10 20 20" refX="0" refY="0"
+                                    markerWidth="20" markerHeight="20" markerUnits="userSpaceOnUse" orient="auto">
+                                    <path d="M -10 -8 L 0 0 L -10 8" fill="none" stroke="#42362A" stroke-width="5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </marker>
+                            </defs>
+                            <line x1="50%" y1="0" x2="50%" y2="100%" stroke="#42362A" stroke-width="5"
+                                stroke-linecap="round" marker-end="url(#timeline-arrow-mobile)" />
+                        </svg>
+                    </div>
                     <!-- Card 1 -->
                     <div
                         class="bg-white rounded-[1rem] border-[4px] border-[#C8DF84] w-[130px] h-[230px] flex flex-col items-center pt-3 pb-5 hover-float">
