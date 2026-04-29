@@ -30,8 +30,7 @@
 
         /* 頂部導覽 */
         nav {
-            background: rgba(235, 232, 205, 0.6);
-            backdrop-filter: blur(10px);
+            background: rgba(235, 232, 205, 0.9);
             z-index: 100;
         }
 
@@ -130,6 +129,15 @@
             transform: translateY(-10px);
         }
 
+        /* GIF Loading Spinner */
+        img[src$=".gif"] {
+            background-color: rgba(66, 54, 42, 0.05);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid'%3E%3Ccircle cx='50' cy='50' fill='none' stroke='%23ed6d72' stroke-width='8' r='35' stroke-dasharray='164.9 56.9'%3E%3CanimateTransform attributeName='transform' type='rotate' repeatCount='indefinite' dur='1s' values='0 50 50;360 50 50' keyTimes='0;1'/%3E%3C/circle%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 40px 40px;
+        }
+
         /* 導覽列下拉選單 */
         .nav-dropdown {
             position: absolute;
@@ -217,7 +225,7 @@
             margin: 0;
             font-size: 0.875rem;
             color: var(--text-dark);
-            font-weight: 900;
+            font-weight: 500;
             z-index: 12;
             display: none;
             /* 預設隱藏版權文字 */
@@ -237,6 +245,19 @@
             z-index: 11;
             display: none;
             /* 預設隱藏 */
+        }
+
+        .ground-footer p {
+            position: absolute;
+            bottom: 35%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            z-index: 20;
+            margin: 0;
         }
 
         /* 只有最後一頁顯示蟲蟲 */
@@ -270,8 +291,8 @@
             }
 
             .mobile-tools-container {
-                width: 100%;
-                justify-content: space-between;
+                width: auto !important;
+                justify-content: flex-end !important;
             }
 
             .mobile-menu-btn {
@@ -299,11 +320,11 @@
                 z-index: 40 !important;
             }
 
-            /* 左右排列改為上下排列 */
+            /* 左右排列改為上下排列 (加大各組圖片的間距) */
             .flex.items-start.justify-center.gap-\[1vw\] {
                 flex-direction: column !important;
                 align-items: center !important;
-                gap: 20px !important;
+                gap: 40px !important;
             }
 
             /* GIF 圖片縮小置中 */
@@ -311,7 +332,14 @@
                 width: 100% !important;
                 max-width: 460px !important;
                 height: auto !important;
-                margin: 0 auto !important;
+                min-height: 250px;
+                /* 確保載入前能看到 Loading 轉圈 */
+                margin: 0 auto 2rem auto !important;
+            }
+
+            /* 核心玩法 (S2) 圖片與 caption 間距減少 50% */
+            #s2 .slide-content img.max-w-none {
+                margin-bottom: 1rem !important;
             }
 
             .slide-content .flex-col.items-start[style*="width: min-content"] {
@@ -381,6 +409,10 @@
                 display: none;
             }
 
+            .mobile-timeline-arrow {
+                display: block !important;
+            }
+
             /* 頁尾比例縮小 */
             .footer-worm {
                 width: 135px !important;
@@ -404,10 +436,10 @@
                 gap: 15px !important;
             }
 
-            /* 導覽列按鈕縮小 */
+            /* 導覽列按鈕縮小 (下載 PDF 與語言按鈕尺寸同步) */
             .mobile-tools-container a {
                 padding: 4px 10px !important;
-                font-size: 10px !important;
+                font-size: 12px !important;
             }
 
             .mobile-tools-container a svg {
@@ -432,7 +464,6 @@
             #s8 .rounded-full {
                 width: 140px !important;
                 height: 140px !important;
-                font-size: 1.1rem !important;
             }
 
             /* 選單按鈕固定大小與層級 */
@@ -470,11 +501,12 @@
             }
 
             .slide-num {
-                font-size: 3rem !important;
+                font-size: 2.2rem !important;
             }
 
             .slide-text {
-                font-size: 2rem !important;
+                font-size: 1.6rem !important;
+                white-space: nowrap;
             }
 
             .content-card {
@@ -493,6 +525,90 @@
             .content-card p {
                 font-size: 1rem !important;
             }
+
+            /* 移除手機版動畫與 Hover 效果 */
+
+            .slide-content {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+
+            /* 最後一頁地面版權文字動態縮小並防止斷行 */
+            .ground-footer p {
+                font-size: clamp(8px, 3.2vw, 12px) !important;
+                white-space: nowrap !important;
+                width: 100% !important;
+                left: 0 !important;
+                transform: none !important;
+                text-align: center !important;
+            }
+
+            /* 增加 S6 頂部間距與調整箭頭顯示 */
+            #s6 {
+                padding-top: 100px !important;
+                padding-bottom: 220px !important;
+            }
+
+            #s6 .slide-content {
+                margin-top: 6rem !important;
+            }
+
+            .content-card:hover,
+            .hover-float:hover,
+            #steam-cta a:hover,
+            #s10 a:hover {
+                transform: none !important;
+                /* 移除背景變色，保持各個框框的原色 */
+            }
+
+            /* 修正遊戲亮點文字寬度與圖片同寬 */
+            .slide-content .flex.flex-col.gap-16.max-w-2xl {
+                width: 100% !important;
+                max-width: 460px !important;
+                margin: 0 auto !important;
+            }
+
+            /* 頁頭標題不換行並縮小 */
+            .slide-num {
+                font-size: 2.2rem !important;
+            }
+
+            .slide-text {
+                font-size: 1.6rem !important;
+                white-space: nowrap;
+            }
+
+            /* 一般頁面頁尾版權文字尺寸調整 */
+            .grass-footer p {
+                font-size: 10px !important;
+                white-space: nowrap !important;
+                font-weight: 500 !important;
+            }
+
+            /* 最後一頁地面版權文字動態縮小並防止斷行 */
+            .ground-footer p {
+                font-size: 10px !important;
+                white-space: nowrap !important;
+                font-weight: 500 !important;
+            }
+
+            .mobile-only-current {
+                display: flex !important;
+                position: relative;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .mobile-timeline-arrow {
+                display: block !important;
+                top: -40px !important;
+                bottom: -80px !important;
+            }
+        }
+
+        .mobile-only-current {
+            display: none;
         }
 
         .mobile-menu-btn {
@@ -526,7 +642,8 @@
         }
 
         #mobile-menu-btn.active span:nth-child(1) {
-            transform: translateY(10px) rotate(45deg);
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
         }
 
         #mobile-menu-btn.active span:nth-child(2) {
@@ -534,7 +651,9 @@
         }
 
         #mobile-menu-btn.active span:nth-child(3) {
-            transform: translateY(-10px) rotate(-45deg);
+            bottom: auto;
+            top: 50%;
+            transform: translateY(-50%) rotate(-45deg);
         }
     </style>
 </head>
@@ -595,19 +714,20 @@
                 </div>
             </div>
 
-            <button id="mobile-menu-btn" class="mobile-menu-btn w-8 h-8 flex-col justify-around z-[105] cursor-pointer">
+            <button id="mobile-menu-btn" class="mobile-menu-btn relative w-8 h-8 z-[105] cursor-pointer">
                 <span
-                    class="block w-full h-[3px] bg-[#42362A] rounded transition-transform origin-center duration-300"></span>
-                <span class="block w-full h-[3px] bg-[#42362A] rounded transition-opacity duration-300"></span>
+                    class="absolute left-0 top-1 w-full h-[3px] bg-[#42362A] rounded transition-all duration-300"></span>
                 <span
-                    class="block w-full h-[3px] bg-[#42362A] rounded transition-transform origin-center duration-300"></span>
+                    class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-[3px] bg-[#42362A] rounded transition-all duration-300"></span>
+                <span
+                    class="absolute left-0 bottom-1 w-full h-[3px] bg-[#42362A] rounded transition-all duration-300"></span>
             </button>
         </div>
     </nav>
 
     <!-- 手機版滿版選單 -->
     <div id="mobile-menu">
-        <div class="flex flex-col items-center gap-4 text-base font-bold w-full overflow-y-auto max-h-full py-6">
+        <div class="flex flex-col items-center gap-6 text-xl font-bold w-full overflow-y-auto max-h-full py-6">
             <a href="#hero" class="mobile-nav-link text-[#42362A] hover:text-[#ED6D72]" data-section="hero">首頁</a>
             <a href="#s1" class="mobile-nav-link text-[#42362A] hover:text-[#ED6D72]" data-section="s1">遊戲概要</a>
             <a href="#s2" class="mobile-nav-link text-[#42362A] hover:text-[#ED6D72]" data-section="s2">核心玩法</a>
@@ -645,8 +765,6 @@
                 <img src="images/steam_logo.png" class="h-[120px] object-contain" alt="Steam Logo">
             </a>
             <div class="grass-footer">
-                <p>© 2026 Straight Banana Game Studio.</p>
-                <img src="images/worm.png" class="footer-worm" alt="Worm">
             </div>
         </section>
 
@@ -657,7 +775,7 @@
             </div>
             <div class="slide-content">
                 <p data-t="s1_desc" class="text-2xl mb-12 leading-relaxed">
-                    <b>《自拍蟲蟲》是一款結合軟 Q 物理與攝影的桌面夥伴。</b><br>
+                    <b class="block mb-2">《自拍蟲蟲》是一款結合軟 Q 物理與攝影的桌面夥伴。</b><br>
                     熱愛自拍的蟲蟲穿越蟲洞來到了缺少色彩的異世界，發現自己的手機鏡頭能夠拍出色彩，於是展開了到處自拍、找回色彩的旅程，過程中逐漸拼湊出一段溫馨的故事。內建「防老闆鍵」與番茄鐘，讓每一次專注後的短暫休息，都成為療癒與驚喜的冒險。
                 </p>
                 <div class="grid grid-cols-5 gap-6">
@@ -688,8 +806,6 @@
                 </div>
             </div>
             <div class="grass-footer">
-                <p>© 2026 Straight Banana Game Studio.</p>
-                <img src="images/worm.png" class="footer-worm" alt="Worm">
             </div>
         </section>
 
@@ -728,8 +844,6 @@
                 </div>
             </div>
             <div class="grass-footer">
-                <p>© 2026 Straight Banana Game Studio.</p>
-                <img src="images/worm.png" class="footer-worm" alt="Worm">
             </div>
         </section>
 
@@ -943,8 +1057,6 @@
             </div>
             <!-- 保留最後一頁的分隔線，準備進入下一大主題 -->
             <div class="grass-footer">
-                <p>© 2026 Straight Banana Game Studio.</p>
-                <img src="images/worm.png" class="footer-worm" alt="Worm">
             </div>
         </section>
 
@@ -1067,8 +1179,6 @@
                 </div>
             </div>
             <div class="grass-footer">
-                <p>© 2026 Straight Banana Game Studio.</p>
-                <img src="images/worm.png" class="footer-worm" alt="Worm">
             </div>
         </section>
 
@@ -1125,8 +1235,6 @@
 
             </div>
             <div class="grass-footer">
-                <p>© 2026 Straight Banana Game Studio.</p>
-                <img src="images/worm.png" class="footer-worm" alt="Worm">
             </div>
         </section>
 
@@ -1150,6 +1258,22 @@
                         </defs>
                         <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#42362A" stroke-width="5"
                             stroke-linecap="round" marker-end="url(#timeline-arrow)" />
+                    </svg>
+                </div>
+
+                <!-- 手機版垂直箭頭 -->
+                <div
+                    class="mobile-timeline-arrow hidden absolute left-1/2 -translate-x-1/2 top-[-20px] bottom-[-20px] w-[2px] z-0 pointer-events-none">
+                    <svg class="w-full h-full" style="overflow: visible;">
+                        <defs>
+                            <marker id="timeline-arrow-mobile" viewBox="-15 -10 20 20" refX="0" refY="0"
+                                markerWidth="20" markerHeight="20" markerUnits="userSpaceOnUse" orient="auto">
+                                <path d="M -10 -8 L 0 0 L -10 8" fill="none" stroke="#42362A" stroke-width="5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </marker>
+                        </defs>
+                        <line x1="50%" y1="0" x2="50%" y2="calc(100% - 15px)" stroke="#42362A" stroke-width="5"
+                            stroke-linecap="round" marker-end="url(#timeline-arrow-mobile)" />
                     </svg>
                 </div>
 
@@ -1198,8 +1322,18 @@
                         </div>
                     </div>
 
-                    <!-- 虛線間隙 -->
-                    <div class="w-[20px]"></div>
+                    <!-- 2026/4 目前 (手機版限定) -->
+                    <div class="mobile-only-current">
+                        <span data-t="s6_current_label"
+                            class="absolute right-[calc(100%+12px)] text-[#42362A] text-[1rem] whitespace-nowrap">目前</span>
+                        <div
+                            class="bg-white border-[3px] border-[#4FC4D9] rounded-full px-8 py-1.5 text-[#42362A] font-bold text-[1.2rem] shadow-sm">
+                            <span data-t="s6_current_date">2026/4</span>
+                        </div>
+                    </div>
+
+                    <!-- 虛線間隙 (僅限電腦版顯示) -->
+                    <div class="hidden md:block w-[20px]"></div>
 
                     <!-- Card 4 -->
                     <div
@@ -1242,7 +1376,6 @@
                 </div>
             </div>
             <div class="grass-footer">
-                <p>© 2026 Straight Banana Game Studio.</p>
             </div>
         </section>
 
@@ -1281,7 +1414,6 @@
                 </div>
             </div>
             <div class="grass-footer">
-                <p>© 2026 Straight Banana Game Studio.</p>
             </div>
         </section>
 
@@ -1293,25 +1425,24 @@
             <div class="slide-content flex flex-row items-center justify-center gap-12">
                 <!-- Circle 1 -->
                 <div data-t="s8_need_1"
-                    class="w-[280px] h-[280px] rounded-full flex items-center justify-center text-center text-2xl text-[#42362A] shadow-sm hover-float"
+                    class="w-[280px] h-[280px] rounded-full flex items-center justify-center text-center text-[1.2rem] font-medium text-[#42362A] shadow-sm hover-float"
                     style="background-color: #F9F0C1;">
                     行銷曝光
                 </div>
                 <!-- Circle 2 -->
                 <div data-t="s8_need_2"
-                    class="w-[280px] h-[280px] rounded-full flex items-center justify-center text-center text-2xl text-[#42362A] shadow-sm hover-float"
+                    class="w-[280px] h-[280px] rounded-full flex items-center justify-center text-center text-[1.2rem] font-medium text-[#42362A] shadow-sm hover-float"
                     style="background-color: #D3F3F4;">
                     在地化
                 </div>
                 <!-- Circle 3 -->
                 <div data-t="s8_need_3"
-                    class="w-[280px] h-[280px] rounded-full flex items-center justify-center text-center text-2xl text-[#42362A] shadow-sm hover-float"
+                    class="w-[280px] h-[280px] rounded-full flex items-center justify-center text-center text-[1.2rem] font-medium text-[#42362A] shadow-sm hover-float"
                     style="background-color: #D4F1CB;">
                     音樂製作
                 </div>
             </div>
             <div class="grass-footer">
-                <p>© 2026 Straight Banana Game Studio.</p>
             </div>
         </section>
 
@@ -1337,11 +1468,11 @@
                         <h3 data-t="s9_team_h" class="text-3xl font-bold mb-6 text-[#42362A]">團隊成員</h3>
                         <div class="space-y-4">
                             <div class="flex text-2xl">
-                                <span class="font-bold w-[180px] shrink-0">Luke Liu</span>
+                                <span class="font-bold w-[210px] shrink-0">Luke Liu</span>
                                 <span class="text-gray-700">Co-Founder, Game Designer</span>
                             </div>
                             <div class="flex text-2xl">
-                                <span class="font-bold w-[180px] shrink-0">Linda Huang</span>
+                                <span class="font-bold w-[210px] shrink-0">Linda Huang</span>
                                 <span class="text-gray-700">Co-Founder, Technical Artist</span>
                             </div>
                         </div>
@@ -1407,9 +1538,8 @@
             <!-- 地面與蟲蟲 -->
             <div class="ground-footer relative w-full">
                 <img src="images/ground.png" class="w-full h-auto block" alt="Ground">
-                <p class="absolute left-1/2 -translate-x-1/2 bottom-[35%] text-sm font-900 z-20">© 2026 Straight Banana
-                    Game
-                    Studio.</p>
+                <p class="absolute bottom-[35%] text-sm font-medium z-20">© 2026 Straight Banana
+                    Game Studio.</p>
                 <img src="images/worm.png" class="footer-worm !bottom-[60%]" alt="Worm">
             </div>
         </section>
@@ -1449,7 +1579,7 @@
                 },
                 ui: {
                     steam_cta: "前往 Steam 商店頁面了解更多",
-                    s1_desc: `<b>《自拍蟲蟲》是一款結合軟 Q 物理與攝影的桌面夥伴。</b><br>
+                    s1_desc: `<b class="block mb-2">《自拍蟲蟲》是一款結合軟 Q 物理與攝影的桌面夥伴。</b>
                              熱愛自拍的蟲蟲穿越蟲洞來到了缺少色彩的異世界，發現自己的手機鏡頭能夠拍出色彩，於是展開了到處自拍、找回色彩的旅程，過程中逐漸拼湊出一段溫馨的故事。內建「防老闆鍵」與番茄鐘，讓每一次專注後的短暫休息，都成為療癒與驚喜的冒險。`,
                     s1_genre_label: "<b>遊戲類型</b>",
                     s1_genre_val: "2D 物理平台<br>生產力工具",
@@ -1528,14 +1658,14 @@
                 title: { hero: "Home", s1: "Game Overview", s2: "Core Gameplay", s3: "Key Highlights", s4: "Game Loop", s5: "Target Audience", s6: "Roadmap & Progress", s7: "Marketing Strategy", s8: "Partnership Needs", s9: "About Us", s10: "Contact" },
                 ui: {
                     steam_cta: "Visit Steam Store Page for more details",
-                    s1_desc: `<b>Selfie Worm is a cozy adventure blending squishy 2D physics with photography.</b><br>
+                    s1_desc: `<b class="block mb-2">Selfie Worm is a cozy adventure blending squishy 2D physics with photography.</b>
                              A selfie-loving worm travels through a wormhole to a monochromatic world. Armed with a camera that can capture color, it embarks on a journey to restore vibrancy to the world while unravelling a heartwarming narrative. Featuring a built-in "Boss Key" and Pomodoro timer, it turns work breaks into healing times.`,
                     s1_genre_label: "<b>Genre</b>",
                     s1_genre_val: "2D Physics Platformer<br>Productivity Tool",
                     s1_playtime_label: "<b>Playtime</b>",
                     s1_playtime_val: "1.5 ~ 2 Hours<br><span class=\"text-[0.7em] opacity-80\"><br>(Main Story Only)</span>",
                     s1_tone_label: "<b>Tone</b>",
-                    s1_tone_val: "Relaxing Heartwarming<br>Memetic<br>Adorable",
+                    s1_tone_val: "Relaxing<br>Heartwarming<br>Memetic<br>Adorable",
                     s1_platforms_label: "<b>Platforms</b>",
                     s1_platforms_val: "Windows<br>macOS<br>Android<br>iOS",
                     s1_langs_label: "<b>Languages</b>",
