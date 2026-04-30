@@ -1517,18 +1517,42 @@
                 <h2 data-t="s10_contact_h" class="text-[2.5rem] font-900 mb-10 text-[#42362A]">聯絡方式</h2>
 
                 <div class="w-full max-w-[420px] flex flex-col gap-3">
-                    <!-- Button 1: Email -->
-                    <a href="mailto:straight.banana.gamedev@gmail.com"
-                        class="flex items-center relative bg-[#f5f5e6] rounded-[10px] py-4 px-6 shadow-none hover:scale-[1.05] hover:bg-[#d9d9b0] transition-all duration-200">
-                        <div class="absolute left-6 w-9 h-9 flex items-center justify-center">
-                            <img src="images/icon_email.png" class="w-full h-full object-contain" alt="Email">
-                        </div>
-                        <span class="flex-1 text-center text-[1.2rem] text-[#42362A]">Email</span>
-                    </a>
+                    <div class="relative w-full">
+                        <!-- Button 1: Email -->
+                        <a href="mailto:straight.banana.gamedev@gmail.com"
+                            class="w-full flex flex-col items-center justify-center relative bg-[#f5f5e6] rounded-[10px] py-2 px-12 shadow-none hover:scale-[1.02] hover:bg-[#d9d9b0] transition-all duration-200 overflow-hidden h-[64px]">
+                            <div
+                                class="absolute left-6 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center">
+                                <img src="images/icon_email.png" class="w-full h-full object-contain" alt="Email">
+                            </div>
+                            <div class="flex flex-col items-center leading-tight">
+                                <span class="text-[1.1rem] font-normal text-[#42362A]">Email</span>
+                                <span
+                                    class="text-[0.75rem] text-[#42362A] opacity-70 truncate max-w-full">straight.banana.gamedev@gmail.com</span>
+                            </div>
+                        </a>
+                        <!-- Copy Button (Icon only, outside) -->
+                        <button onclick="copyToClipboard('straight.banana.gamedev@gmail.com', this)"
+                            class="absolute -right-14 top-1/2 -translate-y-1/2 p-2 hover:bg-black/5 rounded-full transition-all group/copy flex items-center justify-center"
+                            title="Copy Email">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="text-[#42362A] opacity-50 group-hover/copy:opacity-100 transition-opacity">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <!-- Success Bubble -->
+                            <span
+                                class="copy-success hidden absolute -top-10 left-1/2 -translate-x-1/2 bg-[#42362A] text-white text-[12px] px-3 py-1 rounded shadow-lg animate-bounce whitespace-nowrap">
+                                複製成功
+                            </span>
+                        </button>
+                    </div>
 
                     <!-- Button 2: Linktree -->
                     <a href="https://linktr.ee/straight_banana" target="_blank"
-                        class="flex items-center relative bg-[#f5f5e6] rounded-[10px] py-4 px-6 shadow-none hover:scale-[1.05] hover:bg-[#d9d9b0] transition-all duration-200">
+                        class="flex items-center relative bg-[#f5f5e6] rounded-[10px] py-4 px-6 shadow-none hover:scale-[1.05] hover:bg-[#d9d9b0] transition-all duration-200 h-[64px]">
                         <div class="absolute left-6 w-9 h-9 flex items-center justify-center">
                             <img src="images/icon_linktree.png" class="w-full h-full object-contain" alt="Linktree">
                         </div>
@@ -1537,7 +1561,7 @@
 
                     <!-- Button 3: X -->
                     <a href="https://x.com/StrghtBanana" target="_blank"
-                        class="flex items-center relative bg-[#f5f5e6] rounded-[10px] py-4 px-6 shadow-none hover:scale-[1.05] hover:bg-[#d9d9b0] transition-all duration-200">
+                        class="flex items-center relative bg-[#f5f5e6] rounded-[10px] py-4 px-6 shadow-none hover:scale-[1.05] hover:bg-[#d9d9b0] transition-all duration-200 h-[64px]">
                         <div class="absolute left-6 w-9 h-9 flex items-center justify-center">
                             <img src="images/icon_x.png" class="w-full h-full object-contain" alt="X">
                         </div>
@@ -1546,7 +1570,7 @@
 
                     <!-- Button 4: Threads -->
                     <a href="https://www.threads.com/@straight_banana_666" target="_blank"
-                        class="flex items-center relative bg-[#f5f5e6] rounded-[10px] py-4 px-6 shadow-none hover:scale-[1.05] hover:bg-[#d9d9b0] transition-all duration-200">
+                        class="flex items-center relative bg-[#f5f5e6] rounded-[10px] py-4 px-6 shadow-none hover:scale-[1.05] hover:bg-[#d9d9b0] transition-all duration-200 h-[64px]">
                         <div class="absolute left-6 w-9 h-9 flex items-center justify-center">
                             <img src="images/icon_threads.png" class="w-full h-full object-contain" alt="Threads">
                         </div>
@@ -1555,7 +1579,7 @@
 
                     <!-- Button 5: Facebook -->
                     <a href="https://www.facebook.com/StraightBanana/" target="_blank"
-                        class="flex items-center relative bg-[#f5f5e6] rounded-[10px] py-4 px-6 shadow-none hover:scale-[1.05] hover:bg-[#d9d9b0] transition-all duration-200">
+                        class="flex items-center relative bg-[#f5f5e6] rounded-[10px] py-4 px-6 shadow-none hover:scale-[1.05] hover:bg-[#d9d9b0] transition-all duration-200 h-[64px]">
                         <div class="absolute left-6 w-9 h-9 flex items-center justify-center">
                             <img src="images/icon_fb.png" class="w-full h-full object-contain" alt="Facebook">
                         </div>
@@ -1884,6 +1908,16 @@
                 mobileMenu.classList.remove('active');
             });
         });
+
+        function copyToClipboard(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                const tooltip = btn.querySelector('.copy-success');
+                tooltip.classList.remove('hidden');
+                setTimeout(() => {
+                    tooltip.classList.add('hidden');
+                }, 1500);
+            });
+        }
 
     </script>
 </body>
