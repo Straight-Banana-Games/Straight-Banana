@@ -598,7 +598,7 @@
                                 onMouseEnter={handleMouseEnter}
                                 onMouseLeave={handleMouseLeave}
                             >
-                                <div className="aspect-video relative overflow-hidden">
+                                <div className="aspect-[4/5] md:aspect-video relative overflow-hidden">
                                     <img src={t.games.img} alt="Selfie Worm" className="w-full h-full object-cover" />
                                     <video
                                         ref={videoRef}
@@ -709,7 +709,7 @@
             ];
 
             return (
-                <section id="contact" className="bg-studio-contact min-h-[calc(100vh-110px)] flex items-start justify-center pt-[40px] pb-[40px] scroll-snap-align-start">
+                <section id="contact" className="bg-studio-contact min-h-0 md:min-h-[calc(100vh-110px)] flex items-start justify-center pt-[40px] pb-[40px] md:scroll-snap-align-start">
                     <div className="container mx-auto px-6 max-w-5xl">
                         <h2 className="text-4xl md:text-5xl font-black text-studio-text mb-8 md:mb-12">{t.contact.title}</h2>
 
