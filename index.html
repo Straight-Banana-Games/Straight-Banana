@@ -1,506 +1,302 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>正直香蕉 Straight Banana | 遊戲開發工作室</title>
-    
-    <!-- 引入 React 和 ReactDOM -->
+    <link rel="icon" type="image/png" href="images/studio_favicon.png">
+
+    <!-- React & ReactDOM -->
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-    
-    <!-- 引入 Babel 用於解析 JSX -->
+
+    <!-- Babel for JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <!-- 引入 Tailwind CSS -->
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: 選擇比較活潑的字體 -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+JP:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        banana: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#ffd543',
+                            600: '#d97706',
+                        },
+                        studio: {
+                            light: '#ffffff',
+                            bg: '#f8fafc',
+                            text: '#42362A',
+                            accent: '#3b82f6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['LINE Seed JP', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: #1a1a1a;
-            color: #f3f4f6;
+            font-family: 'LINE Seed JP', sans-serif;
+            background-color: #ffffff;
+            color: #42362A;
             overflow-x: hidden;
         }
-        
-        /* 自定義滾動條 */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1a1a1a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #FACC15; 
-            border-radius: 5px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #EAB308; 
+
+        section {
+            scroll-margin-top: 70px;
         }
 
-        /* 香蕉搖晃動畫 */
-        @keyframes banana-shake {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(-10deg); }
-            50% { transform: rotate(10deg); }
-            75% { transform: rotate(-5deg); }
-            100% { transform: rotate(0deg); }
-        }
-        
-        .hover-shake:hover {
-            animation: banana-shake 0.5s ease-in-out;
+        .highlight-yellow {
+            background-color: #ffd543;
+            padding: 0 6px;
+            display: inline;
         }
 
-        /* 故障文字效果 (Glitch) */
-        .glitch-text {
-            position: relative;
-        }
-        .glitch-text::before, .glitch-text::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .glitch-text::before {
-            left: 2px;
-            text-shadow: -1px 0 #ff00c1;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim 5s infinite linear alternate-reverse;
-        }
-        .glitch-text::after {
-            left: -2px;
-            text-shadow: -1px 0 #00fff9;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        .highlight-yellow-full {
+            background-color: #ffd543;
+            padding: 2px 6px;
+            display: inline;
         }
 
-        @keyframes glitch-anim {
-            0% { clip: rect(30px, 9999px, 10px, 0); }
-            20% { clip: rect(80px, 9999px, 90px, 0); }
-            40% { clip: rect(10px, 9999px, 50px, 0); }
-            60% { clip: rect(60px, 9999px, 20px, 0); }
-            80% { clip: rect(40px, 9999px, 70px, 0); }
-            100% { clip: rect(20px, 9999px, 80px, 0); }
+        @keyframes copyFadeUp {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 5px);
+            }
+
+            20% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+
+            80% {
+                opacity: 1;
+                transform: translate(-50%, -2px);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -10px);
+            }
         }
-        @keyframes glitch-anim2 {
-            0% { clip: rect(15px, 9999px, 60px, 0); }
-            20% { clip: rect(45px, 9999px, 30px, 0); }
-            40% { clip: rect(85px, 9999px, 15px, 0); }
-            60% { clip: rect(25px, 9999px, 75px, 0); }
-            80% { clip: rect(65px, 9999px, 35px, 0); }
-            100% { clip: rect(55px, 9999px, 45px, 0); }
+
+        .animate-copy-success {
+            animation: copyFadeUp 1s ease-out forwards;
         }
     </style>
 </head>
+
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState, useEffect, useRef } = React;
 
-        // --- 翻譯資料 ---
+        // --- Translations ---
         const translations = {
             zh: {
-                nav: {
-                    about: '關於我們',
-                    features: '工作室特色',
-                    games: '遊戲作品',
-                    contact: '聯絡方式'
-                },
-                hero: {
-                    tag: 'Indie Game Studio',
-                    title: '正直香蕉',
-                    subtitlePrefix: 'Straight',
-                    subtitleSuffix: 'Banana',
-                    desc: '我們不只是做遊戲，我們製造混亂與歡樂。\n致力於開發那些讓你嘴角上揚、腦洞大開的不尋常體驗。',
-                    btnGames: '看作品',
-                    btnContact: '聯絡我們'
-                },
-                features: {
-                    sectionTitle: '我們是誰？',
-                    items: [
-                        {
-                            title: "絕對不正經",
-                            desc: "正經的遊戲太多了，我們專注於那些讓你在地鐵上忍不住笑出聲的時刻。"
-                        },
-                        {
-                            title: "創意基因",
-                            desc: "拒絕換皮遊戲。每一個像素、每一行代碼都注入了我們獨特的怪異 DNA。"
-                        },
-                        {
-                            title: "玩家至上",
-                            desc: "我們聽取社群的聲音（雖然有時候會故意曲解意思來製造驚喜）。"
-                        }
-                    ],
-                    aboutTitle: '正直香蕉哲學',
-                    aboutDesc1: '為什麼叫「正直香蕉」？因為香蕉本來就是彎的，想要它變直，就得打破常規、用力過猛，或者換個角度看世界。',
-                    aboutDesc2: '這就是我們的開發理念：用最硬核的技術，做最軟爛（有趣）的遊戲。我們是一群熱愛遊戲的開發者，致力於為這個世界增添一點黃色的快樂能量。'
-                },
+                nav: { home: '首頁', games: '我們的遊戲', about: '關於我們', contact: '聯絡我們' },
+                hero: { title: '我們是', titleHighlight: '正直香蕉', subtitle: '來自台灣的雙人獨立遊戲工作室', btnGames: '我們的遊戲', btnContact: '聯絡我們' },
                 games: {
-                    sectionTitle: '作品展示',
-                    sectionDesc: '我們的心血結晶（還有一些熬夜掉的頭髮）',
-                    github: '查看 GitHub',
-                    items: [
-                        {
-                            title: "香蕉滑倒大冒險",
-                            genre: "動作 / 惡搞",
-                            desc: "扮演一根不想被吃掉的香蕉，利用滑倒物理引擎，絆倒所有試圖抓住你的廚師。",
-                            status: "開發中"
-                        },
-                        {
-                            title: "像素貓咪格鬥",
-                            genre: "格鬥 / 像素風",
-                            desc: "可愛的貓咪，硬核的連招。每一拳都帶有肉球的柔軟與破壞力。",
-                            status: "已發布"
-                        },
-                        {
-                            title: "辦公室生存法則",
-                            genre: "策略 / 模擬",
-                            desc: "在極度無聊的辦公室裡，通過摸魚、喝咖啡和假裝打字來存活下去。",
-                            status: "原型階段"
-                        }
-                    ],
-                    learnMore: '了解更多'
+                    title: '我們的遊戲',
+                    tag: '2026/5 試玩版釋出!!',
+                    name: '自拍蟲蟲',
+                    desc: '這是一款結合軟 Q 物理與攝影的桌面夥伴。熱愛自拍的蟲蟲發現鏡頭能拍出色彩，展開找回色彩的旅程。內建「防老闆鍵」與番茄鐘，讓專注後的休息成為療癒冒險。'
                 },
-                footer: {
-                    title: '準備好開始胡鬧了嗎？',
-                    desc: '無論您是有瘋狂的遊戲點子，還是想找我們合作，或者只是想傳一張香蕉的迷因圖給我們，我們都歡迎。',
-                    form: {
-                        name: '您的大名',
-                        namePlace: '蕉農一號',
-                        email: 'Email',
-                        emailPlace: 'banana@example.com',
-                        message: '訊息內容',
-                        messagePlace: '嗨！我覺得你們的遊戲...',
-                        btn: '發送訊息'
-                    },
-                    copyright: 'Straight Banana Studio. Made with'
+                about: {
+                    title: '關於我們',
+                    introTitle: '我們熱愛製作',
+                    introDesc: '有點奇怪、有點搞笑、又有點動人心弦的遊戲。\n特別喜歡那種說不上來的微妙感，',
+                    introHighlight: '彷彿一根筆直的香蕉。',
+                    teamTitle: '團隊成員',
+                    members: [
+                        { name: "Luke Liu", role: "Co-Founder, Game Designer", intro: "做遊戲比玩遊戲好玩。" },
+                        { name: "Linda Huang", role: "Co-Founder, Technical Artist", intro: "細心觀察世界，轉化為玩家的驚喜。" },
+                    ]
+                },
+                contact: {
+                    title: '聯絡我們',
+                    copySuccess: '複製成功'
                 }
             },
             en: {
-                nav: {
-                    about: 'About Us',
-                    features: 'Features',
-                    games: 'Games',
-                    contact: 'Contact'
-                },
-                hero: {
-                    tag: 'Indie Game Studio',
-                    title: 'Straight Banana',
-                    subtitlePrefix: 'Straight',
-                    subtitleSuffix: 'Banana',
-                    desc: 'We don\'t just make games, we manufacture chaos and joy.\nDedicated to creating unusual experiences that make you grin and blow your mind.',
-                    btnGames: 'Our Games',
-                    btnContact: 'Contact Us'
-                },
-                features: {
-                    sectionTitle: 'Who We Are',
-                    items: [
-                        {
-                            title: "Absolutely Unserious",
-                            desc: "There are too many serious games. We focus on moments that make you laugh out loud on the subway."
-                        },
-                        {
-                            title: "Creative DNA",
-                            desc: "No reskins here. Every pixel and line of code is injected with our unique, weird DNA."
-                        },
-                        {
-                            title: "Players First",
-                            desc: "We listen to the community (though sometimes we deliberately misinterpret things to create surprises)."
-                        }
-                    ],
-                    aboutTitle: 'Straight Banana Philosophy',
-                    aboutDesc1: 'Why "Straight Banana"? Because bananas are naturally curved. To make one straight, you have to break the rules, try too hard, or just look at the world differently.',
-                    aboutDesc2: 'That\'s our dev philosophy: using hardcore tech to make "soft" (fun) games. We are devs who love adding a little yellow energy to the world.'
-                },
+                nav: { home: 'Home', games: 'Games', about: 'About', contact: 'Contact' },
+                hero: { title: 'We are ', titleHighlight: 'Straight Banana', subtitle: 'A Two-Person Indie Game Studio from Taiwan', btnGames: 'Our Games', btnContact: 'Contact Us' },
                 games: {
-                    sectionTitle: 'Our Games',
-                    sectionDesc: 'Our blood, sweat, and tears (and some hair lost to late nights)',
-                    github: 'Check GitHub',
-                    items: [
-                        {
-                            title: "Banana Slip Adventure",
-                            genre: "Action / Comedy",
-                            desc: "Play as a banana avoiding being eaten. Use physics to slip up every chef trying to catch you.",
-                            status: "In Dev"
-                        },
-                        {
-                            title: "Pixel Cat Fight",
-                            genre: "Fighting / Pixel Art",
-                            desc: "Cute cats, hardcore combos. Every punch packs the softness and destruction of a paw pad.",
-                            status: "Released"
-                        },
-                        {
-                            title: "Office Survival Guide",
-                            genre: "Strategy / Sim",
-                            desc: "Survive a boring office by slacking off, drinking coffee, and pretending to type.",
-                            status: "Prototype"
-                        }
-                    ],
-                    learnMore: 'Learn More'
+                    title: 'Our Games',
+                    tag: 'Demo releasing 2026/5!!',
+                    name: 'Selfie Worm',
+                    desc: 'A desktop companion blending squishy physics with photography. A selfie-loving worm discovers color through the lens and embarks on a journey to find it all. Features a "Boss Key" and Pomodoro timer.'
                 },
-                footer: {
-                    title: 'Ready to Monkey Around?',
-                    desc: 'Whether you have crazy game ideas, want to collab, or just want to send us a banana meme, we welcome it.',
-                    form: {
-                        name: 'Your Name',
-                        namePlace: 'Banana Farmer #1',
-                        email: 'Email',
-                        emailPlace: 'banana@example.com',
-                        message: 'Message',
-                        messagePlace: 'Hi! I think your games are...',
-                        btn: 'Send Message'
-                    },
-                    copyright: 'Straight Banana Studio. Made with'
+                about: {
+                    title: 'About Us',
+                    introTitle: 'We Love Creating',
+                    introDesc: 'Games that are a bit weird, a bit funny, and a bit moving.\nWe especially love that indescribable subtle feeling,',
+                    introHighlight: 'just like a straight banana.',
+                    teamTitle: 'Team Members',
+                    members: [
+                        { name: "Luke Liu", role: "Co-Founder, Game Designer", intro: "Making games is more fun than playing them." },
+                        { name: "Linda Huang", role: "Co-Founder, Technical Artist", intro: "Observe the world carefully, turn it into surprises for players." },
+                    ]
+                },
+                contact: {
+                    title: 'Contact Us',
+                    copySuccess: 'Email Copied'
                 }
             }
         };
 
-        // --- 內建圖標元件 (解決 Lucide 引用錯誤) ---
+        // --- Icons ---
         const Icon = ({ children, className }) => (
-            <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="24" 
-                height="24" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                className={className}
-            >
-                {children}
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{children}</svg>
         );
+        const MenuIcon = ({ className }) => <Icon className={className}><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></Icon>;
+        const XIcon = ({ className }) => <Icon className={className}><path d="M18 6 6 18" /><path d="m6 6 12 12" /></Icon>;
 
-        const Menu = ({ className }) => <Icon className={className}><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></Icon>;
-        const X = ({ className }) => <Icon className={className}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></Icon>;
-        const ArrowRight = ({ className }) => <Icon className={className}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></Icon>;
-        const Gamepad2 = ({ className }) => <Icon className={className}><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="2"/></Icon>;
-        const Zap = ({ className }) => <Icon className={className}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></Icon>;
-        const MessageCircle = ({ className }) => <Icon className={className}><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></Icon>;
-        const Dna = ({ className }) => <Icon className={className}><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="M9 22c1.8-2 2.5-4 2.8-6"/><path d="M15 2c-1.8 2-2.5 4-2.8 6"/></Icon>;
-        const Mail = ({ className }) => <Icon className={className}><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></Icon>;
-        const Github = ({ className }) => <Icon className={className}><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></Icon>;
-        const Twitter = ({ className }) => <Icon className={className}><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></Icon>;
-        const Globe = ({ className }) => <Icon className={className}><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></Icon>;
+        // --- Components ---
 
-        // 香蕉 SVG 圖標組件
-        const BananaIcon = ({ className }) => (
-            <svg 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                className={className}
-            >
-                <path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5" />
-                <path d="M5.15 17a9 9 0 1 0 17.77-9" />
-                <path d="M15 8c-1.5 2-2.5 5-2.5 8" />
-                <path d="M4 13a3 3 0 0 0-1 5" />
-            </svg>
-        );
-
-        // 導航欄
-        const Navbar = ({ lang, setLang }) => {
-            const [isOpen, setIsOpen] = useState(false);
+        /* ===== NAVBAR ===== */
+        const Navbar = ({ lang, setLang, t }) => {
             const [scrolled, setScrolled] = useState(false);
-            const t = translations[lang].nav;
-
+            const [mobileOpen, setMobileOpen] = useState(false);
             useEffect(() => {
-                const handleScroll = () => {
-                    setScrolled(window.scrollY > 50);
-                };
+                const handleScroll = () => setScrolled(window.scrollY > 50);
                 window.addEventListener('scroll', handleScroll);
                 return () => window.removeEventListener('scroll', handleScroll);
             }, []);
 
-            const toggleLang = () => {
-                setLang(prev => prev === 'zh' ? 'en' : 'zh');
-            };
-
-            const navLinks = [
-                { name: t.about, href: '#about' },
-                { name: t.features, href: '#features' },
-                { name: t.games, href: '#games' },
-                { name: t.contact, href: '#contact' },
+            const links = [
+                { name: t.nav.home, href: '#home' },
+                { name: t.nav.games, href: '#games' },
+                { name: t.nav.about, href: '#about' },
+                { name: t.nav.contact, href: '#contact' },
             ];
 
             return (
-                <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md py-2 border-b border-yellow-500/20' : 'bg-transparent py-4'}`}>
-                    <div className="container mx-auto px-6 flex justify-between items-center">
-                        <a href="#" className="flex items-center space-x-2 group">
-                            <div className="bg-yellow-400 p-2 rounded-lg text-black group-hover:rotate-12 transition-transform duration-300">
-                                <BananaIcon className="w-6 h-6" />
-                            </div>
-                            <span className="text-xl font-black tracking-wider text-white">
-                                STRAIGHT <span className="text-yellow-400">BANANA</span>
-                            </span>
+                <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur shadow-sm py-2' : 'bg-white/90 backdrop-blur py-4'}`}>
+                    <div className="container mx-auto px-6 max-w-5xl flex justify-between items-center">
+                        <a href="#home" className="flex items-center">
+                            <img src="images/studio_logo_horizontal.png" alt="Straight Banana Logo" className="h-7 md:h-8 object-contain" />
                         </a>
-
-                        {/* Desktop Menu */}
                         <div className="hidden md:flex items-center space-x-8">
-                            {navLinks.map((link) => (
-                                <a 
-                                    key={link.name} 
-                                    href={link.href}
-                                    className="text-gray-300 hover:text-yellow-400 font-bold transition-colors text-sm tracking-wide"
-                                >
+                            {links.map(link => (
+                                <a key={link.href} href={link.href} className="text-[13px] font-bold text-[#42362A] hover:text-banana-500 transition-colors">
                                     {link.name}
                                 </a>
                             ))}
-                            {/* Language Switcher */}
-                            <button 
-                                onClick={toggleLang}
-                                className="flex items-center space-x-1 text-gray-300 hover:text-yellow-400 font-bold transition-colors border border-neutral-700 px-3 py-1 rounded-full hover:bg-neutral-800"
+                            <button
+                                onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')}
+                                className="flex items-center bg-[#E8E8E8] rounded-full px-0.5 py-0.5"
                             >
-                                <Globe className="w-4 h-4" />
-                                <span className="text-sm">{lang === 'zh' ? 'EN' : '中'}</span>
+                                <span className={`text-[10px] px-2.5 py-1 rounded-full font-black transition-all ${lang === 'zh' ? 'bg-[#42362A] text-white' : 'text-[#999]'}`}>中</span>
+                                <span className={`text-[10px] px-2.5 py-1 rounded-full font-black transition-all ${lang === 'en' ? 'bg-[#42362A] text-white' : 'text-[#999]'}`}>EN</span>
                             </button>
                         </div>
-
-                        {/* Mobile Menu Button Group */}
-                        <div className="md:hidden flex items-center space-x-4">
-                            <button 
-                                onClick={toggleLang}
-                                className="text-white hover:text-yellow-400 flex items-center gap-1 border border-neutral-700 px-2 py-1 rounded-lg"
-                            >
-                                <Globe className="w-5 h-5" />
-                                <span className="text-xs font-bold">{lang.toUpperCase()}</span>
-                            </button>
-                            <button 
-                                className="text-white hover:text-yellow-400"
-                                onClick={() => setIsOpen(!isOpen)}
-                            >
-                                {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                            </button>
-                        </div>
+                        <button className="md:hidden text-[#42362A]" onClick={() => setMobileOpen(!mobileOpen)}>
+                            {mobileOpen ? <XIcon /> : <MenuIcon />}
+                        </button>
                     </div>
-
-                    {/* Mobile Menu Overlay */}
-                    {isOpen && (
-                        <div className="md:hidden absolute top-full left-0 w-full bg-neutral-900 border-t border-neutral-800 p-4 flex flex-col space-y-4 shadow-xl">
-                            {navLinks.map((link) => (
-                                <a 
-                                    key={link.name} 
-                                    href={link.href}
-                                    className="text-white hover:text-yellow-400 font-bold block py-2 border-b border-neutral-800"
-                                    onClick={() => setIsOpen(false)}
-                                >
-                                    {link.name}
-                                </a>
-                            ))}
+                    {mobileOpen && (
+                        <div className="md:hidden bg-white border-t border-slate-100 p-6 absolute top-full left-0 w-full shadow-xl">
+                            <div className="flex flex-col space-y-4">
+                                {links.map(link => (
+                                    <a key={link.href} href={link.href} className="text-lg font-bold text-[#42362A]" onClick={() => setMobileOpen(false)}>
+                                        {link.name}
+                                    </a>
+                                ))}
+                            </div>
                         </div>
                     )}
                 </nav>
             );
         };
 
-        // 英雄區塊 (Hero Section)
-        const Hero = ({ lang }) => {
-            const t = translations[lang].hero;
-            return (
-                <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-                    {/* 背景裝飾 */}
-                    <div className="absolute inset-0 z-0">
-                        <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-500/10 rounded-full blur-3xl animate-pulse"></div>
-                        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+        /* ===== HOME / HERO ===== */
+        const Home = ({ t }) => (
+            <section id="home" className="bg-white pt-32 pb-24 md:pt-40 md:pb-32">
+                <div className="container mx-auto px-6 max-w-5xl">
+                    <h1 className="text-5xl md:text-7xl font-black text-[#42362A] leading-tight mb-3">
+                        {t.hero.title}<span className="highlight-yellow">{t.hero.titleHighlight}</span>
+                    </h1>
+                    <p className="text-xl md:text-3xl font-bold text-[#42362A] mb-10">
+                        {t.hero.subtitle}
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                        <a href="#games" className="bg-banana-500 text-[#42362A] px-7 py-3 rounded-full font-black text-base hover:brightness-105 transition-all">
+                            {t.hero.btnGames}
+                        </a>
+                        <a href="#contact" className="bg-[#D9CDBE] text-[#42362A] px-7 py-3 rounded-full font-black text-base hover:brightness-105 transition-all">
+                            {t.hero.btnContact}
+                        </a>
                     </div>
+                </div>
+            </section>
+        );
 
-                    <div className="container mx-auto px-6 relative z-10 text-center">
-                        <div className="inline-block mb-4 px-4 py-1 border border-yellow-500/50 rounded-full bg-yellow-500/10 text-yellow-400 text-sm font-bold tracking-widest uppercase">
-                            {t.tag}
-                        </div>
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight text-white glitch-text" data-text={t.title}>
-                            {t.title}
-                        </h1>
-                        <h2 className="text-3xl md:text-5xl font-bold text-gray-400 mb-8">
-                            {t.subtitlePrefix} <span className="text-yellow-400 underline decoration-wavy decoration-4 underline-offset-8">{t.subtitleSuffix}</span>
-                        </h2>
-                        <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed whitespace-pre-line">
-                            {t.desc}
-                        </p>
-                        <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-                            <a href="#games" className="group relative px-8 py-4 bg-yellow-400 text-black font-black text-lg rounded-xl overflow-hidden transition-transform hover:scale-105 active:scale-95">
-                                <span className="relative z-10 flex items-center gap-2">
-                                    {t.btnGames} <Gamepad2 className="w-5 h-5" />
-                                </span>
-                                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                            </a>
-                            <a href="#contact" className="px-8 py-4 border-2 border-neutral-700 text-white font-bold text-lg rounded-xl hover:bg-neutral-800 transition-colors">
-                                {t.btnContact}
-                            </a>
-                        </div>
-                    </div>
-                </section>
-            );
-        };
-
-        // 關於與特色
-        const Features = ({ lang }) => {
-            const t = translations[lang].features;
-            const features = [
-                {
-                    icon: <Zap className="w-8 h-8 text-yellow-400" />,
-                    ...t.items[0]
-                },
-                {
-                    icon: <Dna className="w-8 h-8 text-purple-400" />,
-                    ...t.items[1]
-                },
-                {
-                    icon: <MessageCircle className="w-8 h-8 text-green-400" />,
-                    ...t.items[2]
-                }
-            ];
+        /* ===== GAMES / PROJECTS ===== */
+        const Projects = ({ t }) => {
+            const videoRef = useRef(null);
+            const handleMouseEnter = () => { if (videoRef.current) { videoRef.current.currentTime = 0; videoRef.current.play(); } };
+            const handleMouseLeave = () => { if (videoRef.current) { videoRef.current.pause(); } };
 
             return (
-                <section id="features" className="py-24 bg-neutral-900">
-                    <div className="container mx-auto px-6">
-                        <div className="text-center mb-16">
-                            <h3 className="text-3xl md:text-4xl font-black mb-4 text-white">{t.sectionTitle}</h3>
-                            <div className="w-24 h-2 bg-yellow-400 mx-auto rounded-full"></div>
-                        </div>
+                <section id="games" className="bg-[#E8E8E8] py-20 md:py-28">
+                    <div className="container mx-auto px-6 max-w-5xl">
+                        <h2 className="text-4xl md:text-5xl font-black text-[#42362A] mb-10">{t.games.title}</h2>
 
-                        <div className="grid md:grid-cols-3 gap-8">
-                            {features.map((feature, idx) => (
-                                <div key={idx} className="bg-neutral-800/50 p-8 rounded-2xl border border-neutral-700 hover:border-yellow-400/50 transition-all hover:-translate-y-2 duration-300 group">
-                                    <div className="bg-neutral-900 w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                                        {feature.icon}
-                                    </div>
-                                    <h4 className="text-xl font-bold text-white mb-3">{feature.title}</h4>
-                                    <p className="text-gray-400 leading-relaxed">
-                                        {feature.desc}
-                                    </p>
+                        <div className="bg-white rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-sm">
+                            {/* Left: Image / Video */}
+                            <div className="w-full md:w-[58%] relative overflow-hidden" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                                <div className="aspect-[16/10]">
+                                    <img src="images/key_art_landscape_zh.png" alt="Selfie Worm" className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0" />
+                                    <video ref={videoRef} className="absolute inset-0 w-full h-full object-cover opacity-0 hover:opacity-100 transition-opacity duration-500" src="videos/selfieworm_trailer_tw.webm" muted loop playsInline></video>
                                 </div>
-                            ))}
-                        </div>
-                        
-                        {/* 關於我們文字區 */}
-                        <div id="about" className="mt-24 max-w-4xl mx-auto bg-black p-8 md:p-12 rounded-3xl border border-neutral-800 relative overflow-hidden">
-                            <div className="absolute -right-10 -top-10 w-40 h-40 bg-yellow-400/20 rounded-full blur-3xl"></div>
-                            <div className="flex flex-col md:flex-row items-center gap-8">
-                                <div className="flex-shrink-0">
-                                    <div className="w-32 h-32 bg-yellow-400 rounded-full flex items-center justify-center text-black shadow-[0_0_30px_rgba(250,204,21,0.3)]">
-                                        <BananaIcon className="w-16 h-16 hover-shake cursor-pointer" />
-                                    </div>
+                                <div className="absolute top-3 left-3 bg-banana-500 text-[#42362A] px-3 py-1 rounded-full text-[10px] font-black">
+                                    {t.games.tag}
                                 </div>
+                            </div>
+
+                            {/* Right: Info */}
+                            <div className="p-7 md:p-8 flex-1 flex flex-col justify-between">
                                 <div>
-                                    <h3 className="text-2xl font-bold text-white mb-4">{t.aboutTitle}</h3>
-                                    <p className="text-gray-300 mb-4">
-                                        {t.aboutDesc1}
-                                    </p>
-                                    <p className="text-gray-300">
-                                        {t.aboutDesc2}
-                                    </p>
+                                    <h3 className="text-2xl font-black text-[#42362A] mb-3">{t.games.name}</h3>
+                                    <p className="text-[13px] text-[#666] leading-relaxed">{t.games.desc}</p>
+                                </div>
+
+                                <div className="mt-6">
+                                    <a href="https://store.steampowered.com/app/4333980/_/" target="_blank" className="inline-flex items-center bg-[#171a21] text-white rounded-full px-5 py-2.5 hover:bg-[#2a475e] transition-all mb-4">
+                                        <img src="images/steam_logo_w.png" className="h-5 mr-2" alt="Steam" />
+                                        <span className="text-sm font-bold">STEAM</span>
+                                    </a>
+                                    <div className="flex gap-5 text-[12px] text-[#999]">
+                                        <a href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=drive_link" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 underline hover:text-[#42362A] transition-colors">
+                                            Press Kit <img src="images/icon_linking.png" className="w-3.5 h-3.5 inline" />
+                                        </a>
+                                        <a href="pitch-deck.html" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 underline hover:text-[#42362A] transition-colors">
+                                            Pitch Deck <img src="images/icon_linking.png" className="w-3.5 h-3.5 inline" />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -509,145 +305,123 @@
             );
         };
 
-        // 遊戲展示
-        const Games = ({ lang }) => {
-            const t = translations[lang].games;
-            const games = [
-                {
-                    color: "from-yellow-400 to-orange-500",
-                    ...t.items[0]
-                },
-                {
-                    color: "from-purple-500 to-indigo-600",
-                    ...t.items[1]
-                },
-                {
-                    color: "from-blue-400 to-cyan-500",
-                    ...t.items[2]
-                }
-            ];
+        /* ===== ABOUT + TEAM ===== */
+        const About = ({ t }) => (
+            <section id="about" className="bg-white py-20 md:py-28">
+                <div className="container mx-auto px-6 max-w-5xl">
+                    {/* Section title */}
+                    <h2 className="text-4xl md:text-5xl font-black text-[#42362A] mb-12">{t.about.title}</h2>
 
-            return (
-                <section id="games" className="py-24 bg-black relative">
-                     <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9IiMzMzMiLz48L3N2Zz4=')] opacity-20"></div>
-                    <div className="container mx-auto px-6 relative z-10">
-                        <div className="flex flex-col md:flex-row justify-between items-end mb-16">
-                            <div>
-                                <h3 className="text-4xl md:text-5xl font-black text-white mb-2">{t.sectionTitle}</h3>
-                                <p className="text-gray-400">{t.sectionDesc}</p>
-                            </div>
-                            <a href="#" className="hidden md:flex items-center text-yellow-400 font-bold hover:text-white transition-colors mt-4 md:mt-0">
-                                {t.github} <ArrowRight className="w-4 h-4 ml-2" />
-                            </a>
+                    {/* Intro: text left, logo right */}
+                    <div className="flex flex-col md:flex-row items-start gap-10 mb-20">
+                        <div className="flex-1">
+                            <h3 className="text-3xl md:text-4xl font-black text-[#42362A] leading-snug mb-1">
+                                <span className="highlight-yellow">{t.about.introTitle}</span>
+                            </h3>
+                            <p className="text-lg md:text-xl font-bold text-[#42362A] leading-relaxed whitespace-pre-line">
+                                {t.about.introDesc}
+                                <span className="highlight-yellow-full">{t.about.introHighlight}</span>
+                            </p>
                         </div>
+                        <div className="w-full md:w-[35%] flex justify-center md:justify-end flex-shrink-0">
+                            <img src="images/studio_logo.png" alt="Straight Banana" className="w-[200px] md:w-[220px]" />
+                        </div>
+                    </div>
 
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {games.map((game, idx) => (
-                                <div key={idx} className="group relative bg-neutral-900 rounded-3xl overflow-hidden border border-neutral-800 hover:border-yellow-500/50 transition-all duration-500">
-                                    {/* 模擬遊戲封面圖 */}
-                                    <div className={`h-48 w-full bg-gradient-to-br ${game.color} relative overflow-hidden`}>
-                                        <div className="absolute inset-0 flex items-center justify-center opacity-30 group-hover:opacity-10 transition-opacity duration-500">
-                                            <Gamepad2 className="w-24 h-24 text-black" />
-                                        </div>
-                                        <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-white border border-white/10">
-                                            {game.status}
-                                        </div>
-                                    </div>
-                                    
-                                    <div className="p-8">
-                                        <div className="text-sm font-bold text-yellow-500 mb-2">{game.genre}</div>
-                                        <h4 className="text-2xl font-bold text-white mb-3 group-hover:text-yellow-400 transition-colors">{game.title}</h4>
-                                        <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                                            {game.desc}
-                                        </p>
-                                        <button className="w-full py-3 rounded-xl bg-neutral-800 text-white font-bold hover:bg-white hover:text-black transition-all duration-300">
-                                            {t.learnMore}
-                                        </button>
-                                    </div>
+                    {/* Team: title left, cards right */}
+                    <div className="flex flex-col md:flex-row gap-8 md:gap-12">
+                        <div className="w-full md:w-[22%] flex-shrink-0">
+                            <h3 className="text-3xl md:text-4xl font-black text-[#42362A] leading-tight">{t.about.teamTitle}</h3>
+                        </div>
+                        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-5">
+                            {t.about.members.map((m, idx) => (
+                                <div key={idx} className="bg-white p-8 rounded-xl border border-[#E8E8E8] flex flex-col">
+                                    <h4 className="text-xl font-black text-[#42362A] mb-0.5">{m.name}</h4>
+                                    <p className="text-[#999] text-[12px] font-bold mb-5">{m.role}</p>
+                                    <p className="text-[#666] text-sm leading-relaxed">{m.intro}</p>
                                 </div>
                             ))}
                         </div>
-                        
-                        <div className="mt-8 text-center md:hidden">
-                             <a href="#" className="inline-flex items-center text-yellow-400 font-bold hover:text-white transition-colors">
-                                {t.github} <ArrowRight className="w-4 h-4 ml-2" />
-                            </a>
+                    </div>
+                </div>
+            </section>
+        );
+
+        /* ===== CONTACT ===== */
+        const Contact = ({ t }) => {
+            const [copyStatus, setCopyStatus] = useState(false);
+            const email = "straight.banana.gamedev@gmail.com";
+
+            const copyEmail = () => {
+                navigator.clipboard.writeText(email);
+                setCopyStatus(true);
+                setTimeout(() => setCopyStatus(false), 2000);
+            };
+
+            const socialLinks = [
+                { name: "Linktree", icon: "images/icon_linktree.png", url: "https://linktr.ee/straight_banana" },
+                { name: "X (Twitter)", icon: "images/icon_x.png", url: "https://x.com/StrghtBanana" },
+                { name: "Threads", icon: "images/icon_threads.png", url: "https://www.threads.com/@straight_banana_666" },
+                { name: "Facebook", icon: "images/icon_fb.png", url: "https://www.facebook.com/StraightBanana/" },
+            ];
+
+            return (
+                <section id="contact" className="bg-banana-500 py-20 md:py-28">
+                    <div className="container mx-auto px-6 max-w-5xl">
+                        <h2 className="text-4xl md:text-5xl font-black text-[#42362A] mb-12">{t.contact.title}</h2>
+
+                        <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
+                            {/* Email with copy button */}
+                            <div className="relative w-full flex items-center">
+                                <a href={`mailto:${email}`} className="flex-1 flex flex-col items-center justify-center bg-white rounded-full py-3 px-14 hover:scale-[1.01] transition-all duration-200 h-[64px] relative">
+                                    <div className="absolute left-5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center">
+                                        <img src="images/icon_email.png" className="w-full h-full object-contain" alt="Email" />
+                                    </div>
+                                    <span className="text-[15px] font-black text-[#42362A]">Email</span>
+                                    <span className="text-[10px] text-[#42362A]/50">{email}</span>
+                                </a>
+                                <button onClick={copyEmail} className="ml-3 p-2 hover:bg-black/5 rounded-full transition-all relative flex-shrink-0">
+                                    <img src="images/icon_duplicate.png" className="w-5 h-5 opacity-50 hover:opacity-100 transition-opacity" />
+                                    {copyStatus && (
+                                        <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#42362A] text-white text-[10px] px-3 py-1 rounded-full whitespace-nowrap animate-copy-success">
+                                            {t.contact.copySuccess}
+                                        </span>
+                                    )}
+                                </button>
+                            </div>
+
+                            {/* Social links */}
+                            {socialLinks.map((link, idx) => (
+                                <a key={idx} href={link.url} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center relative bg-white rounded-full py-4 px-6 hover:scale-[1.01] transition-all duration-200 h-[56px]">
+                                    <div className="absolute left-5 w-8 h-8 flex items-center justify-center">
+                                        <img src={link.icon} className="w-full h-full object-contain" alt={link.name} />
+                                    </div>
+                                    <span className="font-black text-[15px] text-[#42362A]">{link.name}</span>
+                                </a>
+                            ))}
+                        </div>
+
+                        <div className="mt-20 text-center">
+                            <p className="text-[#42362A]/30 text-[10px] font-bold tracking-widest">
+                                © 2026 Straight Banana Game Studio.
+                            </p>
                         </div>
                     </div>
                 </section>
             );
         };
 
-        // 聯絡我們與頁尾
-        const Footer = ({ lang }) => {
-            const t = translations[lang].footer;
-            return (
-                <footer id="contact" className="bg-neutral-900 border-t border-neutral-800">
-                    <div className="container mx-auto px-6 py-16">
-                        <div className="grid md:grid-cols-2 gap-12 items-center">
-                            <div>
-                                <h3 className="text-3xl font-black text-white mb-6">{t.title}</h3>
-                                <p className="text-gray-400 mb-8 max-w-md">
-                                    {t.desc}
-                                </p>
-                                <div className="space-y-4">
-                                    <a href="mailto:hello@straightbanana.studio" className="flex items-center space-x-4 text-white hover:text-yellow-400 transition-colors bg-neutral-800 p-4 rounded-xl border border-neutral-700 w-fit">
-                                        <Mail className="w-5 h-5" />
-                                        <span className="font-bold">hello@straightbanana.studio</span>
-                                    </a>
-                                    <div className="flex space-x-4 mt-6">
-                                        <a href="#" className="w-12 h-12 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-yellow-400 hover:text-black transition-all duration-300">
-                                            <Github className="w-5 h-5" />
-                                        </a>
-                                        <a href="#" className="w-12 h-12 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-[#1DA1F2] hover:text-white transition-all duration-300">
-                                            <Twitter className="w-5 h-5" />
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            {/* 簡易表單 */}
-                            <form className="bg-black p-8 rounded-3xl border border-neutral-800 shadow-2xl" onSubmit={(e) => e.preventDefault()}>
-                                <div className="mb-4">
-                                    <label className="block text-gray-500 text-sm font-bold mb-2">{t.form.name}</label>
-                                    <input type="text" className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-yellow-400 transition-colors" placeholder={t.form.namePlace} />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-500 text-sm font-bold mb-2">{t.form.email}</label>
-                                    <input type="email" className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-yellow-400 transition-colors" placeholder={t.form.emailPlace} />
-                                </div>
-                                <div className="mb-6">
-                                    <label className="block text-gray-500 text-sm font-bold mb-2">{t.form.message}</label>
-                                    <textarea rows="4" className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-yellow-400 transition-colors" placeholder={t.form.messagePlace}></textarea>
-                                </div>
-                                <button className="w-full bg-yellow-400 text-black font-black py-4 rounded-xl hover:bg-yellow-300 transition-colors flex items-center justify-center gap-2">
-                                    {t.form.btn} <Zap className="w-4 h-4" />
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    
-                    <div className="border-t border-neutral-800 bg-black py-8 text-center">
-                        <p className="text-gray-600 text-sm flex items-center justify-center gap-2">
-                            © {new Date().getFullYear()} {t.copyright} <BananaIcon className="w-4 h-4 text-yellow-400" /> and Chaos.
-                        </p>
-                    </div>
-                </footer>
-            );
-        };
-
-        // 主應用
+        /* ===== APP ===== */
         const App = () => {
-            // 預設語言為中文 'zh'
             const [lang, setLang] = useState('zh');
-
+            const t = translations[lang];
             return (
-                <div className="antialiased selection:bg-yellow-400 selection:text-black">
-                    <Navbar lang={lang} setLang={setLang} />
-                    <Hero lang={lang} />
-                    <Features lang={lang} />
-                    <Games lang={lang} />
-                    <Footer lang={lang} />
+                <div className="bg-white selection:bg-banana-200 selection:text-banana-800">
+                    <Navbar lang={lang} setLang={setLang} t={t} />
+                    <Home t={t} />
+                    <Projects t={t} />
+                    <About t={t} />
+                    <Contact t={t} />
                 </div>
             );
         };
@@ -656,4 +430,5 @@
         root.render(<App />);
     </script>
 </body>
+
 </html>
