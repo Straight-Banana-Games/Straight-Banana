@@ -99,6 +99,32 @@
             transform: translateY(0);
         }
 
+        @keyframes copyFadeUp {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 5px);
+            }
+
+            20% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+
+            80% {
+                opacity: 1;
+                transform: translate(-50%, -2px);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -10px);
+            }
+        }
+
+        .animate-copy-success {
+            animation: copyFadeUp 1s ease-out forwards;
+        }
+
         .content-card {
             background-color: var(--card-bg);
             border-radius: 10px;
@@ -1543,8 +1569,8 @@
                                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                             </svg>
                             <!-- Success Bubble -->
-                            <span
-                                class="copy-success hidden absolute -top-10 left-1/2 -translate-x-1/2 bg-[#42362A] text-white text-[12px] px-3 py-1 rounded shadow-lg animate-bounce whitespace-nowrap">
+                            <span data-t="s10_copy_success"
+                                class="copy-success hidden absolute -top-10 left-1/2 -translate-x-1/2 bg-[#42362A] text-white text-[12px] px-3 py-1 rounded whitespace-nowrap">
                                 複製成功
                             </span>
                         </button>
@@ -1702,7 +1728,8 @@
                     s9_team_h: "團隊成員",
                     s9_luke_bio: "曾任職於 <b>X-Legend</b>、<b>Akatsuki Taiwan</b>,參與<b>《航海王》</b>、<b>《七龍珠》</b>等大型國際化手遊的研發與數據分析。亦曾擔任手機遊戲製作人,擅⻑遊戲機制與數值設計,致力打造具備專業水準與市場潛力的遊戲體驗。",
                     s9_linda_bio: "曾任職於 <b>XPEC Entertainment</b>、<b>Akatsuki Taiwan</b>,前獨立遊戲曙光工作室 <b>Silver Lining Studio</b> 技術美術,10+年遊戲美術開發經驗,也具備技術指導及專案管理能力。",
-                    s10_contact_h: "聯絡方式"
+                    s10_contact_h: "聯絡方式",
+                    s10_copy_success: "複製成功"
                 }
             },
             en: {
@@ -1783,7 +1810,8 @@
                     s9_team_h: "Team",
                     s9_luke_bio: "Formerly of <b>X-Legend</b> and <b>Akatsuki Taiwan</b>. Worked on development and data analysis for global titles like <b>One Piece</b> and <b>Dragon Ball</b>. Previously a Mobile Game Producer specialized in mechanics and numerical design, focusing on high-quality game experiences.",
                     s9_linda_bio: "Formerly of <b>XPEC Entertainment</b>, <b>Akatsuki Taiwan</b>, and Technical Artist at <b>Silver Lining Studio</b>. 10+ years of game art development experience. Expertise includes technical direction and project management.",
-                    s10_contact_h: "Contact"
+                    s10_contact_h: "Contact",
+                    s10_copy_success: "Email copied"
                 }
             }
         };
@@ -1913,9 +1941,13 @@
             navigator.clipboard.writeText(text).then(() => {
                 const tooltip = btn.querySelector('.copy-success');
                 tooltip.classList.remove('hidden');
+                tooltip.classList.add('animate-copy-success');
+
+                // 動畫結束後移除 class 並隱藏
                 setTimeout(() => {
                     tooltip.classList.add('hidden');
-                }, 1500);
+                    tooltip.classList.remove('animate-copy-success');
+                }, 1000);
             });
         }
 
