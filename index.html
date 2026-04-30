@@ -489,10 +489,11 @@
                         <video
                             ref={videoRef}
                             className="w-full h-full object-cover opacity-[0.05]"
-                            src="videos/selfieworm_trailer_tw.webm"
-                            autoPlay muted playsInline
-                        ></video>
-                        {/* 底部漸層淡出：高度 30% 可調，從透明漸變到背景色 */}
+                            autoPlay muted playsInline preload="auto" loop
+                        >
+                            <source src="videos/selfieworm_trailer_tw.webm" type="video/webm" />
+                        </video>
+                        {/* 底部漸層淡出 */}
                         <div className="absolute bottom-0 left-0 right-0" style={{ height: '20%', background: 'linear-gradient(to bottom, transparent, #edebe4)' }}></div>
                     </div>
 
@@ -556,7 +557,7 @@
                             video.style.opacity = '0';
                         }
                     });
-                }, { threshold: 0.5 });
+                }, { threshold: 0.3 });
 
                 observer.observe(container);
                 return () => {
@@ -599,7 +600,13 @@
                             >
                                 <div className="aspect-video relative overflow-hidden">
                                     <img src={t.games.img} alt="Selfie Worm" className="w-full h-full object-cover" />
-                                    <video ref={videoRef} className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 scale-[1.01] ${isMobile ? 'opacity-0' : 'opacity-0 hover:opacity-100'}`} src={t.games.video} muted loop playsInline></video>
+                                    <video
+                                        ref={videoRef}
+                                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 scale-[1.01] ${isMobile ? 'opacity-0' : 'opacity-0 hover:opacity-100'}`}
+                                        muted loop playsInline preload="auto"
+                                    >
+                                        <source src={t.games.video} type="video/webm" />
+                                    </video>
                                 </div>
                             </div>
 
@@ -631,7 +638,7 @@
             );
         };
 
-        const About = ({ t }) => (
+        const About = ({ t, lang }) => (
             <section id="about" className="full-page-section bg-studio-bg">
                 <div className="container mx-auto px-6 max-w-5xl">
                     <h2 className="text-4xl md:text-5xl font-black mb-8 md:mb-12">{t.about.title}</h2>
@@ -645,11 +652,18 @@
                                 {t.about.introTitle}
                             </h3>
                             <div className="text-base md:text-2xl font-bold leading-[1.8] text-left">
-                                {t.about.introDesc.split('\n').map((line, i) => (
-                                    <div key={i} className={i === 0 ? "mb-4" : ""}>
-                                        {line}
-                                    </div>
-                                ))}
+                                {/* 手機版 */}
+                                <div className="md:hidden mb-4">
+                                    {t.about.introDesc.split('\n').join(lang === 'zh' ? '' : ' ')}
+                                </div>
+                                {/* 電腦版 */}
+                                <div className="hidden md:block">
+                                    {t.about.introDesc.split('\n').map((line, i) => (
+                                        <div key={i} className={i === 0 ? "mb-4" : ""}>
+                                            {line}
+                                        </div>
+                                    ))}
+                                </div>
                                 <div className="mt-2">
                                     <span className="highlight-yellow-full inline-block">{t.about.introHighlight}</span>
                                 </div>
@@ -701,7 +715,7 @@
                             <h2 className="text-4xl md:text-5xl font-black text-studio-text">{t.contact.title}</h2>
                         </div>
 
-                        <div className="flex flex-col items-center gap-4 mt-6 md:mt-[140px] w-full">
+                        <div className="flex flex-col items-center gap-4 mt-[64px] md:mt-[120px] w-full">
                             <div className="flex items-center gap-3 justify-center w-full relative">
                                 <div className="w-9 hidden md:block"></div>
                                 <div className="contact-btn">
@@ -750,7 +764,7 @@
                     <Navbar lang={lang} setLang={setLang} t={t} />
                     <Home t={t} lang={lang} />
                     <Projects t={t} lang={lang} />
-                    <About t={t} />
+                    <About t={t} lang={lang} />
                     <Contact t={t} />
                     <Footer />
                 </div>
