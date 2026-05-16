@@ -774,8 +774,10 @@
                 <source media="(max-width: 768px)" srcset="images/hero_portrait.png">
                 <img src="images/hero.png" class="w-full h-auto block" alt="Hero">
             </picture>
-            <img src="images/studio_logo.png" class="absolute top-20 right-12 w-32 object-contain z-30"
-                alt="Studio Logo">
+            <a href="https://straight-banana-games.github.io/Straight-Banana/" target="_blank"
+                class="absolute top-20 right-12 z-30 hover:scale-105 transition-transform">
+                <img src="images/studio_logo.png" class="w-32 object-contain" alt="Studio Logo">
+            </a>
             <div id="hero-logo-container"
                 class="absolute right-[calc(5%-100px)] top-1/2 -translate-y-[60%] w-[70%] max-w-[1000px] z-20 pointer-events-none transition-transform duration-100 ease-out">
                 <img id="hero-logo-zh" src="images/logo_tchinese.png" class="w-full" alt="Logo">
@@ -1068,14 +1070,19 @@
                         <!-- 右側文字 -->
                         <div class="flex flex-col gap-16 max-w-2xl">
                             <div>
-                                <h3 data-t="s3_5_h1" class="text-2xl font-bold mb-3 text-[#42362A]">溫馨劇情</h3>
+                                <h3 data-t="s3_5_h1" class="text-2xl font-bold mb-3 text-[#42362A]">碎片化後設敘事</h3>
                                 <p data-t="s3_5_p1" class="text-[1.2rem] leading-relaxed text-[#42362A]">
-                                    埋藏在遊戲背後父女共同創作的故事。</p>
+                                    玩家透過無法回覆的訊息以及打破第四道牆的毀損記憶檔案，逐步拼湊出故事的真相。</p>
                             </div>
                             <div>
-                                <h3 data-t="s3_5_h2" class="text-2xl font-bold mb-3 text-[#42362A]">後設敘事</h3>
+                                <h3 data-t="s3_5_h2" class="text-2xl font-bold mb-3 text-[#42362A]">圍繞「陪伴」的核心故事</h3>
                                 <p data-t="s3_5_p2" class="text-[1.2rem] leading-relaxed text-[#42362A]">
-                                    透過打破第四面牆的錯誤訊息與毀損檔案，玩家將見證一段跨越生死的父女情誼與創作傳承。</p>
+                                    遊戲最終揭曉，這其實是一位病危父親給女兒最後的陪伴，串聯起虛擬與真實世界。</p>
+                            </div>
+                            <div>
+                                <h3 data-t="s3_5_h3" class="text-2xl font-bold mb-3 text-[#42362A]">結局後的傳承</h3>
+                                <p data-t="s3_5_p3" class="text-[1.2rem] leading-relaxed text-[#42362A]">
+                                    在製作人員名單結束後，突然的「遊戲更新」帶來了以長大後女兒視角出發的新關卡，完整了情感傳承的循環。</p>
                             </div>
                         </div>
                     </div>
@@ -1687,8 +1694,9 @@
                     s3_4_h1: "個性化自拍", s3_4_p1: "多種蟲蟲外觀、照片濾鏡可收集，拍出獨特照片。",
                     s3_4_h2: "真．蟲蟲社群", s3_4_p2: "玩家間能看到彼此的蟲蟲自拍照。",
                     s3_5_subtitle: "主線劇情",
-                    s3_5_h1: "溫馨劇情", s3_5_p1: "埋藏在遊戲背後父女共同創作的故事。",
-                    s3_5_h2: "後設敘事", s3_5_p2: "透過打破第四面牆的錯誤訊息與毀損檔案，玩家將見證一段跨越生死的父女情誼與創作傳承。",
+                    s3_5_h1: "碎片化後設敘事", s3_5_p1: "玩家透過無法回覆的訊息以及打破第四道牆的毀損記憶檔案，逐步拼湊出故事的真相。",
+                    s3_5_h2: "圍繞「陪伴」的核心故事", s3_5_p2: "遊戲最終揭曉，這其實是一位病危父親給女兒最後的陪伴，串聯起虛擬與真實世界。",
+                    s3_5_h3: "結局後的傳承", s3_5_p3: "在製作人員名單結束後，突然的「遊戲更新」帶來了以長大後女兒視角出發的新關卡，完整了情感傳承的循環。",
                     s4_box1: "賺取貨幣",
                     s4_box2: "蕃茄鐘<br>專注",
                     s4_box3: "成功自拍",
@@ -1740,37 +1748,38 @@
                 title: { hero: "Home", s1: "Game Overview", s2: "Core Gameplay", s3: "Key Highlights", s4: "Game Loop", s5: "Target Audience", s6: "Roadmap & Progress", s7: "Marketing Strategy", s8: "Partnership Needs", s9: "About Us", s10: "Contact" },
                 ui: {
                     steam_cta: "Visit Steam Store Page for more details",
-                    s1_desc: `<b class="block mb-2">Selfie Worm is a cozy adventure blending squishy 2D physics with photography.</b>
-                             A selfie-loving worm travels through a wormhole to a monochromatic world. Armed with a camera that can capture color, it embarks on a journey to restore vibrancy to the world while unravelling a heartwarming narrative. Featuring a built-in "Boss Key" and Pomodoro timer, it turns work breaks into healing times.`,
+                    s1_desc: `<b class="block mb-2">Selfie Worm is a desktop companion that combines squishy physics with photography.</b>
+                             A selfie-loving worm travels through a wormhole into a colorless alternate world. Discovering that its phone camera can restore color to the environment, it embarks on a journey to take selfies and find lost colors, piecing together a heartwarming story along the way. With a built-in "Boss Key" and Pomodoro timer, every short break after a focus session becomes a relaxing adventure full of surprises.`,
                     s1_genre_label: "<b>Genre</b>",
                     s1_genre_val: "2D Physics Platformer<br>Productivity Tool",
                     s1_playtime_label: "<b>Playtime</b>",
                     s1_playtime_val: "1.5 ~ 2 Hours<br><span class=\"text-[0.7em] opacity-80\"><br>(Main Story Only)</span>",
                     s1_tone_label: "<b>Tone</b>",
-                    s1_tone_val: "Relaxing<br>Heartwarming<br>Memetic<br>Adorable",
+                    s1_tone_val: "Relaxing<br>Heartwarming<br>Memetic<br>Cute",
                     s1_platforms_label: "<b>Platforms</b>",
                     s1_platforms_val: "Windows<br>macOS<br>Android<br>iOS",
                     s1_langs_label: "<b>Languages</b>",
                     s1_langs_val: "zh-TW<br>zn-CN<br>Japanese<br>English<br>Korean",
-                    s2_caption_1: "Use fixed-force jumps and angles to land your slippery, squishy worm onto targets for the perfect selfie to clear levels.",
-                    s2_caption_2: "Build an extensive selfie gallery to grow your in-game social media influence.",
+                    s2_caption_1: "Launch the squishy, slippery worm using fixed force and angles, aiming to land on target objects and take selfies to clear levels.",
+                    s2_caption_2: "Accumulate selfie photos to grow your social media popularity.",
                     s3_subtitle: "Addictive Physics Mechanics",
-                    s3_h1: "Mastered Chaos", s3_p1: "Precise control over jump velocity by timing your launches.",
-                    s3_h2: "Forgiving Feedback", s3_p2: "An intuitive \"illusion of ease\" challenging gameplay without the sting of harsh failure.",
+                    s3_h1: "Controlled Chaos", s3_p1: "Precise control over jump velocity by timing your launches.",
+                    s3_h2: "Intuitive Physics Feedback", s3_p2: "An intuitive \"illusion of ease\" challenging gameplay without the sting of harsh failure.",
                     s3_h3: "Near-Miss Mechanics", s3_p3: "Adrenaline-pumping \"almost-got-it\" moments that keep players coming back.",
                     s3_2_subtitle: "Quirky & Diverse Levels",
                     s3_2_h1: "Diverse Challenges", s3_2_p1: "Face environmental hazards like ice, fire, wind, low gravity, and underwater levels.",
-                    s3_2_h2: "Easter Eggs", s3_2_p2: "Clever nods to internet memes, classic cinema, and famous artworks.",
+                    s3_2_h2: "Witty & Amusing Designs", s3_2_p2: "Clever nods to internet memes, classic cinema, and famous artworks.",
                     s3_3_subtitle: "Your Secret Productivity Partner",
-                    s3_3_h1: "Focus Suite", s3_3_p1: "Integrated Pomodoro timer paired with lo-fi tracks and ambient soundscapes.",
+                    s3_3_h1: "Focus Tool", s3_3_p1: "Integrated Pomodoro timer paired with lo-fi tracks and ambient soundscapes.",
                     s3_3_h2: "Vertical Window", s3_3_p2: "A compact, resizable interface that stays out of your workspace's way.",
                     s3_3_h3: "The \"Boss Key\"", s3_3_p3: "Instantly switch to a functional calculator to hide your \"slacking\" in plain sight.",
                     s3_4_subtitle: "Express Yourself",
                     s3_4_h1: "Personalized Selfies", s3_4_p1: "Collect unique skins and filters to snap one-of-a-kind photos.",
-                    s3_4_h2: "The \"Real\" Worm Network", s3_4_p2: "A social hub where players can browse and admire each other's photography.",
-                    s3_5_subtitle: "A Deeply Moving Story",
-                    s3_5_h1: "Heartwarming Tale", s3_5_p1: "A story inspired by the collaborative bond between a father and daughter.",
-                    s3_5_h2: "Meta-Narrative", s3_5_p2: "Witness a poignant legacy of love and creativity, passed from father to daughter through glitched memories and fourth-wall-breaking messages.",
+                    s3_4_h2: "The Real \"Worm Social Media\"", s3_4_p2: "A social hub where players can browse and admire each other's photography.",
+                    s3_5_subtitle: "An Unexpected Emotional Punch",
+                    s3_5_h1: "Fragmented Meta-Narrative", s3_5_p1: "Players piece together the truth through unreplied messages and corrupted memory logs that break the fourth wall.",
+                    s3_5_h2: "The Core of \"Companionship\"", s3_5_p2: "The game reveals itself as a dying father’s final act of companionship for his daughter—bridging the gap from pixels to reality.",
+                    s3_5_h3: "Post-Credits Legacy", s3_5_p3: "A surprise post-credits \"game update\" introduces new levels written from the grown-up daughter’s perspective, completing the cycle of emotional inheritance.",
                     s4_box1: "Earn<br>Currency",
                     s4_box2: "Pomodoro<br>Focus<br>Sessions",
                     s4_box3: "Snap<br>Successful<br>Selfies",
@@ -1781,7 +1790,7 @@
                     s4_loop_short: "Short-term Loop",
                     s4_loop_long: "Long-term Loop",
                     s5_primary: "Primary: Office workers under 35 and casual gamers.",
-                    s5_persona: "Persona: Players who adore cute aesthetics, customized content,<br>and games perfect for short, bite-sized breaks.",
+                    s5_persona: "Particularly appeals to players who enjoy cute visuals, custom/unique photo-taking, and relaxing casual games during short breaks.",
                     s5_similar: "Similar Titles",
                     s6_current_label: "Current",
                     s6_current_date: "Apr. 2026",
