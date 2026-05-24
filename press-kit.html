@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selfie Worm Press Kit</title>
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-color: #000000;
+      --bg-color: #ffffff;
+      --link-color: #4d76f6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'LINE Seed JP', sans-serif;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    /* Language Switcher CSS */
+    body.lang-zh .lang-en {
+      display: none !important;
+    }
+
+    body.lang-en .lang-zh {
+      display: none !important;
+    }
+
+    .page-wrapper {
+      display: flex;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: underline;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    /* Left Sidebar */
+    aside {
+      width: 280px;
+      flex-shrink: 0;
+      padding: 3rem 2rem;
+    }
+
+    .lang-switch {
+      margin-bottom: 3rem;
+    }
+
+    aside h1 {
+      font-size: 2rem;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+      font-weight: 900;
+    }
+
+    aside ul {
+      list-style: none;
+    }
+
+    aside li {
+      margin-bottom: 0.8rem;
+    }
+
+    aside a {
+      text-decoration: none;
+      font-size: 1rem;
+      color: var(--text-color);
+    }
+
+    aside a:hover {
+      text-decoration: underline;
+      color: var(--text-color);
+    }
+
+    .download-media-link {
+      font-size: 0.9rem;
+      text-decoration: underline;
+      font-weight: normal;
+      color: var(--link-color);
+    }
+
+    .download-media-link:hover {
+      text-decoration: none;
+      color: var(--link-color);
+    }
+
+    .lang-switch a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+
+    .lang-switch a:hover {
+      color: var(--link-color);
+      text-decoration: underline;
+    }
+
+    .lang-switch a.active {
+      color: var(--text-color);
+      font-weight: bold;
+      pointer-events: none;
+      text-decoration: none;
+    }
+
+    a[target="_blank"]:not(:has(img))::after {
+      content: "";
+      display: inline-block;
+      width: 0.85em;
+      height: 0.85em;
+      margin-left: 0.3em;
+      background-image: url('images/icon_linking.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      vertical-align: middle;
+      filter: brightness(0);
+    }
+
+    /* Main Content */
+    .mobile-header {
+      display: none;
+    }
+
+    main {
+      flex-grow: 1;
+      padding: 3rem 4rem;
+      width: 100%;
+    }
+
+    section {
+      margin-bottom: 6rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 900;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    ul.features-list {
+      list-style-type: square;
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    ul.features-list li {
+      margin-bottom: 1rem;
+    }
+
+    .factsheet-item {
+      margin-bottom: 2.5rem;
+    }
+
+    .factsheet-item h3 {
+      margin-top: 0;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      margin-bottom: 6rem;
+    }
+
+    .grid-2col-even {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 4rem;
+      margin-bottom: 0;
+    }
+
+    .grid-images {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+      gap: 1.5rem;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      /* 16:9 Aspect Ratio */
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .back-to-top {
+      text-align: right;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .back-to-top a {
+      text-decoration: none;
+    }
+
+    .back-to-top a:hover {
+      text-decoration: underline;
+    }
+
+    .grid-screenshots {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .lightbox-trigger {
+      cursor: pointer;
+      width: 100%;
+      transition: opacity 0.2s;
+    }
+
+    .lightbox-trigger:hover {
+      opacity: 0.8;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-screenshots {
+        grid-template-columns: 1fr;
+      }
+
+      .lightbox-trigger:hover {
+        opacity: 1;
+      }
+
+      .page-wrapper {
+        flex-direction: column;
+      }
+
+      .mobile-header {
+        display: block;
+        margin-bottom: 2rem;
+      }
+
+      .mobile-header h1 {
+        font-size: 2.5rem;
+        line-height: 1.2;
+        margin-top: 1rem;
+        margin-bottom: 0;
+        font-weight: 900;
+      }
+
+      aside {
+        display: none;
+      }
+
+      .back-to-top {
+        display: none;
+      }
+
+      main {
+        padding: 1.5rem;
+      }
+
+      .grid-2col,
+      .grid-2col-even {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+    }
+  </style>
+  <script>
+    function setLang(lang) {
+      document.body.className = 'lang-' + lang;
+      document.querySelectorAll('.btn-zh').forEach(btn => btn.classList.toggle('active', lang === 'zh'));
+      document.querySelectorAll('.btn-en').forEach(btn => btn.classList.toggle('active', lang === 'en'));
+
+      // Update logo visibility in header
+      document.getElementById('logo-zh').style.display = lang === 'zh' ? 'block' : 'none';
+      document.getElementById('logo-en').style.display = lang === 'en' ? 'block' : 'none';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setLang('zh'); // Default language
+
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const closeBtn = document.querySelector('.close-btn');
+
+      document.querySelectorAll('.lightbox-trigger').forEach(img => {
+        img.addEventListener('click', () => {
+          lightboxImg.src = img.src;
+          lightbox.classList.add('active');
+        });
+      });
+
+      closeBtn.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+      });
+
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+          lightbox.classList.remove('active');
+        }
+      });
+    });
+  </script>
+</head>
+
+<body class="lang-zh">
+
+  <div class="page-wrapper">
+    <aside>
+      <div class="lang-switch">
+        <a href="javascript:void(0);" class="btn-zh" onclick="setLang('zh')">中</a>
+        /
+        <a href="javascript:void(0);" class="btn-en" onclick="setLang('en')">EN</a>
+      </div>
+      <h1 class="lang-en">Selfie Worm</h1>
+      <h1 class="lang-zh">自拍蟲蟲</h1>
+      <nav>
+        <ul>
+          <li><a href="#factsheet"><span class="lang-en">Factsheet</span><span class="lang-zh">遊戲資訊</span></a></li>
+          <li><a href="#description"><span class="lang-en">Description</span><span class="lang-zh">遊戲簡介</span></a></li>
+          <li><a href="#features"><span class="lang-en">Features</span><span class="lang-zh">遊戲特色</span></a></li>
+          <li><a href="#videos"><span class="lang-en">Videos</span><span class="lang-zh">宣傳影片</span></a></li>
+          <li><a href="#images"><span class="lang-en">Images</span><span class="lang-zh">遊戲截圖</span></a></li>
+          <li><a href="#logo"><span class="lang-en">Logo</span><span class="lang-zh">遊戲 Logo</span></a></li>
+          <li><a href="#assets"><span class="lang-en">Media Assets</span><span class="lang-zh">媒體素材</span></a></li>
+          <li><a href="#about"><span class="lang-en">About Us</span><span class="lang-zh">關於我們</span></a></li>
+          <li><a href="#credits"><span class="lang-en">Credits</span><span class="lang-zh">團隊成員</span></a></li>
+          <li><a href="#contact"><span class="lang-en">Contact</span><span class="lang-zh">聯絡我們</span></a></li>
+        </ul>
+      </nav>
+      <div style="margin-top: 5rem;">
+        <a href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=drive_link"
+          target="_blank" class="download-media-link">
+          <span class="lang-en">Click here to download full media assets</span>
+          <span class="lang-zh">點此下載完整媒體素材</span>
+        </a>
+      </div>
+    </aside>
+
+    <main>
+      <div class="mobile-header">
+        <div class="lang-switch" style="margin-bottom: 1rem;">
+          <a href="javascript:void(0);" class="btn-zh" onclick="setLang('zh')">中</a>
+          /
+          <a href="javascript:void(0);" class="btn-en" onclick="setLang('en')">EN</a>
+        </div>
+        <h1 class="lang-en">Selfie Worm</h1>
+        <h1 class="lang-zh">自拍蟲蟲</h1>
+      </div>
+
+      <header style="margin-bottom: 2rem; position: relative; display: flex; justify-content: center;">
+        <img src="images/presskit_hero.png" alt="Selfie Worm Banner" style="width: 100%;">
+        <div style="position: absolute; right: 5%; top: 50%; transform: translateY(-50%); width: 52%;">
+          <img src="images/logo_english.png" alt="Selfie Worm Logo English" id="logo-en"
+            style="display: none; width: 100%; margin-left: auto;">
+          <img src="images/logo_tchinese.png" alt="Selfie Worm Logo Chinese" id="logo-zh"
+            style="display: block; width: 100%; margin-left: auto;">
+        </div>
+      </header>
+
+      <div class="grid-2col">
+        <!-- Factsheet Column (Left) -->
+        <div>
+          <section id="factsheet" style="margin-bottom: 0;">
+            <h2 class="lang-en">Factsheet</h2>
+            <h2 class="lang-zh">遊戲資訊</h2>
+
+            <div class="factsheet-item">
+              <h3 class="lang-en">Developer:</h3>
+              <h3 class="lang-zh">開發團隊：</h3>
+              <p class="lang-en">Straight Banana Game Studio<br>Based in Taiwan</p>
+              <p class="lang-zh">正直香蕉遊戲工作室<br>來自台灣</p>
+            </div>
+
+            <div class="factsheet-item">
+              <h3 class="lang-en">Release Date:</h3>
+              <h3 class="lang-zh">發售日期：</h3>
+              <p class="lang-en">Demo Available May 2026</p>
+              <p class="lang-zh">2026/5 Demo版釋出</p>
+            </div>
+
+            <div class="factsheet-item">
+              <h3 class="lang-en">Platforms:</h3>
+              <h3 class="lang-zh">發行平台：</h3>
+              <p>
+                <a href="https://store.steampowered.com/app/4333980/_/" target="_blank">Steam / Windows</a><br>
+                <span class="lang-en">iOS (TBA)</span><span class="lang-zh">iOS (預定)</span><br>
+                <span class="lang-en">Android (TBA)</span><span class="lang-zh">Android (預定)</span>
+              </p>
+            </div>
+
+            <div class="factsheet-item">
+              <h3 class="lang-en">Website:</h3>
+              <h3 class="lang-zh">官方網站：</h3>
+              <p><a href="https://straight-banana-games.github.io/Straight-Banana/"
+                  target="_blank">straight-banana-games.github.io/Straight-Banana</a></p>
+            </div>
+
+            <div class="factsheet-item">
+              <h3 class="lang-en">Socials:</h3>
+              <h3 class="lang-zh">社群與網站：</h3>
+              <p>
+                <a href="https://linktr.ee/straight_banana" target="_blank">Linktree</a><br>
+                <a href="https://x.com/StrghtBanana" target="_blank">X (Twitter)</a><br>
+                <a href="https://www.facebook.com/StraightBanana/" target="_blank">Facebook</a>
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <!-- Description Column (Right) -->
+        <div>
+          <section id="description" style="margin-bottom: 3rem;">
+            <h2 class="lang-en">Description</h2>
+            <h2 class="lang-zh">遊戲簡介</h2>
+            <p class="lang-en">
+              A cozy adventure blending squishy 2D physics with photography. Control an elastic worm through a colorless
+              world, capturing selfies to restore vibrancy and uncover a heartwarming narrative.
+            </p>
+            <p class="lang-zh">
+              一款結合軟 Q 物理與攝影的療癒之作。玩家將操作充滿彈性的蟲蟲，在缺乏色彩的異世界裡穿梭，透過自拍來找回世界的色彩，並拼湊出溫暖的故事。
+            </p>
+            <p class="lang-en">
+              Featuring a built-in "Boss Key" and Pomodoro timer, it turns work breaks into healing times and becomes
+              your perfect desktop companion.
+            </p>
+            <p class="lang-zh">
+              內建「防老闆鍵」與番茄鐘，讓每一次專注後的短暫休息，都成為療癒與驚喜的冒險，是你最完美的桌面夥伴。
+            </p>
+          </section>
+
+          <section id="features" style="margin-bottom: 0;">
+            <h2 class="lang-en">Features</h2>
+            <h2 class="lang-zh">遊戲特色</h2>
+            <ul class="features-list">
+              <li class="lang-en"><strong>Addicting Physics Gameplay:</strong> Master the timing of bounces and enjoy
+                satisfying physics feedback and Near-Miss mechanics.</li>
+              <li class="lang-zh"><strong>易上癮的物理玩法：</strong>透過掌握彈跳的時機，享受充滿親切物理回饋與 Near-Miss 機制的挑戰。</li>
+
+              <li class="lang-en"><strong>Humorous and Diverse Levels:</strong> Unstable targets, freezing, burning,
+                wind, low gravity, plus internet memes and movie homages.</li>
+              <li class="lang-zh"><strong>幽默多元的關卡：</strong>不穩定的目標、結凍、燃燒、風吹、低重力，更有網路迷因與電影致敬的設計。</li>
+
+              <li class="lang-en"><strong>Perfect Companion for Breaks:</strong> Built-in Pomodoro timer, relaxing
+                music, and a Boss Key in a vertical window, letting you sneak a break safely.</li>
+              <li class="lang-zh"><strong>忙裡偷閒神隊友：</strong>內建番茄鐘、紓壓音樂與防老闆鍵的直式視窗，讓你偷閒不被抓包。</li>
+
+              <li class="lang-en"><strong>Showcase Personality:</strong> Collect various worm skins and photo filters to
+                snap unique photos and share them with the community.</li>
+              <li class="lang-zh"><strong>展現個性：</strong>多種蟲蟲外觀、照片濾鏡可收集，拍出獨特照片，還能在社群中看見彼此。</li>
+
+              <li class="lang-en"><strong>Main Storyline:</strong> Piece together a heartwarming core story about
+                "companionship" and legacy through fragmented meta-narrative.</li>
+              <li class="lang-zh"><strong>主線劇情：</strong>透過碎片化的後設敘事，拼湊出關於「陪伴」的核心故事與傳承。</li>
+            </ul>
+            <p class="back-to-top"><a href="#">↑ Top</a></p>
+          </section>
+        </div>
+      </div>
+
+      <section id="videos">
+        <h2 class="lang-en">Videos</h2>
+        <h2 class="lang-zh">宣傳影片</h2>
+        <p class="lang-en">Selfie Worm - Official Trailer</p>
+        <p class="lang-zh">【預告片】自拍蟲蟲 Selfie Worm</p>
+
+        <div class="video-container lang-en">
+          <iframe src="https://www.youtube.com/embed/Zz6WBOClP2A" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+
+        <div class="video-container lang-zh">
+          <iframe src="https://www.youtube.com/embed/2JTZDlPryLg" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+        <p class="back-to-top"><a href="#">↑ Top</a></p>
+      </section>
+
+      <section id="images">
+        <h2 class="lang-en">Images</h2>
+        <h2 class="lang-zh">遊戲截圖</h2>
+        <div class="grid-images">
+          <img src="images/feature_1.gif" alt="">
+          <img src="images/feature_4.gif" alt="">
+
+          <img src="images/feature_2_en.gif" alt="" class="lang-en">
+          <img src="images/feature_2_zh.gif" alt="" class="lang-zh">
+
+          <img src="images/feature_5_en.gif" alt="" class="lang-en">
+          <img src="images/feature_5_zh.gif" alt="" class="lang-zh">
+        </div>
+
+        <!-- Screenshots EN -->
+        <div class="grid-screenshots lang-en">
+          <img src="images/screenshots_en/Screenshot_1.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_en/Screenshot_2.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_en/Screenshot_3.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_en/Screenshot_4.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_en/Screenshot_5.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_en/Screenshot_6.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_en/Screenshot_7.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_en/Screenshot_8.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_en/Screenshot_9.jpg" alt="" class="lightbox-trigger">
+        </div>
+
+        <!-- Screenshots ZH -->
+        <div class="grid-screenshots lang-zh">
+          <img src="images/screenshots_tw/Screenshot_1.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_tw/Screenshot_2.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_tw/Screenshot_3.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_tw/Screenshot_4.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_tw/Screenshot_5.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_tw/Screenshot_6.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_tw/Screenshot_7.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_tw/Screenshot_8.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_tw/Screenshot_9.jpg" alt="" class="lightbox-trigger">
+        </div>
+
+        <p class="back-to-top"><a href="#">↑ Top</a></p>
+      </section>
+
+      <section id="logo">
+        <h2 class="lang-en">Logo</h2>
+        <h2 class="lang-zh">遊戲 Logo</h2>
+        <div class="grid-images">
+          <img src="images/logo_english.png" alt="English Logo" class="lang-en">
+          <img src="images/logo_tchinese.png" alt="Traditional Chinese Logo" class="lang-zh">
+        </div>
+        <p class="back-to-top"><a href="#">↑ Top</a></p>
+      </section>
+
+      <section id="assets">
+        <h2 class="lang-en">Media Assets</h2>
+        <h2 class="lang-zh">媒體素材</h2>
+        <p class="lang-en">Download full press kit and high-res images: <a
+            href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=drive_link"
+            target="_blank">Download Here</a></p>
+        <p class="lang-zh">下載完整 Press Kit 與高畫質圖片：<a
+            href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=drive_link"
+            target="_blank">點此下載</a></p>
+        <p class="back-to-top"><a href="#">↑ Top</a></p>
+      </section>
+
+      <section id="about">
+        <h2 class="lang-en">About Us</h2>
+        <h2 class="lang-zh">關於我們</h2>
+
+        <img src="images/studio_logo_horizontal.png" alt="Straight Banana Logo"
+          style="max-width: 35%; margin-bottom: 2rem;">
+
+        <p class="lang-en" style="font-size: 1.2rem;"><strong>Straight Banana Game Studio</strong></p>
+        <p class="lang-zh" style="font-size: 1.2rem;"><strong>正直香蕉遊戲工作室</strong></p>
+
+        <p class="lang-en">We are a two-person indie game studio based in Taiwan.</p>
+        <p class="lang-zh">我們是來自台灣的雙人獨立遊戲工作室。</p>
+
+        <p class="lang-en">We love creating games that are a bit weird, a bit funny, and a bit moving. We especially
+          love that indescribable subtle feeling, just like a STRAIGHT BANANA.</p>
+        <p class="lang-zh">我們熱愛製作有點奇怪、有點搞笑、又有點動人心弦的遊戲。<br>特別喜歡那種說不上來的微妙感，彷彿一根筆直的香蕉。</p>
+
+        <p class="back-to-top"><a href="#">↑ Top</a></p>
+      </section>
+
+      <div class="grid-2col-even">
+        <div>
+          <section id="credits" style="margin-bottom: 0;">
+            <h2 class="lang-en">Credits</h2>
+            <h2 class="lang-zh">團隊成員</h2>
+            <p class="lang-en"><strong style="font-size: 1.2rem;">Luke Liu</strong><br>Co-Founder, Game Designer</p>
+            <p class="lang-zh"><strong style="font-size: 1.2rem;">Luke Liu</strong><br>Co-Founder, Game Designer</p>
+            <br>
+            <p class="lang-en"><strong style="font-size: 1.2rem;">Linda Huang</strong><br>Co-Founder, Technical Artist
+            </p>
+            <p class="lang-zh"><strong style="font-size: 1.2rem;">Linda Huang</strong><br>Co-Founder, Technical Artist
+            </p>
+          </section>
+        </div>
+
+        <div>
+          <section id="contact" style="margin-bottom: 0;">
+            <h2 class="lang-en">Contact</h2>
+            <h2 class="lang-zh">聯絡我們</h2>
+
+            <p class="lang-en"><strong>Business Inquiries</strong><br><a
+                href="mailto:straight.banana.gamedev@gmail.com">straight.banana.gamedev@gmail.com</a></p>
+            <p class="lang-zh"><strong>商業合作</strong><br><a
+                href="mailto:straight.banana.gamedev@gmail.com">straight.banana.gamedev@gmail.com</a></p>
+            <br>
+
+            <p><strong>X (Twitter)</strong><br>
+              <a href="https://x.com/StrghtBanana" target="_blank">x.com/StrghtBanana</a>
+            </p>
+            <br>
+
+            <p><strong>Facebook</strong><br>
+              <a href="https://www.facebook.com/StraightBanana/" target="_blank">www.facebook.com/StraightBanana/</a>
+            </p>
+            <br>
+
+            <p><strong>Website</strong><br>
+              <a href="https://straight-banana-games.github.io/Straight-Banana/"
+                target="_blank">straight-banana-games.github.io/Straight-Banana/</a>
+            </p>
+            <p class="back-to-top"><a href="#">↑ Top</a></p>
+          </section>
+        </div>
+      </div>
+
+      <footer style="margin-top: 4rem; text-align: center; color: #999; font-size: 0.9rem;">
+        &copy; 2026 Straight Banana Game Studio.
+      </footer>
+    </main>
+  </div>
+
+  <div id="lightbox" class="lightbox">
+    <span class="close-btn">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+</body>
+
+</html>
