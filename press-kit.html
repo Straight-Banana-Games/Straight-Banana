@@ -353,7 +353,13 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      setLang('zh'); // Default language
+      const params = new URLSearchParams(window.location.search);
+      const urlLang = params.get('lang');
+      if (urlLang === 'en' || urlLang === 'zh') {
+        setLang(urlLang);
+      } else {
+        setLang('zh'); // Default language
+      }
 
       const lightbox = document.getElementById('lightbox');
       const lightboxImg = document.getElementById('lightbox-img');

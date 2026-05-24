@@ -623,10 +623,10 @@
                                         <img src="images/steam_logo_w.png" className="h-6" alt="Steam" />
                                     </a>
                                     <div className="flex items-center gap-4">
-                                        <a href="press-kit.html" target="_blank" className="game-link flex items-center gap-1">
+                                        <a href={lang === 'en' ? 'press-kit.html?lang=en' : 'press-kit.html'} target="_blank" className="game-link flex items-center gap-1">
                                             Press Kit <img src="images/icon_linking.png" className="w-3.5 h-3.5" style={{ filter: 'invert(27%) sepia(13%) saturate(583%) hue-rotate(5deg) brightness(85%) contrast(110%)' }} />
                                         </a>
-                                        <a href="pitch-deck.html" target="_blank" className="game-link flex items-center gap-1">
+                                        <a href={lang === 'en' ? 'pitch-deck.html?lang=en' : 'pitch-deck.html'} target="_blank" className="game-link flex items-center gap-1">
                                             Pitch Deck <img src="images/icon_linking.png" className="w-3.5 h-3.5" style={{ filter: 'invert(27%) sepia(13%) saturate(583%) hue-rotate(5deg) brightness(85%) contrast(110%)' }} />
                                         </a>
                                     </div>

@@ -1960,6 +1960,14 @@
             });
         }
 
+        // 根據網址參數自動切換語言
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('lang') === 'en') {
+                btnEn.click();
+            }
+        });
+
     </script>
 </body>
 
