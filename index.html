@@ -333,7 +333,8 @@
                 hero: { title: '我們是', titleHighlight: '正直香蕉', subtitle: '來自台灣的雙人獨立遊戲工作室', btnGames: '我們的遊戲', btnContact: '聯絡我們' },
                 games: {
                     title: '我們的遊戲',
-                    tag: '2026/5 Demo版釋出',
+                    tag: '試玩版現已推出',
+                    tag2: '2026/7 正式版推出',
                     name: '自拍蟲蟲',
                     desc: '一款結合軟 Q 物理與攝影的療癒之作。玩家將操作充滿彈性的蟲蟲，在缺乏色彩的異世界裡穿梭，透過自拍來找回世界的色彩，並拼湊出溫暖的故事。內建「防老闆鍵」與番茄鐘，讓每一次專注後的短暫休息，都成為療癒與驚喜的冒險，是你最完美的桌面夥伴。',
                     img: 'images/key_art_landscape_zh.png',
@@ -360,7 +361,8 @@
                 hero: { title: 'We are ', titleHighlight: 'STRAIGHT BANANA', subtitle: 'A two-person indie game studio based in Taiwan.', btnGames: 'GAMES', btnContact: 'CONTACT' },
                 games: {
                     title: 'OUR GAMES',
-                    tag: 'Demo Available May 2026',
+                    tag: 'Demo Available Now',
+                    tag2: 'Full Game Coming July 2026',
                     name: 'Selfie Worm',
                     desc: 'A cozy adventure blending squishy 2D physics with photography. Control a elastic worm through a colorless world, capturing selfies to restore vibrancy and uncover a heartwarming narrative. Featuring a built-in "Boss Key" and Pomodoro timer, it turns work breaks into healing times.',
                     img: 'images/key_art_landscape_en.png',
@@ -586,8 +588,13 @@
 
                         <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3 mb-4">
                             <h3 className="text-2xl md:text-3xl font-bold">{t.games.name}</h3>
-                            <div className="bg-studio-text px-3 py-1 rounded-full text-[12px] font-normal text-white w-fit">
-                                {t.games.tag}
+                            <div className="flex flex-wrap gap-2">
+                                <div className="bg-studio-text px-3 py-1 rounded-full text-[12px] font-normal text-white w-fit">
+                                    {t.games.tag}
+                                </div>
+                                <div className="bg-[#ed6d72] px-3 py-1 rounded-full text-[12px] font-normal text-white w-fit">
+                                    {t.games.tag2}
+                                </div>
                             </div>
                         </div>
 
