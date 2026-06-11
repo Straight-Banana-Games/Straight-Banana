@@ -330,10 +330,10 @@
         // --- Translations ---
         const translations = {
             zh: {
-                nav: { home: '首頁', games: '我們的遊戲', about: '關於我們', contact: '聯絡我們' },
-                hero: { title: '我們是', titleHighlight: '正直香蕉', subtitle: '來自台灣的雙人獨立遊戲工作室', btnGames: '我們的遊戲', btnContact: '聯絡我們' },
+                nav: { home: '首頁', games: '遊戲作品', about: '關於我們', contact: '聯絡我們' },
+                hero: { title: '我們是', titleHighlight: '正直香蕉', subtitle: '來自台灣的雙人獨立遊戲工作室', btnGames: '遊戲作品', btnContact: '聯絡我們' },
                 games: {
-                    title: '我們的遊戲',
+                    title: '遊戲作品',
                     tag: '試玩版現已推出',
                     tag2: '2026 夏季 正式版推出',
                     name: '自拍蟲蟲',
@@ -384,6 +384,34 @@
                     title: 'CONTACT',
                     copySuccess: 'Email Copied'
                 }
+            },
+            ja: {
+                nav: { home: 'ホーム', games: 'ゲーム', about: '私たちについて', contact: 'お問い合わせ' },
+                hero: { title: '私たちは', titleHighlight: '正直バナナ', subtitle: '台湾発の2人組\nインディーゲームスタジオです。', btnGames: 'ゲーム作品', btnContact: 'お問い合わせ' },
+                games: {
+                    title: 'ゲーム作品',
+                    tag: '体験版 配信中',
+                    tag2: '2026年夏 正式版リリース',
+                    name: 'セルフィー・ワーム',
+                    desc: 'ぷにぷにとした物理演算と写真撮影を組み合わせた癒やし系アクションです。弾力のあるワームを操作し、色のない世界で自撮りを通して彩りを取り戻し、温かな物語を紡ぎます。「ボス回避機能」や集中タイマーも内蔵。短い休息を癒やしの冒険に変えてくれるパートナーです。',
+                    img: 'images/key_art_landscape_jp.png',
+                    video: 'videos/selfieworm_trailer_jp.webm'
+                },
+                about: {
+                    title: '私たちについて',
+                    introTitle: '私たちが愛を込めて作るのは、',
+                    introDesc: 'ちょっと奇妙で、ちょっとコミカル、だけどどこか心が揺さぶられる、そんなゲーム。\n言葉では言い表せないシュールで絶妙な違和感は、',
+                    introHighlight: 'まるで一本の「まっすぐなバナナ」のように。',
+                    teamTitle: 'チーム紹介',
+                    members: [
+                        { name: "Luke Liu", role: "Co-Founder, Game Designer", intro: "ゲームを遊ぶことより、作ることの方が面白い。" },
+                        { name: "Linda Huang", role: "Co-Founder, Technical Artist", intro: "世界を注意深く観察し、それをプレイヤーへの驚きの贈り物に変える。" },
+                    ]
+                },
+                contact: {
+                    title: 'お問い合わせ',
+                    copySuccess: 'コピーしました'
+                }
             }
         };
 
@@ -411,13 +439,32 @@
                 { id: 'contact', name: t.nav.contact, href: '#contact' },
             ];
 
-            const LangToggle = () => (
-                <div className="relative flex items-center bg-[#E8E8E8] rounded-full p-0.5 w-[72px] h-[28px] cursor-pointer overflow-hidden" onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')}>
-                    <div className={`absolute top-0.5 bottom-0.5 w-[34px] bg-[#564c3b] rounded-full transition-all duration-300 ease-in-out ${lang === 'zh' ? 'left-0.5' : 'left-[36px]'}`}></div>
-                    <span className={`flex-1 text-[10px] text-center z-10 transition-colors duration-300 font-normal ${lang === 'zh' ? 'text-white' : 'text-studio-text'}`}>中</span>
-                    <span className={`flex-1 text-[10px] text-center z-10 transition-colors duration-300 font-normal ${lang === 'en' ? 'text-white' : 'text-studio-text'}`}>EN</span>
-                </div>
-            );
+            const LangToggle = () => {
+                const languages = ['zh', 'en', 'ja'];
+                const labels = { zh: '中', en: 'EN', ja: 'JP' };
+                const activeIndex = languages.indexOf(lang);
+
+                return (
+                    <div className="relative flex items-center bg-[#E8E8E8] rounded-full p-0.5 w-[110px] h-[28px] cursor-pointer overflow-hidden">
+                        <div
+                            className="absolute top-0.5 bottom-0.5 w-[34px] bg-[#564c3b] rounded-full transition-all duration-300 ease-in-out"
+                            style={{ left: `${2 + activeIndex * 36}px` }}
+                        ></div>
+                        {languages.map((l) => (
+                            <span
+                                key={l}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setLang(l);
+                                }}
+                                className={`flex-1 text-[10px] text-center z-10 transition-colors duration-300 font-normal ${lang === l ? 'text-white' : 'text-studio-text'}`}
+                            >
+                                {labels[l]}
+                            </span>
+                        ))}
+                    </div>
+                );
+            };
 
             return (
                 <nav className="fixed w-full z-50 bg-white py-4">
@@ -505,8 +552,12 @@
                             <span className="text-studio-gold block">{t.hero.title}</span>
                             <span className="highlight-yellow whitespace-normal md:whitespace-nowrap inline-block mt-2">{t.hero.titleHighlight.trim()}</span>
                         </h1>
-                        <p className="text-xl md:text-3xl font-bold mb-16">
-                            {t.hero.subtitle}
+                        <p className="text-xl md:text-3xl font-bold mb-16 leading-relaxed">
+                            {t.hero.subtitle.split('\n').map((line, i) => (
+                                <span key={i} className={i > 0 ? "block md:inline" : ""}>
+                                    {line}
+                                </span>
+                            ))}
                         </p>
                         <div className="flex flex-col md:flex-row flex-wrap gap-5 pb-16 md:pb-0">
                             <a href="#games" className="standard-btn bg-banana-500 md:hover:brightness-105">
@@ -571,7 +622,7 @@
 
             // 處理第一句加粗
             const fullDesc = t.games.desc;
-            const terminator = lang === 'zh' ? '。' : '. ';
+            const terminator = (lang === 'zh' || lang === 'ja') ? '。' : '. ';
             const splitIndex = fullDesc.indexOf(terminator);
 
             let firstPart = fullDesc;
@@ -609,6 +660,7 @@
                                 <div className="aspect-video relative overflow-hidden bg-studio-bg">
                                     <img src={t.games.img} alt="Selfie Worm" className="w-full h-full object-cover" />
                                     <video
+                                        key={t.games.video}
                                         ref={videoRef}
                                         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 scale-[1.01] ${isMobile ? 'opacity-0' : 'opacity-0 hover:opacity-100'}`}
                                         muted loop playsInline preload="auto"
@@ -631,10 +683,10 @@
                                         <img src="images/steam_logo_w.png" className="h-6" alt="Steam" />
                                     </a>
                                     <div className="flex items-center gap-4">
-                                        <a href={lang === 'en' ? 'press-kit.html?lang=en' : 'press-kit.html'} target="_blank" className="game-link flex items-center gap-1">
+                                        <a href={lang === 'zh' ? 'press-kit.html' : lang === 'ja' ? 'press-kit.html?lang=ja' : 'press-kit.html?lang=en'} target="_blank" className="game-link flex items-center gap-1">
                                             Press Kit <img src="images/icon_linking.png" className="w-3.5 h-3.5" style={{ filter: 'invert(27%) sepia(13%) saturate(583%) hue-rotate(5deg) brightness(85%) contrast(110%)' }} />
                                         </a>
-                                        <a href={lang === 'en' ? 'pitch-deck.html?lang=en' : 'pitch-deck.html'} target="_blank" className="game-link flex items-center gap-1">
+                                        <a href={lang === 'zh' ? 'pitch-deck.html' : 'pitch-deck.html?lang=en'} target="_blank" className="game-link flex items-center gap-1">
                                             Pitch Deck <img src="images/icon_linking.png" className="w-3.5 h-3.5" style={{ filter: 'invert(27%) sepia(13%) saturate(583%) hue-rotate(5deg) brightness(85%) contrast(110%)' }} />
                                         </a>
                                     </div>
@@ -662,7 +714,7 @@
                             <div className="text-base md:text-2xl font-bold leading-[1.8] text-left">
                                 {/* 手機版 */}
                                 <div className="md:hidden mb-4">
-                                    {t.about.introDesc.split('\n').join(lang === 'zh' ? '' : ' ')}
+                                    {t.about.introDesc.split('\n').join((lang === 'zh' || lang === 'ja') ? '' : ' ')}
                                 </div>
                                 {/* 電腦版 */}
                                 <div className="hidden md:block">
@@ -766,15 +818,22 @@
             const [lang, setLang] = useState(() => {
                 const params = new URLSearchParams(window.location.search);
                 const urlLang = params.get('lang');
-                if (urlLang === 'en' || urlLang === 'zh') {
+                if (urlLang === 'en' || urlLang === 'zh' || urlLang === 'ja') {
                     return urlLang;
                 }
                 const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+                if (browserLang.startsWith('ja')) return 'ja';
                 return browserLang.startsWith('zh') ? 'zh' : 'en';
             });
 
             useEffect(() => {
-                document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+                document.documentElement.lang = lang === 'zh' ? 'zh-TW' : lang === 'ja' ? 'ja' : 'en';
+                const titleMap = {
+                    zh: '正直香蕉遊戲工作室 Straight Banana Game Studio',
+                    en: 'Straight Banana Game Studio',
+                    ja: '正直バナナゲームスタジオ Straight Banana Game Studio'
+                };
+                document.title = titleMap[lang] || titleMap.en;
             }, [lang]);
 
             const t = translations[lang];

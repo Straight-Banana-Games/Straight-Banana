@@ -35,11 +35,18 @@
     }
 
     /* Language Switcher CSS */
-    body.lang-zh .lang-en {
+    body.lang-zh .lang-en,
+    body.lang-zh .lang-ja {
       display: none !important;
     }
 
-    body.lang-en .lang-zh {
+    body.lang-en .lang-zh,
+    body.lang-en .lang-ja {
+      display: none !important;
+    }
+
+    body.lang-ja .lang-zh,
+    body.lang-ja .lang-en {
       display: none !important;
     }
 
@@ -346,16 +353,18 @@
       document.body.className = 'lang-' + lang;
       document.querySelectorAll('.btn-zh').forEach(btn => btn.classList.toggle('active', lang === 'zh'));
       document.querySelectorAll('.btn-en').forEach(btn => btn.classList.toggle('active', lang === 'en'));
+      document.querySelectorAll('.btn-ja').forEach(btn => btn.classList.toggle('active', lang === 'ja'));
 
       // Update logo visibility in header
       document.getElementById('logo-zh').style.display = lang === 'zh' ? 'block' : 'none';
       document.getElementById('logo-en').style.display = lang === 'en' ? 'block' : 'none';
+      document.getElementById('logo-ja').style.display = lang === 'ja' ? 'block' : 'none';
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
       const urlLang = params.get('lang');
-      if (urlLang === 'en' || urlLang === 'zh') {
+      if (urlLang === 'en' || urlLang === 'zh' || urlLang === 'ja') {
         setLang(urlLang);
       } else {
         setLang('zh'); // Default language
@@ -393,22 +402,36 @@
         <a href="javascript:void(0);" class="btn-zh" onclick="setLang('zh')">中</a>
         /
         <a href="javascript:void(0);" class="btn-en" onclick="setLang('en')">EN</a>
+        /
+        <a href="javascript:void(0);" class="btn-ja" onclick="setLang('ja')">JP</a>
       </div>
       <h1 class="lang-en">Selfie Worm</h1>
       <h1 class="lang-zh">自拍蟲蟲</h1>
+      <h1 class="lang-ja">セルフィー・ワーム</h1>
       <nav>
         <ul>
-          <li><a href="#factsheet"><span class="lang-en">Factsheet</span><span class="lang-zh">遊戲資訊</span></a></li>
-          <li><a href="#description"><span class="lang-en">Description</span><span class="lang-zh">遊戲簡介</span></a></li>
-          <li><a href="#features"><span class="lang-en">Features</span><span class="lang-zh">遊戲特色</span></a></li>
-          <li><a href="#videos"><span class="lang-en">Videos</span><span class="lang-zh">宣傳影片</span></a></li>
-          <li><a href="#images"><span class="lang-en">Images</span><span class="lang-zh">遊戲截圖</span></a></li>
-          <li><a href="#logo"><span class="lang-en">Logo</span><span class="lang-zh">遊戲 Logo</span></a></li>
-          <li><a href="#assets"><span class="lang-en">Media Assets</span><span class="lang-zh">媒體素材</span></a></li>
-          <li><a href="#policy"><span class="lang-en">Creator Policy</span><span class="lang-zh">創作者政策</span></a></li>
-          <li><a href="#about"><span class="lang-en">About Us</span><span class="lang-zh">關於我們</span></a></li>
-          <li><a href="#credits"><span class="lang-en">Credits</span><span class="lang-zh">團隊成員</span></a></li>
-          <li><a href="#contact"><span class="lang-en">Contact</span><span class="lang-zh">聯絡我們</span></a></li>
+          <li><a href="#factsheet"><span class="lang-en">Factsheet</span><span class="lang-zh">遊戲資訊</span><span
+                class="lang-ja">ファクトシート</span></a></li>
+          <li><a href="#description"><span class="lang-en">Description</span><span class="lang-zh">遊戲簡介</span><span
+                class="lang-ja">ゲーム紹介</span></a></li>
+          <li><a href="#features"><span class="lang-en">Features</span><span class="lang-zh">遊戲特色</span><span
+                class="lang-ja">ゲーム特徴</span></a></li>
+          <li><a href="#videos"><span class="lang-en">Videos</span><span class="lang-zh">宣傳影片</span><span
+                class="lang-ja">動画</span></a></li>
+          <li><a href="#images"><span class="lang-en">Images</span><span class="lang-zh">遊戲截圖</span><span
+                class="lang-ja">画像</span></a></li>
+          <li><a href="#logo"><span class="lang-en">Logo</span><span class="lang-zh">遊戲 Logo</span><span
+                class="lang-ja">ロゴ</span></a></li>
+          <li><a href="#assets"><span class="lang-en">Media Assets</span><span class="lang-zh">媒體素材</span><span
+                class="lang-ja">メディア素材</span></a></li>
+          <li><a href="#policy"><span class="lang-en">Creator Policy</span><span class="lang-zh">創作者政策</span><span
+                class="lang-ja">クリエイターポリシー</span></a></li>
+          <li><a href="#about"><span class="lang-en">About Us</span><span class="lang-zh">關於我們</span><span
+                class="lang-ja">私たちについて</span></a></li>
+          <li><a href="#credits"><span class="lang-en">Credits</span><span class="lang-zh">團隊成員</span><span
+                class="lang-ja">クレジット</span></a></li>
+          <li><a href="#contact"><span class="lang-en">Contact</span><span class="lang-zh">聯絡我們</span><span
+                class="lang-ja">お問い合わせ</span></a></li>
         </ul>
       </nav>
       <div style="margin-top: 5rem;">
@@ -416,6 +439,7 @@
           target="_blank" class="download-media-link">
           <span class="lang-en">Click here to download full media assets</span>
           <span class="lang-zh">點此下載完整媒體素材</span>
+          <span class="lang-ja">ここをクリックしてすべてのメディア素材をダウンロード</span>
         </a>
       </div>
     </aside>
@@ -426,15 +450,20 @@
           <a href="javascript:void(0);" class="btn-zh" onclick="setLang('zh')">中</a>
           /
           <a href="javascript:void(0);" class="btn-en" onclick="setLang('en')">EN</a>
+          /
+          <a href="javascript:void(0);" class="btn-ja" onclick="setLang('ja')">JP</a>
         </div>
         <h1 class="lang-en">Selfie Worm</h1>
         <h1 class="lang-zh">自拍蟲蟲</h1>
+        <h1 class="lang-ja">セルフィー・ワーム</h1>
       </div>
 
       <header style="margin-bottom: 2rem; position: relative; display: flex; justify-content: center;">
         <img src="images/presskit_hero.png" alt="Selfie Worm Banner" style="width: 100%;">
         <div style="position: absolute; right: 5%; top: 50%; transform: translateY(-50%); width: 52%;">
           <img src="images/logo_english.png" alt="Selfie Worm Logo English" id="logo-en"
+            style="display: none; width: 100%; margin-left: auto;">
+          <img src="images/logo_japanese.png" alt="Selfie Worm Logo Japanese" id="logo-ja"
             style="display: none; width: 100%; margin-left: auto;">
           <img src="images/logo_tchinese.png" alt="Selfie Worm Logo Chinese" id="logo-zh"
             style="display: block; width: 100%; margin-left: auto;">
@@ -447,34 +476,43 @@
           <section id="factsheet" style="margin-bottom: 0;">
             <h2 class="lang-en">Factsheet</h2>
             <h2 class="lang-zh">遊戲資訊</h2>
+            <h2 class="lang-ja">ファクトシート</h2>
 
             <div class="factsheet-item">
               <h3 class="lang-en">Developer:</h3>
               <h3 class="lang-zh">開發團隊：</h3>
+              <h3 class="lang-ja">開発元：</h3>
               <p class="lang-en">Straight Banana Game Studio<br>Based in Taiwan</p>
               <p class="lang-zh">正直香蕉遊戲工作室<br>來自台灣</p>
+              <p class="lang-ja">正直バナナゲームスタジオ<br>台灣</p>
             </div>
 
             <div class="factsheet-item">
               <h3 class="lang-en">Release Date:</h3>
               <h3 class="lang-zh">發售日期：</h3>
+              <h3 class="lang-ja">発売日：</h3>
               <p class="lang-en">Demo Available Now<br>Full Game Coming Summer 2026</p>
               <p class="lang-zh">試玩版現已推出<br>2026 夏季 正式版推出</p>
+              <p class="lang-ja">体験版 配信中<br>2026年夏 正式版リリース</p>
             </div>
 
             <div class="factsheet-item">
               <h3 class="lang-en">Platforms:</h3>
               <h3 class="lang-zh">發行平台：</h3>
+              <h3 class="lang-ja">プラットフォーム：</h3>
               <p>
                 <a href="https://store.steampowered.com/app/4333980/_/" target="_blank">Steam / Windows</a><br>
-                <span class="lang-en">iOS (TBA)</span><span class="lang-zh">iOS (預定)</span><br>
-                <span class="lang-en">Android (TBA)</span><span class="lang-zh">Android (預定)</span>
+                <span class="lang-en">iOS (TBA)</span><span class="lang-zh">iOS (預定)</span><span class="lang-ja">iOS
+                  (予定)</span><br>
+                <span class="lang-en">Android (TBA)</span><span class="lang-zh">Android (預定)</span><span
+                  class="lang-ja">Android (予定)</span>
               </p>
             </div>
 
             <div class="factsheet-item">
               <h3 class="lang-en">Website:</h3>
               <h3 class="lang-zh">官方網站：</h3>
+              <h3 class="lang-ja">公式サイト：</h3>
               <p><a href="https://straight-banana-games.github.io/Straight-Banana/"
                   target="_blank">straight-banana-games.github.io/Straight-Banana</a></p>
             </div>
@@ -482,6 +520,7 @@
             <div class="factsheet-item">
               <h3 class="lang-en">Socials:</h3>
               <h3 class="lang-zh">社群與網站：</h3>
+              <h3 class="lang-ja">ソーシャルメディア：</h3>
               <p>
                 <a href="https://linktr.ee/straight_banana" target="_blank">Linktree</a><br>
                 <a href="https://x.com/StrghtBanana" target="_blank">X (Twitter)</a><br>
@@ -496,12 +535,16 @@
           <section id="description" style="margin-bottom: 3rem;">
             <h2 class="lang-en">Description</h2>
             <h2 class="lang-zh">遊戲簡介</h2>
+            <h2 class="lang-ja">ゲーム紹介</h2>
             <p class="lang-en">
               A cozy adventure blending squishy 2D physics with photography. Control an elastic worm through a colorless
               world, capturing selfies to restore vibrancy and uncover a heartwarming narrative.
             </p>
             <p class="lang-zh">
               一款結合軟 Q 物理與攝影的療癒之作。玩家將操作充滿彈性的蟲蟲，在缺乏色彩的異世界裡穿梭，透過自拍來找回世界的色彩，並拼湊出溫暖的故事。
+            </p>
+            <p class="lang-ja">
+              ぷにぷにとした物理演算と写真撮影を組み合わせた癒やし系アクションです。弾力のあるワームを操作し、色のない世界で自撮りを通して彩りを取り戻し、温かな物語を紡ぎます。
             </p>
             <p class="lang-en">
               Featuring a built-in "Boss Key" and Pomodoro timer, it turns work breaks into healing times and becomes
@@ -510,33 +553,50 @@
             <p class="lang-zh">
               內建「防老闆鍵」與番茄鐘，讓每一次專注後的短暫休息，都成為療癒與驚喜的冒險，是你最完美的桌面夥伴。
             </p>
+            <p class="lang-ja">
+              「ボス回避機能」や集中タイマーも内蔵。短い休息を癒やしの冒険に変えてくれるパートナーです。
+            </p>
           </section>
 
           <section id="features" style="margin-bottom: 0;">
             <h2 class="lang-en">Features</h2>
             <h2 class="lang-zh">遊戲特色</h2>
+            <h2 class="lang-ja">ゲーム特徴</h2>
             <ul class="features-list">
               <li class="lang-en"><strong>Addicting Physics Gameplay:</strong> Master the timing of bounces and enjoy
                 satisfying physics feedback and Near-Miss mechanics.</li>
               <li class="lang-zh"><strong>易上癮的物理玩法：</strong>透過掌握彈跳的時機，享受充滿親切物理回饋與 Near-Miss 機制的挑戰。</li>
+              <li class="lang-ja"><strong>クセになる物理アクション：</strong>ジャンプのタイミングをマスターし、気持ちの良い物理フィードバックと「ニアミス」によるスリルを楽しもう。</li>
 
               <li class="lang-en"><strong>Humorous and Diverse Levels:</strong> Unstable targets, freezing, burning,
                 wind, low gravity, plus internet memes and movie homages.</li>
               <li class="lang-zh"><strong>幽默多元的關卡：</strong>不穩定的目標、結凍、燃燒、風吹、低重力，更有網路迷因與電影致敬的設計。</li>
+              <li class="lang-ja">
+                <strong>ユーモア溢れる多彩なステージ：</strong>不安定な足場、氷結、炎上、強風、低重力、さらにはネットミームや映画のオマージュが散りばめられたステージの数々。
+              </li>
 
               <li class="lang-en"><strong>Perfect Companion for Breaks:</strong> Built-in Pomodoro timer, relaxing
                 music, and a Boss Key in a vertical window, letting you sneak a break safely.</li>
               <li class="lang-zh"><strong>忙裡偷閒神隊友：</strong>內建番茄鐘、紓壓音樂與防老闆鍵的直式視窗，讓你偷閒不被抓包。</li>
+              <li class="lang-ja">
+                <strong>仕事や勉強のお供に：</strong>ポモドーロタイマー、リラックスできる音楽、そして縦画面に搭載された「ボス回避機能」で、いつでもこっそり息抜き。
+              </li>
 
               <li class="lang-en"><strong>Showcase Personality:</strong> Collect various worm skins and photo filters to
                 snap unique photos and share them with the community.</li>
               <li class="lang-zh"><strong>展現個性：</strong>多種蟲蟲外觀、照片濾鏡可收集，拍出獨特照片，還能在社群中看見彼此。</li>
+              <li class="lang-ja"><strong>個性を表現しよう：</strong>さまざまなスキンや写真フィルターを集めてユニークな自撮り写真を撮影し、コミュニティで共有しよう。</li>
 
               <li class="lang-en"><strong>Main Storyline:</strong> Piece together a heartwarming core story about
                 "companionship" and legacy through fragmented meta-narrative.</li>
               <li class="lang-zh"><strong>主線劇情：</strong>透過碎片化的後設敘事，拼湊出關於「陪伴」的核心故事與傳承。</li>
+              <li class="lang-ja"><strong>心温まるストーリー：</strong>断片的なメタフィクション調の物語を通して、「寄り添い」と受け継がれる想いを描く心温まるメインストーリー。</li>
             </ul>
-            <p class="back-to-top"><a href="#">↑ Top</a></p>
+            <p class="back-to-top"><a href="#">
+                <span class="lang-en">↑ Top</span>
+                <span class="lang-zh">↑ Top</span>
+                <span class="lang-ja">↑ トップ</span>
+              </a></p>
           </section>
         </div>
       </div>
@@ -544,8 +604,10 @@
       <section id="videos">
         <h2 class="lang-en">Videos</h2>
         <h2 class="lang-zh">宣傳影片</h2>
+        <h2 class="lang-ja">動画</h2>
         <p class="lang-en">Selfie Worm - Gameplay Trailer Movie</p>
         <p class="lang-zh">《自拍蟲蟲》遊戲玩法預告片</p>
+        <p class="lang-ja">【公式トレーラー】セルフィー・ワーム | ゲームプレイトレーラー</p>
 
         <div class="video-container lang-en" style="margin-bottom: 2rem;">
           <iframe src="https://www.youtube.com/embed/MwHeKYan9KQ" frameborder="0"
@@ -559,8 +621,15 @@
             allowfullscreen></iframe>
         </div>
 
+        <div class="video-container lang-ja" style="margin-bottom: 2rem;">
+          <iframe src="https://www.youtube.com/embed/ZH9YJjwp0-A" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+
         <p class="lang-en">Selfie Worm - Official Trailer</p>
         <p class="lang-zh">【預告片】自拍蟲蟲 Selfie Worm</p>
+        <p class="lang-ja">【公式トレーラー】セルフィー・ワーム | ぷにぷに物理アクション！</p>
 
         <div class="video-container lang-en">
           <iframe src="https://www.youtube.com/embed/Zz6WBOClP2A" frameborder="0"
@@ -573,21 +642,34 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
         </div>
-        <p class="back-to-top"><a href="#">↑ Top</a></p>
+
+        <div class="video-container lang-ja">
+          <iframe src="https://www.youtube.com/embed/Kj707p1kets" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+        <p class="back-to-top"><a href="#">
+            <span class="lang-en">↑ Top</span>
+            <span class="lang-zh">↑ Top</span>
+            <span class="lang-ja">↑ トップ</span>
+          </a></p>
       </section>
 
       <section id="images">
         <h2 class="lang-en">Images</h2>
         <h2 class="lang-zh">遊戲截圖</h2>
+        <h2 class="lang-ja">画像</h2>
         <div class="grid-images">
           <img src="images/feature_1.gif" alt="">
           <img src="images/feature_4.gif" alt="">
 
           <img src="images/feature_2_en.gif" alt="" class="lang-en">
           <img src="images/feature_2_zh.gif" alt="" class="lang-zh">
+          <img src="images/feature_2_en.gif" alt="" class="lang-ja">
 
           <img src="images/feature_5_en.gif" alt="" class="lang-en">
           <img src="images/feature_5_zh.gif" alt="" class="lang-zh">
+          <img src="images/feature_5_en.gif" alt="" class="lang-ja">
         </div>
 
         <!-- Screenshots EN -->
@@ -622,34 +704,69 @@
           <img src="images/screenshots_tw/Screenshot_12.jpg" alt="" class="lightbox-trigger">
         </div>
 
-        <p class="back-to-top"><a href="#">↑ Top</a></p>
+        <!-- Screenshots JA -->
+        <div class="grid-screenshots lang-ja">
+          <img src="images/screenshots_jp/Screenshot_1.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_jp/Screenshot_2.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_jp/Screenshot_3.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_jp/Screenshot_4.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_jp/Screenshot_5.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_jp/Screenshot_6.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_jp/Screenshot_7.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_jp/Screenshot_8.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_jp/Screenshot_9.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_jp/Screenshot_10.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_jp/Screenshot_11.jpg" alt="" class="lightbox-trigger">
+          <img src="images/screenshots_jp/Screenshot_12.jpg" alt="" class="lightbox-trigger">
+        </div>
+
+        <p class="back-to-top"><a href="#">
+            <span class="lang-en">↑ Top</span>
+            <span class="lang-zh">↑ Top</span>
+            <span class="lang-ja">↑ トップ</span>
+          </a></p>
       </section>
 
       <section id="logo">
         <h2 class="lang-en">Logo</h2>
         <h2 class="lang-zh">遊戲 Logo</h2>
+        <h2 class="lang-ja">ロゴ</h2>
         <div class="grid-images">
           <img src="images/logo_english.png" alt="English Logo" class="lang-en">
           <img src="images/logo_tchinese.png" alt="Traditional Chinese Logo" class="lang-zh">
+          <img src="images/logo_japanese.png" alt="Japanese Logo" class="lang-ja">
         </div>
-        <p class="back-to-top"><a href="#">↑ Top</a></p>
+        <p class="back-to-top"><a href="#">
+            <span class="lang-en">↑ Top</span>
+            <span class="lang-zh">↑ Top</span>
+            <span class="lang-ja">↑ トップ</span>
+          </a></p>
       </section>
 
       <section id="assets">
         <h2 class="lang-en">Media Assets</h2>
         <h2 class="lang-zh">媒體素材</h2>
+        <h2 class="lang-ja">プレスキット素材</h2>
         <p class="lang-en">Download full press kit and high-res images: <a
             href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=drive_link"
             target="_blank">Download Here</a></p>
         <p class="lang-zh">下載完整 Press Kit 與高畫質圖片：<a
             href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=drive_link"
             target="_blank">點此下載</a></p>
-        <p class="back-to-top"><a href="#">↑ Top</a></p>
+        <p class="lang-ja">プレスキットと高解像度画像をまとめてダウンロード：<a
+            href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=drive_link"
+            target="_blank">こちらをクリック</a></p>
+        <p class="back-to-top"><a href="#">
+            <span class="lang-en">↑ Top</span>
+            <span class="lang-zh">↑ Top</span>
+            <span class="lang-ja">↑ トップ</span>
+          </a></p>
       </section>
 
       <section id="policy">
         <h2 class="lang-en">Creator Policy</h2>
         <h2 class="lang-zh">創作者政策</h2>
+        <h2 class="lang-ja">クリエイターポリシー</h2>
 
         <div class="lang-zh">
           <p>我們非常歡迎且鼓勵創作者實況、拍攝《自拍蟲蟲》的影片並開啟盈利！</p>
@@ -693,27 +810,58 @@
               here to open</a></p>
         </div>
 
-        <p class="back-to-top"><a href="#">↑ Top</a></p>
+        <div class="lang-ja">
+          <p>『セルフィー・ワーム』の実況プレイ、動画投稿、およびそれに伴う収益化を大歓迎・応援しています！</p>
+
+          <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">ゲーム内BGMに関する重要なお知らせ：</h3>
+          <p>• 本作のBGMには Pixabay のフリー音源を使用しています。開発時にContent IDの登録がないことを事前に確認しております。</p>
+          <p>• ただし、サードパーティ製プラットフォームの仕様変更などにより、将来的に著作権の誤判定やContent IDの検知が100%発生しないとは保証できません。</p>
+          <p>• 収益化への影響が心配な場合は、ゲーム内のオーディオ設定から「音楽」のスピーカーアイコンをクリックしてBGMをミュートにすることで、安心して配信を行っていただけます。</p>
+          <p>• タイトル画面で流れるボーカル入りの主題歌は、開発チームが SUNO Pro
+            を使用して制作したものであり、完全な商業著作権を所有しています。クリエイターの皆様による本楽曲の歌ってみた（カバー）、二次創作、アレンジ配信を大歓迎・許可しており、著作権料などは一切発生しません。</p>
+
+          <p style="margin-top: 1rem;">ただし、コミュニティ全体の利益を守るため、本楽曲（カバー・アレンジ版を含む）をサードパーティ製プラットフォームに投稿し、Content
+            IDや著作権管理システムに登録することは固く禁止いたします。</p>
+
+          <p style="margin-top: 3rem;">詳細内容はこちら：<a
+              href="https://drive.google.com/drive/u/0/folders/1jKxU51MyDS6OeVqzSpJ5zA3ptOuAL2s4"
+              target="_blank">クリックして開く</a></p>
+        </div>
+
+        <p class="back-to-top"><a href="#">
+            <span class="lang-en">↑ Top</span>
+            <span class="lang-zh">↑ Top</span>
+            <span class="lang-ja">↑ トップ</span>
+          </a></p>
       </section>
 
       <section id="about">
         <h2 class="lang-en">About Us</h2>
         <h2 class="lang-zh">關於我們</h2>
+        <h2 class="lang-ja">私たちについて</h2>
 
         <img src="images/studio_logo_horizontal.png" alt="Straight Banana Logo"
           style="max-width: 35%; margin-bottom: 2rem;">
 
         <p class="lang-en" style="font-size: 1.2rem;"><strong>Straight Banana Game Studio</strong></p>
         <p class="lang-zh" style="font-size: 1.2rem;"><strong>正直香蕉遊戲工作室</strong></p>
+        <p class="lang-ja" style="font-size: 1.2rem;"><strong>正直バナナゲームスタジオ</strong></p>
 
         <p class="lang-en">We are a two-person indie game studio based in Taiwan.</p>
         <p class="lang-zh">我們是來自台灣的雙人獨立遊戲工作室。</p>
+        <p class="lang-ja">台湾発の2人組インディーゲームスタジオです。</p>
 
         <p class="lang-en">We love creating games that are a bit weird, a bit funny, and a bit moving. We especially
           love things that feel strangely right, just like a STRAIGHT BANANA.</p>
         <p class="lang-zh">我們熱愛製作有點奇怪、有點搞笑、又有點動人心弦的遊戲。<br>特別喜歡那種說不上來的微妙感，彷彿一根筆直的香蕉。</p>
+        <p class="lang-ja">
+          私たちが愛を込めて作るのは、ちょっと奇妙で、ちょっとコミカル、だけどどこか心が揺さぶられる、そんなゲーム。<br>言葉では言い表せないシュールで絶妙な違和感は、まるで一本の「まっすぐなバナナ」のように。</p>
 
-        <p class="back-to-top"><a href="#">↑ Top</a></p>
+        <p class="back-to-top"><a href="#">
+            <span class="lang-en">↑ Top</span>
+            <span class="lang-zh">↑ Top</span>
+            <span class="lang-ja">↑ トップ</span>
+          </a></p>
       </section>
 
       <div class="grid-2col-even">
@@ -721,12 +869,16 @@
           <section id="credits" style="margin-bottom: 0;">
             <h2 class="lang-en">Credits</h2>
             <h2 class="lang-zh">團隊成員</h2>
+            <h2 class="lang-ja">クレジット</h2>
             <p class="lang-en"><strong style="font-size: 1.2rem;">Luke Liu</strong><br>Co-Founder, Game Designer</p>
             <p class="lang-zh"><strong style="font-size: 1.2rem;">Luke Liu</strong><br>Co-Founder, Game Designer</p>
+            <p class="lang-ja"><strong style="font-size: 1.2rem;">Luke Liu</strong><br>共同創設者 / ゲームデザイナー</p>
             <br>
             <p class="lang-en"><strong style="font-size: 1.2rem;">Linda Huang</strong><br>Co-Founder, Technical Artist
             </p>
             <p class="lang-zh"><strong style="font-size: 1.2rem;">Linda Huang</strong><br>Co-Founder, Technical Artist
+            </p>
+            <p class="lang-ja"><strong style="font-size: 1.2rem;">Linda Huang</strong><br>共同創設者 / テクニカルアーティスト
             </p>
           </section>
         </div>
@@ -735,10 +887,13 @@
           <section id="contact" style="margin-bottom: 0;">
             <h2 class="lang-en">Contact</h2>
             <h2 class="lang-zh">聯絡我們</h2>
+            <h2 class="lang-ja">お問い合わせ</h2>
 
             <p class="lang-en"><strong>Business Inquiries</strong><br><a
                 href="mailto:straight.banana.gamedev@gmail.com">straight.banana.gamedev@gmail.com</a></p>
             <p class="lang-zh"><strong>商業合作</strong><br><a
+                href="mailto:straight.banana.gamedev@gmail.com">straight.banana.gamedev@gmail.com</a></p>
+            <p class="lang-ja"><strong>ビジネスに関するお問い合わせ</strong><br><a
                 href="mailto:straight.banana.gamedev@gmail.com">straight.banana.gamedev@gmail.com</a></p>
             <br>
 
@@ -752,11 +907,16 @@
             </p>
             <br>
 
-            <p><strong>Website</strong><br>
+            <p><strong><span class="lang-en">Website</span><span class="lang-zh">官方網站</span><span
+                  class="lang-ja">ウェブサイト</span></strong><br>
               <a href="https://straight-banana-games.github.io/Straight-Banana/"
                 target="_blank">straight-banana-games.github.io/Straight-Banana/</a>
             </p>
-            <p class="back-to-top"><a href="#">↑ Top</a></p>
+            <p class="back-to-top"><a href="#">
+                <span class="lang-en">↑ Top</span>
+                <span class="lang-zh">↑ Top</span>
+                <span class="lang-ja">↑ トップ</span>
+              </a></p>
           </section>
         </div>
       </div>
