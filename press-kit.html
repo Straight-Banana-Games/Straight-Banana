@@ -110,15 +110,36 @@
     }
 
     .download-media-link {
-      font-size: 0.9rem;
-      text-decoration: underline;
-      font-weight: normal;
-      color: var(--link-color);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #e67a7f;
+      color: #ffffff !important;
+      border-radius: 9999px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none !important;
+      transition: transform 0.2s ease, filter 0.2s ease;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      line-height: 1.2;
+      outline: none;
+      box-sizing: border-box;
+      max-width: 100%;
+      text-align: center;
     }
 
+    aside .download-media-link:hover,
     .download-media-link:hover {
-      text-decoration: none;
-      color: var(--link-color);
+      transform: scale(1.05) translateZ(0);
+      filter: brightness(1.05);
+      text-decoration: none !important;
+      color: #ffffff !important;
+    }
+
+    .download-media-link::after {
+      filter: brightness(0) invert(1) !important;
     }
 
     .lang-switch a {
@@ -435,11 +456,17 @@
         </ul>
       </nav>
       <div style="margin-top: 5rem;">
-        <a href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=drive_link"
-          target="_blank" class="download-media-link">
-          <span class="lang-en">Click here to download full media assets</span>
-          <span class="lang-zh">點此下載完整媒體素材</span>
-          <span class="lang-ja">ここをクリックしてすべてのメディア素材をダウンロード</span>
+        <a href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=sharing" target="_blank"
+          class="download-media-link lang-en">
+          Download All Assets
+        </a>
+        <a href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=sharing" target="_blank"
+          class="download-media-link lang-zh">
+          下載完整媒體素材
+        </a>
+        <a href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=sharing" target="_blank"
+          class="download-media-link lang-ja">
+          すべての素材を<br>ダウンロード
         </a>
       </div>
     </aside>
@@ -491,9 +518,9 @@
               <h3 class="lang-en">Release Date:</h3>
               <h3 class="lang-zh">發售日期：</h3>
               <h3 class="lang-ja">発売日：</h3>
-              <p class="lang-en">Demo Available Now<br>Full Game Coming 14 Aug, 2026</p>
-              <p class="lang-zh">試玩版現已推出<br>2026年8月14日 正式版推出</p>
-              <p class="lang-ja">体験版 配信中<br>2026年8月14日 正式版リリース</p>
+              <p class="lang-en">14 Aug, 2026</p>
+              <p class="lang-zh">2026年8月14日</p>
+              <p class="lang-ja">2026年8月14日</p>
             </div>
 
             <div class="factsheet-item">
@@ -525,7 +552,8 @@
                 <a href="https://linktr.ee/straight_banana" target="_blank">Linktree</a><br>
                 <a href="https://www.threads.com/@straight_banana_game" target="_blank">Threads</a><br>
                 <a href="https://x.com/StrghtBanana" target="_blank">X (Twitter)</a><br>
-                <a href="https://www.facebook.com/StraightBanana/" target="_blank">Facebook</a>
+                <a href="https://www.facebook.com/StraightBanana/" target="_blank">Facebook</a><br>
+                <a href="https://www.instagram.com/straight_banana_game" target="_blank">Instagram</a>
               </p>
             </div>
           </section>
@@ -739,16 +767,16 @@
       <section id="assets">
         <h2 class="lang-en">Media Assets</h2>
         <h2 class="lang-zh">媒體素材</h2>
-        <h2 class="lang-ja">プレスキット素材</h2>
+        <h2 class="lang-ja">メディア素材</h2>
         <p class="lang-en">Download full press kit and high-res images: <a
-            href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=drive_link"
-            target="_blank">Download Here</a></p>
+            href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=sharing" target="_blank"
+            class="download-media-link">Download Here</a></p>
         <p class="lang-zh">下載完整 Press Kit 與高畫質圖片：<a
-            href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=drive_link"
-            target="_blank">點此下載</a></p>
+            href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=sharing" target="_blank"
+            class="download-media-link">點此下載</a></p>
         <p class="lang-ja">プレスキットと高解像度画像をまとめてダウンロード：<a
-            href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=drive_link"
-            target="_blank">こちらをクリック</a></p>
+            href="https://drive.google.com/drive/folders/1NM5Qd5FVoB7HKEoJyayg2bGUTvHMSugP?usp=sharing" target="_blank"
+            class="download-media-link">こちらをクリック</a></p>
         <p class="back-to-top"><a href="#">
             <span class="lang-en">↑ Top</span>
             <span class="lang-zh">↑ Top</span>
@@ -882,6 +910,12 @@
 
             <p><strong>Facebook</strong><br>
               <a href="https://www.facebook.com/StraightBanana/" target="_blank">www.facebook.com/StraightBanana/</a>
+            </p>
+            <br>
+
+            <p><strong>Instagram</strong><br>
+              <a href="https://www.instagram.com/straight_banana_game"
+                target="_blank">www.instagram.com/straight_banana_game</a>
             </p>
             <br>
 

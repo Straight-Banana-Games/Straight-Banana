@@ -190,7 +190,7 @@
 
             /* 手機版移除按鈕 hover 效果 */
             .standard-btn:hover {
-                transform: none;
+                transform: translateZ(0);
             }
 
             .contact-btn:hover {
@@ -280,11 +280,15 @@
             font-weight: 400;
             font-size: 15px;
             color: #564c3b;
-            transition: all 0.3s;
+            transition: transform 0.2s ease, background-color 0.2s ease, filter 0.2s ease;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            line-height: 1;
+            outline: none;
         }
 
         .standard-btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) translateZ(0);
         }
 
         /* 遊戲展示區連結樣式 */
@@ -309,14 +313,18 @@
             justify-content: center;
             background-color: #ffffff;
             border-radius: 9999px;
-            transition: all 0.3s;
+            transition: transform 0.2s ease, background-color 0.2s ease, filter 0.2s ease;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            line-height: 1;
             position: relative;
             flex-shrink: 0;
             font-weight: 400;
+            outline: none;
         }
 
         .contact-btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) translateZ(0);
         }
     </style>
 </head>
@@ -335,8 +343,7 @@
                 hero: { title: '我們是', titleHighlight: '正直香蕉', subtitle: '來自台灣的雙人獨立遊戲工作室', btnGames: '遊戲作品', btnContact: '聯絡我們' },
                 games: {
                     title: '遊戲作品',
-                    tag: '試玩版現已推出',
-                    tag2: '2026年8月14日 正式版推出',
+                    tag: '現已推出',
                     name: '自拍蟲蟲',
                     desc: '一款結合軟 Q 物理與攝影的療癒之作。玩家將操作充滿彈性的蟲蟲，在缺乏色彩的異世界裡穿梭，透過自拍來找回世界的色彩，並拼湊出溫暖的故事。內建「防老闆鍵」與番茄鐘，讓每一次專注後的短暫休息，都成為療癒與驚喜的冒險，是你最完美的桌面夥伴。',
                     img: 'images/key_art_landscape_zh.png',
@@ -363,8 +370,7 @@
                 hero: { title: 'We are ', titleHighlight: 'STRAIGHT BANANA', subtitle: 'A two-person indie game studio based in Taiwan.', btnGames: 'GAMES', btnContact: 'CONTACT' },
                 games: {
                     title: 'OUR GAMES',
-                    tag: 'Demo Available Now',
-                    tag2: 'Full Game Coming 14 Aug, 2026',
+                    tag: 'Available Now',
                     name: 'Selfie Worm',
                     desc: 'A cozy adventure blending squishy 2D physics with photography. Control a elastic worm through a colorless world, capturing selfies to restore vibrancy and uncover a heartwarming narrative. Featuring a built-in "Boss Key" and Pomodoro timer, it turns work breaks into healing times.',
                     img: 'images/key_art_landscape_en.png',
@@ -391,8 +397,7 @@
                 hero: { title: '私たちは', titleHighlight: '正直バナナ', subtitle: '台湾発の2人組\nインディーゲームスタジオです。', btnGames: 'ゲーム作品', btnContact: 'お問い合わせ' },
                 games: {
                     title: 'ゲーム作品',
-                    tag: '体験版 配信中',
-                    tag2: '2026年8月14日 正式版リリース',
+                    tag: '配信中',
                     name: 'セルフィー・ワーム',
                     desc: 'ぷにぷにとした物理演算と写真撮影を組み合わせた癒やし系アクションです。弾力のあるワームを操作し、色のない世界で自撮りを通して彩りを取り戻し、温かな物語を紡ぎます。「ボス回避機能」や集中タイマーも内蔵。短い休息を癒やしの冒険に変えてくれるパートナーです。',
                     img: 'images/key_art_landscape_jp.png',
@@ -642,11 +647,8 @@
                         <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3 mb-4">
                             <h3 className="text-2xl md:text-3xl font-bold">{t.games.name}</h3>
                             <div className="flex flex-wrap gap-2">
-                                <div className="bg-studio-text px-3 py-1 rounded-full text-[12px] font-normal text-white w-fit">
+                                <div className="bg-[#554d3d] px-3 py-1 rounded-full text-[12px] font-normal text-white w-fit">
                                     {t.games.tag}
-                                </div>
-                                <div className="bg-[#ed6d72] px-3 py-1 rounded-full text-[12px] font-normal text-white w-fit">
-                                    {t.games.tag2}
                                 </div>
                             </div>
                         </div>
@@ -680,23 +682,19 @@
                                     </p>
                                 </div>
                                 <div className="mt-4">
-                                    <a href="https://store.steampowered.com/app/4333980/_/" target="_blank" className="standard-btn bg-[#171a21] text-white hover:bg-[#2a475e] transition-all mb-4 !w-[144px]">
-                                        <img src="images/steam_logo_w.png" className="h-6" alt="Steam" />
-                                    </a>
-                                    <div className="flex flex-col gap-2">
-                                        <div className="flex items-center gap-4">
-                                            <a href={lang === 'zh' ? 'press-kit.html' : lang === 'ja' ? 'press-kit.html?lang=ja' : 'press-kit.html?lang=en'} target="_blank" className="game-link flex items-center gap-1">
-                                                Press Kit <img src="images/icon_linking.png" className="w-3.5 h-3.5" style={{ filter: 'invert(27%) sepia(13%) saturate(583%) hue-rotate(5deg) brightness(85%) contrast(110%)' }} />
-                                            </a>
-                                            <a href={lang === 'zh' ? 'pitch-deck.html' : 'pitch-deck.html?lang=en'} target="_blank" className="game-link flex items-center gap-1">
-                                                Pitch Deck <img src="images/icon_linking.png" className="w-3.5 h-3.5" style={{ filter: 'invert(27%) sepia(13%) saturate(583%) hue-rotate(5deg) brightness(85%) contrast(110%)' }} />
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="privacy-policy.html" target="_blank" className="game-link flex items-center gap-1">
-                                                Privacy Policy <img src="images/icon_linking.png" className="w-3.5 h-3.5" style={{ filter: 'invert(27%) sepia(13%) saturate(583%) hue-rotate(5deg) brightness(85%) contrast(110%)' }} />
-                                            </a>
-                                        </div>
+                                    <div className="flex items-center gap-3 mb-4 flex-wrap">
+                                        <a href="https://store.steampowered.com/app/4333980/_/" target="_blank" className="standard-btn bg-[#171a21] text-white hover:bg-[#2a475e] transition-all !w-[144px]">
+                                            <img src="images/steam_logo_w.png" className="h-6" alt="Steam" />
+                                        </a>
+                                        <a href={lang === 'zh' ? 'press-kit.html' : lang === 'ja' ? 'press-kit.html?lang=ja' : 'press-kit.html?lang=en'} target="_blank" className="standard-btn bg-[#e67a7f] text-white text-[14px] hover:brightness-105 transition-all !w-[144px] flex items-center justify-center gap-1.5 font-medium leading-none">
+                                            <span>Press Kit</span>
+                                            <img src="images/icon_linking.png" className="w-3.5 h-3.5 flex-shrink-0 filter brightness-0 invert" />
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a href="privacy-policy.html" target="_blank" className="game-link flex items-center gap-1">
+                                            Privacy Policy <img src="images/icon_linking.png" className="w-3.5 h-3.5" style={{ filter: 'invert(27%) sepia(13%) saturate(583%) hue-rotate(5deg) brightness(85%) contrast(110%)' }} />
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -774,6 +772,7 @@
                 { name: "Threads", icon: "images/icon_threads.png", url: "https://www.threads.com/@straight_banana_game" },
                 { name: "X (Twitter)", icon: "images/icon_x.png", url: "https://x.com/StrghtBanana" },
                 { name: "Facebook", icon: "images/icon_fb.png", url: "https://www.facebook.com/StraightBanana/" },
+                { name: "Instagram", icon: "images/icon_ig.png", url: "https://www.instagram.com/straight_banana_game" },
             ];
 
             return (
