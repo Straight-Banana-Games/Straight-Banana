@@ -347,7 +347,9 @@
                     name: '自拍蟲蟲',
                     desc: '一款結合軟 Q 物理與攝影的療癒之作。玩家將操作充滿彈性的蟲蟲，在缺乏色彩的異世界裡穿梭，透過自拍來找回世界的色彩，並拼湊出溫暖的故事。內建「防老闆鍵」與番茄鐘，讓每一次專注後的短暫休息，都成為療癒與驚喜的冒險，是你最完美的桌面夥伴。',
                     img: 'images/key_art_landscape_zh.png',
-                    video: 'videos/selfieworm_trailer_tw.webm'
+                    video: 'videos/selfieworm_trailer_tw.webm',
+                    pressKit: 'Press Kit',
+                    privacyPolicy: '隱私權政策'
                 },
                 about: {
                     title: '關於我們',
@@ -374,7 +376,9 @@
                     name: 'Selfie Worm',
                     desc: 'A cozy adventure blending squishy 2D physics with photography. Control a elastic worm through a colorless world, capturing selfies to restore vibrancy and uncover a heartwarming narrative. Featuring a built-in "Boss Key" and Pomodoro timer, it turns work breaks into healing times.',
                     img: 'images/key_art_landscape_en.png',
-                    video: 'videos/selfieworm_trailer_en.webm'
+                    video: 'videos/selfieworm_trailer_en.webm',
+                    pressKit: 'Press Kit',
+                    privacyPolicy: 'Privacy Policy'
                 },
                 about: {
                     title: 'ABOUT US',
@@ -401,7 +405,9 @@
                     name: 'セルフィー・ワーム',
                     desc: 'ぷにぷにとした物理演算と写真撮影を組み合わせた癒やし系アクションです。弾力のあるワームを操作し、色のない世界で自撮りを通して彩りを取り戻し、温かな物語を紡ぎます。「ボス回避機能」や集中タイマーも内蔵。短い休息を癒やしの冒険に変えてくれるパートナーです。',
                     img: 'images/key_art_landscape_jp.png',
-                    video: 'videos/selfieworm_trailer_jp.webm'
+                    video: 'videos/selfieworm_trailer_jp.webm',
+                    pressKit: 'プレスキット',
+                    privacyPolicy: 'プライバシーポリシー'
                 },
                 about: {
                     title: '私たちについて',
@@ -687,13 +693,13 @@
                                             <img src="images/steam_logo_w.png" className="h-6" alt="Steam" />
                                         </a>
                                         <a href={lang === 'zh' ? 'press-kit.html' : lang === 'ja' ? 'press-kit.html?lang=ja' : 'press-kit.html?lang=en'} target="_blank" className="standard-btn bg-[#e67a7f] text-white text-[14px] hover:brightness-105 transition-all !w-[144px] flex items-center justify-center gap-1.5 font-medium leading-none">
-                                            <span>Press Kit</span>
+                                            <span>{t.games.pressKit}</span>
                                             <img src="images/icon_linking.png" className="w-3.5 h-3.5 flex-shrink-0 filter brightness-0 invert" />
                                         </a>
                                     </div>
                                     <div>
                                         <a href="privacy-policy.html" target="_blank" className="game-link flex items-center gap-1">
-                                            Privacy Policy <img src="images/icon_linking.png" className="w-3.5 h-3.5" style={{ filter: 'invert(27%) sepia(13%) saturate(583%) hue-rotate(5deg) brightness(85%) contrast(110%)' }} />
+                                            {t.games.privacyPolicy} <img src="images/icon_linking.png" className="w-3.5 h-3.5" style={{ filter: 'invert(27%) sepia(13%) saturate(583%) hue-rotate(5deg) brightness(85%) contrast(110%)' }} />
                                         </a>
                                     </div>
                                 </div>
