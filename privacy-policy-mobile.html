@@ -1,140 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy for Selfie Worm</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #24292e;
-            max-width: 820px;
-            margin: 0 auto;
-            padding: 30px 20px;
-            background-color: #ffffff;
-        }
-        h1 {
-            font-size: 2em;
-            margin-bottom: 0.3em;
-            color: #111;
-        }
-        h2 {
-            font-size: 1.5em;
-            margin-top: 1.5em;
-            margin-bottom: 0.5em;
-            color: #111;
-        }
-        h3 {
-            font-size: 1.15em;
-            margin-top: 1.2em;
-            margin-bottom: 0.4em;
-            color: #24292e;
-        }
-        p {
-            margin: 0.8em 0;
-        }
-        hr {
-            border: 0;
-            border-top: 1px solid #e1e4e8;
-            margin: 2em 0;
-        }
-        ul {
-            padding-left: 24px;
-            margin: 0.8em 0;
-        }
-        li {
-            margin-bottom: 0.4em;
-        }
-        a {
-            color: #0366d6;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        strong {
-            font-weight: 600;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selfie Worm Privacy Policy</title>
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-color: #000000;
+      --bg-color: #ffffff;
+      --link-color: #4d76f6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'LINE Seed JP', sans-serif;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    .page-wrapper {
+      width: 100%;
+      max-width: 800px;
+      padding: 3rem 2rem;
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: underline;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    .back-link {
+      margin-bottom: 3rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .back-link a {
+      text-decoration: none;
+      font-size: 0.95rem;
+      color: var(--link-color);
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+
+    .divider {
+      color: #ccc;
+    }
+
+    a[target="_blank"]::after {
+      content: "";
+      display: inline-block;
+      width: 0.85em;
+      height: 0.85em;
+      margin-left: 0.3em;
+      background-image: url('images/icon_linking.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      vertical-align: middle;
+      filter: brightness(0);
+    }
+
+    main {
+      width: 100%;
+    }
+
+    section {
+      margin-bottom: 4rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
+      font-weight: 900;
+      padding-bottom: 0.4rem;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin-top: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    ul.policy-list {
+      list-style-type: square;
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    ul.policy-list li {
+      margin-bottom: 0.8rem;
+    }
+
+    .back-to-top {
+      text-align: right;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .back-to-top a {
+      text-decoration: none;
+    }
+
+    .back-to-top a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 4rem;
+      text-align: center;
+      color: #999;
+      font-size: 0.9rem;
+      padding-top: 2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .page-wrapper {
+        padding: 2rem 1.5rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .back-to-top {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-    <h1>Privacy Policy for Selfie Worm</h1>
-    <p><strong>Last Updated:</strong> October 13, 2026</p>
-    <p>This Privacy Policy explains how we handle user information and data when you play <strong>Selfie Worm</strong> on mobile platforms (Android and iOS).</p>
+  <div class="page-wrapper">
 
-    <hr>
+    <main>
+      <div style="margin-bottom: 3rem;">
+        <h1>Privacy Policy for Selfie Worm</h1>
+        <p style="color: #666; font-size: 0.95rem;"><strong>Last Updated:</strong> October 13, 2026</p>
+        <p style="font-size: 1.1rem; margin-top: 1.5rem;">This Privacy Policy explains how we handle user information
+          and data when you play Selfie Worm on mobile platforms (Android and iOS).</p>
+      </div>
 
-    <h2>1. Information Collection and Usage</h2>
-    <p>We respect player privacy. <strong>We do not collect, track, or store any personal data or personally identifiable information (PII) on our own servers.</strong></p>
-    <p>To support game functionality, analyze stability, and deliver ad-supported gameplay, the Game integrates standard, trusted third-party services:</p>
+      <section id="collection">
+        <h2>1. Information Collection and Usage</h2>
+        <p>We respect player privacy. <strong>We do not collect, track, or store any personal data or personally
+            identifiable information (PII) on our own servers.</strong></p>
+        <p>To support game functionality, analyze stability, and deliver ad-supported gameplay, the Game integrates
+          standard, trusted third-party services:</p>
 
-    <h3>A. Analytics (Unity Analytics)</h3>
-    <p>We utilize Unity Analytics (provided by Unity Technologies) to understand gameplay engagement and diagnose performance issues. The collected information is pseudonymous and aggregated, which may include:</p>
-    <ul>
-        <li><strong>Device Information:</strong> Device model, operating system version, system language, and unique device/installation identifiers.</li>
-        <li><strong>Gameplay Events:</strong> Session duration, level progression, in-game milestones, and crash logs.</li>
-    </ul>
+        <h3>A. Analytics (Unity Analytics)</h3>
+        <p>We utilize Unity Analytics (provided by Unity Technologies) to understand gameplay engagement and diagnose
+          performance issues. The collected information is pseudonymous and aggregated, which may include:</p>
+        <ul class="policy-list">
+          <li><strong>Device Information:</strong> Device model, operating system version, system language, and unique
+            device/installation identifiers.</li>
+          <li><strong>Gameplay Events:</strong> Session duration, level progression, in-game milestones, and crash logs.
+          </li>
+        </ul>
 
-    <h3>B. Advertising (Ad Networks)</h3>
-    <p>The free version of the Game is supported by advertisements (such as interstitial and rewarded video ads). Our third-party advertising partners (such as Google AdMob and Unity Ads) may collect and process:</p>
-    <ul>
-        <li><strong>Advertising Identifiers:</strong> Google Advertising ID (AAID) or Apple Identifier for Advertisers (IDFA / IDFV).</li>
-        <li><strong>Network Information:</strong> IP address (used to infer coarse geographic region) and connection type.</li>
-        <li><strong>Ad Engagement Data:</strong> Ad views, clicks, and completion events for fraud prevention and performance metrics.</li>
-    </ul>
+        <h3>B. Advertising (Ad Networks)</h3>
+        <p>The free version of the Game is supported by advertisements (such as interstitial and rewarded video ads).
+          Our third-party advertising partners (such as Google AdMob and Unity Ads) may collect and process:</p>
+        <ul class="policy-list">
+          <li><strong>Advertising Identifiers:</strong> Google Advertising ID (AAID) or Apple Identifier for Advertisers
+            (IDFA / IDFV).</li>
+          <li><strong>Network Information:</strong> IP address (used to infer coarse geographic region) and connection
+            type.</li>
+          <li><strong>Ad Engagement Data:</strong> Ad views, clicks, and completion events for fraud prevention and
+            performance metrics.</li>
+        </ul>
 
-    <h3>C. In-App Purchases (Unity IAP)</h3>
-    <p>If you purchase full version unlocks or other digital content, all billing transactions are handled directly by <strong>Google Play</strong> (Google LLC) or the <strong>Apple App Store</strong> (Apple Inc.). We do not collect, process, or store your credit card or billing details.</p>
+        <h3>C. In-App Purchases (Unity IAP)</h3>
+        <p>If you purchase full version unlocks or other digital content, all billing transactions are handled directly
+          by <strong>Google Play</strong> (Google LLC) or the <strong>Apple App Store</strong> (Apple Inc.). We do not
+          collect, process, or store your credit card or billing details.</p>
 
-    <h3>D. Cloud Saves & Game Services</h3>
-    <p>The Game may interact with <strong>Google Play Games Services</strong> (Android) or <strong>Apple Game Center</strong> (iOS) solely to facilitate cloud save synchronization and achievements. We do not store your platform credentials on external servers.</p>
+        <h3>D. Cloud Saves & Game Services</h3>
+        <p>The Game may interact with <strong>Google Play Games Services</strong> (Android) or <strong>Apple Game
+            Center</strong> (iOS) solely to facilitate cloud save synchronization and achievements. We do not store your
+          platform credentials on external servers.</p>
+      </section>
 
-    <hr>
+      <section id="photos">
+        <h2>2. In-Game Photos and Social Sharing</h2>
+        <ul class="policy-list">
+          <li><strong>Local Storage:</strong> Photos, selfies, and custom memes captured within the Game are stored
+            locally on your device's photo album or storage. We do not upload or store your captured photos on external
+            servers.</li>
+          <li><strong>Native Social Sharing:</strong> Any sharing of photos to third-party apps (e.g., Instagram,
+            Threads, LINE, or others) is executed purely through your device's native sharing sheet and requires your
+            explicit action.</li>
+        </ul>
+      </section>
 
-    <h2>2. In-Game Photos and Social Sharing</h2>
-    <ul>
-        <li><strong>Local Storage:</strong> Photos, selfies, and custom memes captured within the Game are stored locally on your device's photo album or storage. We do not upload or store your captured photos on external servers.</li>
-        <li><strong>Native Social Sharing:</strong> Any sharing of photos to third-party apps (e.g., Instagram, Threads, LINE, or others) is executed purely through your device's native sharing sheet and requires your explicit action.</li>
-    </ul>
+      <section id="control">
+        <h2>3. Your Control and Choices</h2>
+        <ul class="policy-list">
+          <li><strong>Advertising Tracking Controls:</strong> You can reset or limit personalized advertising at any
+            time through your device system settings (e.g., via Android's "Delete Advertising ID" or iOS's "Ask App not
+            to Track").</li>
+          <li><strong>Data Deletion:</strong> Because we do not store player accounts on private servers, you can delete
+            all locally stored game progression, cached files, and saved preferences at any time by clearing the
+            application storage in your device settings or by uninstalling the Game.</li>
+        </ul>
+      </section>
 
-    <hr>
+      <section id="third-party">
+        <h2>4. Third-Party Services</h2>
+        <p>This Game utilizes third-party platform and developer services. For more details on how these providers
+          process data, please refer to their respective privacy policies:</p>
+        <ul class="policy-list">
+          <li><strong>Unity Technologies (Unity Analytics & Unity Ads):</strong> <a
+              href="https://unity.com/legal/game-player-and-app-user-privacy-policy" target="_blank"
+              rel="noopener">Unity Privacy Policy</a></li>
+          <li><strong>Google LLC (Google Play Services & Google AdMob):</strong> <a
+              href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a></li>
+          <li><strong>Apple Inc. (Apple Game Center & App Store):</strong> <a
+              href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple Privacy Policy</a></li>
+        </ul>
+      </section>
 
-    <h2>3. Your Control and Choices</h2>
-    <ul>
-        <li><strong>Advertising Tracking Controls:</strong> You can reset or limit personalized advertising at any time through your device system settings (e.g., via Android's "Delete Advertising ID" or iOS's "Ask App not to Track").</li>
-        <li><strong>Data Deletion:</strong> Because we do not store player accounts on private servers, you can delete all locally stored game progression, cached files, and saved preferences at any time by clearing the application storage in your device settings or by uninstalling the Game.</li>
-    </ul>
+      <section id="children">
+        <h2>5. Children's Privacy</h2>
+        <p>The Game does not collect personal data from anyone, including children under the age of 13 (or under 16 in
+          the European Economic Area). If you believe that a child has provided personal information to a third-party
+          service provider through the Game, please contact us immediately so we can assist in resolving the matter.</p>
+      </section>
 
-    <hr>
+      <section id="language">
+        <h2>6. Language Disclaimer</h2>
+        <p>This Privacy Policy is provided in English. If this policy is translated into another language, the English
+          version shall prevail in the event of any conflict or inconsistency.</p>
+      </section>
 
-    <h2>4. Third-Party Services</h2>
-    <p>This Game utilizes third-party platform and developer services. For more details on how these providers process data, please refer to their respective privacy policies:</p>
-    <ul>
-        <li><strong>Unity Technologies (Unity Analytics & Unity Ads):</strong> <a href="https://unity.com/legal/game-player-and-app-user-privacy-policy" target="_blank" rel="noopener">Unity Privacy Policy</a></li>
-        <li><strong>Google LLC (Google Play Services & Google AdMob):</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a></li>
-        <li><strong>Apple Inc. (Apple Game Center & App Store):</strong> <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple Privacy Policy</a></li>
-    </ul>
+      <section id="contact" style="margin-bottom: 0;">
+        <h2>7. Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+        <p>
+          <strong>Developer:</strong> Straight Banana Game Studio<br>
+          <strong>Email:</strong> <a
+            href="mailto:straight.banana.gamedev@gmail.com">straight.banana.gamedev@gmail.com</a>
+        </p>
 
-    <hr>
+        <p class="back-to-top"><a href="#">↑ Top</a></p>
+      </section>
+    </main>
 
-    <h2>5. Children's Privacy</h2>
-    <p>The Game does not collect personal data from anyone, including children under the age of 13 (or under 16 in the European Economic Area). If you believe that a child has provided personal information to a third-party service provider through the Game, please contact us immediately so we can assist in resolving the matter.</p>
-
-    <hr>
-
-    <h2>6. Language Disclaimer</h2>
-    <p>This Privacy Policy is provided in English. If this policy is translated into another language, the English version shall prevail in the event of any conflict or inconsistency.</p>
-
-    <hr>
-
-    <h2>7. Contact Us</h2>
-    <p>If you have any questions about this Privacy Policy, please contact us at:</p>
-    <ul>
-        <li><strong>Developer/Studio:</strong> Straight Banana</li>
-        <li><strong>Email:</strong> <a href="mailto:straight.banana.gamedev@gmail.com">straight.banana.gamedev@gmail.com</a></li>
-    </ul>
+    <footer>
+      © 2026 Straight Banana Game Studio.
+    </footer>
+  </div>
 
 </body>
+
 </html>
