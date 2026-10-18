@@ -5,11 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="kjCo6t6SFfn8BiT0i125H12EJVZWv9U5mBYgDAv_J8Y" />
+    <link rel="canonical" href="https://straightbananagames.com/" />
     <title>正直香蕉遊戲工作室 Straight Banana Game Studio</title>
+    <meta name="description"
+        content="正直香蕉是來自台灣的雙人獨立遊戲工作室，製作奇怪、幽默又有點動人心弦的遊戲。STRAIGHT BANANA is a two-person indie game studio based in Taiwan." />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://straightbananagames.com/" />
+    <meta property="og:title" content="正直香蕉遊戲工作室 Straight Banana Game Studio" />
+    <meta property="og:description"
+        content="正直香蕉是來自台灣的雙人獨立遊戲工作室，製作奇怪、幽默又有點動人心弦的遊戲。STRAIGHT BANANA is a two-person indie game studio based in Taiwan." />
+    <meta property="og:image" content="https://straightbananagames.com/images/og-cover.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@StrghtBanana" />
+    <meta name="twitter:url" content="https://straightbananagames.com/" />
+    <meta name="twitter:title" content="正直香蕉遊戲工作室 Straight Banana Game Studio" />
+    <meta name="twitter:description"
+        content="正直香蕉是來自台灣的雙人獨立遊戲工作室，製作奇怪、幽默又有點動人心弦的遊戲。STRAIGHT BANANA is a two-person indie game studio based in Taiwan." />
+    <meta name="twitter:image" content="https://straightbananagames.com/images/og-cover.png" />
 
     <!-- Favicons -->
     <link rel="icon" type="image/png" href="images/studio_favicon.png">
     <link rel="icon" type="image/svg+xml" href="images/studio_favicon.svg">
+    <link rel="apple-touch-icon" href="images/studio_favicon.png" />
 
     <!-- React & ReactDOM -->
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
@@ -354,7 +375,7 @@
                 about: {
                     title: '關於我們',
                     introTitle: '我們熱愛製作',
-                    introDesc: '有點奇怪、有點搞笑、又有點動人心弦的遊戲。\n特別喜歡那種說不上來的微妙感，',
+                    introDesc: '有點奇怪、有點幽默、又有點動人心弦的遊戲。\n我們特別喜歡那種講不出來的微妙感，',
                     introHighlight: '彷彿一根筆直的香蕉。',
                     teamTitle: '團隊成員',
                     members: [
@@ -411,8 +432,8 @@
                 },
                 about: {
                     title: '私たちについて',
-                    introTitle: '私たちが愛を込めて作るのは、',
-                    introDesc: 'ちょっと奇妙で、ちょっとコミカル、だけどどこか心が揺さぶられる、そんなゲーム。\n言葉では言い表せないシュールで絶妙な違和感は、',
+                    introTitle: '心を込めて作るのは、',
+                    introDesc: '奇妙でコミカル、なのにどこか心揺さぶるゲーム。\n私たちが好きなのは、絶妙にシュールな違和感。',
                     introHighlight: 'まるで一本の「まっすぐなバナナ」のように。',
                     teamTitle: 'チーム紹介',
                     members: [
@@ -731,7 +752,7 @@
                                 {/* 電腦版 */}
                                 <div className="hidden md:block">
                                     {t.about.introDesc.split('\n').map((line, i) => (
-                                        <div key={i} className={i === 0 ? "mb-4" : ""}>
+                                        <div key={i} className={i === 0 ? "mb-6" : ""}>
                                             {line}
                                         </div>
                                     ))}
