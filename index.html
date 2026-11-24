@@ -379,8 +379,8 @@
                     introHighlight: '彷彿一根筆直的香蕉。',
                     teamTitle: '團隊成員',
                     members: [
-                        { name: "Luke Liu", role: "Co-Founder, Game Designer", intro: "做遊戲比玩遊戲好玩。" },
-                        { name: "Linda Huang", role: "Co-Founder, Technical Artist", intro: "細心觀察世界，轉化為給玩家的驚喜。" },
+                        { name: "Luke Liu", subName: "(Chia Chen Liu)", role: "Co-Founder, Game Designer", intro: "做遊戲比玩遊戲好玩。" },
+                        { name: "Linda Huang", subName: "(Hsiang Ling Huang)", role: "Co-Founder, Technical Artist", intro: "細心觀察世界，轉化為給玩家的驚喜。" },
                     ]
                 },
                 contact: {
@@ -408,8 +408,8 @@
                     introHighlight: 'just like a STRAIGHT BANANA.',
                     teamTitle: 'TEAM',
                     members: [
-                        { name: "Luke Liu", role: "Co-Founder, Game Designer", intro: "Making games is more fun than playing them." },
-                        { name: "Linda Huang", role: "Co-Founder, Technical Artist", intro: "Observe the world with care, and turn it into a gift of wonder for players." },
+                        { name: "Luke Liu", subName: "(Chia Chen Liu)", role: "Co-Founder, Game Designer", intro: "Making games is more fun than playing them." },
+                        { name: "Linda Huang", subName: "(Hsiang Ling Huang)", role: "Co-Founder, Technical Artist", intro: "Observe the world with care, and turn it into a gift of wonder for players." },
                     ]
                 },
                 contact: {
@@ -437,8 +437,8 @@
                     introHighlight: 'まるで一本の「まっすぐなバナナ」のように。',
                     teamTitle: 'チーム紹介',
                     members: [
-                        { name: "Luke Liu", role: "共同創設者 / ゲームデザイナー", intro: "ゲームを遊ぶことより、作ることの方が面白い。" },
-                        { name: "Linda Huang", role: "共同創設者 / テクニカルアーティスト", intro: "世界を注意深く観察し、それをプレイヤーへの驚きの贈り物に変える。" },
+                        { name: "Luke Liu", subName: "(Chia Chen Liu)", role: "共同創設者 / ゲームデザイナー", intro: "ゲームを遊ぶことより、作ることの方が面白い。" },
+                        { name: "Linda Huang", subName: "(Hsiang Ling Huang)", role: "共同創設者 / テクニカルアーティスト", intro: "世界を注意深く観察し、それをプレイヤーへの驚きの贈り物に変える。" },
                     ]
                 },
                 contact: {
@@ -774,7 +774,13 @@
                         <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-5">
                             {t.about.members.map((m, idx) => (
                                 <div key={idx} className="bg-white p-8 rounded-[10px] border border-transparent flex flex-col">
-                                    <h4 className="text-xl font-black mb-0.5">{m.name}</h4>
+                                    {/* 名字與職稱間距：可調整 mb-3（例如 mb-2、mb-3、mb-4 或 mb-[10px]） */}
+                                    <h4 className="text-xl font-black mb-3">
+                                        {m.name}
+                                        {m.subName && (
+                                            <span className="block text-sm font-bold">{m.subName}</span>
+                                        )}
+                                    </h4>
                                     <p className="text-studio-text text-[15px] font-normal mb-5">{m.role}</p>
                                     <p className="text-studio-text text-[15px] leading-relaxed opacity-80 text-left">{m.intro}</p>
                                 </div>
